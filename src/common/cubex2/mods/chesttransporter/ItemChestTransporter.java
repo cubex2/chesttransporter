@@ -132,7 +132,7 @@ public class ItemChestTransporter extends Item {
 		if (stack.stackSize == 0) {
 			return null;
 		}
-		else if (!player.func_82247_a(x, y, z, facing, stack)) {
+		else if (!player.canPlayerEdit(x, y, z, facing, stack)) {
 			return null;
 		}
 		else if (y == 255) {

@@ -22,7 +22,7 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "1.1.1b")
+@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "1.1.2")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class ChestTransporter {
 	@Instance("ChestTransporter")
