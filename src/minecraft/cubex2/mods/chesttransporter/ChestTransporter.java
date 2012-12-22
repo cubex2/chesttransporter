@@ -3,9 +3,9 @@ package cubex2.mods.chesttransporter;
 import java.util.Arrays;
 import java.util.logging.Level;
 
-import net.minecraft.src.Block;
-import net.minecraft.src.Item;
-import net.minecraft.src.ItemStack;
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
@@ -22,7 +22,7 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "1.1.2")
+@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "1.1.3")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class ChestTransporter {
 	@Instance("ChestTransporter")
@@ -64,7 +64,6 @@ public class ChestTransporter {
 	{
 		try {
 			Class clazz = Class.forName("cpw.mods.ironchest.IronChest");
-			Object instance = clazz.getField("instance").get(null);
 			ironChestBlock = (Block)clazz.getField("ironChestBlock").get(null);
 		} catch (ClassNotFoundException e) {
 			// IronChest is not installed
