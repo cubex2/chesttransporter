@@ -42,7 +42,7 @@ public class ItemChestTransporter extends Item {
 			ItemStack stack = event.entityPlayer.getCurrentEquippedItem();
 			if (stack == null)
 				return;
-			if (stack.itemID != this.shiftedIndex)
+			if (stack.itemID != this.itemID)
 				return;
 			EntityPlayer player = event.entityPlayer;
 
@@ -140,7 +140,7 @@ public class ItemChestTransporter extends Item {
 		else if (world.canPlaceEntityOnSide(stack.itemID, x, y, z, false, facing, player)) {
 			Block var12 = Block.blocksList[stack.itemID];
 			int var13 = stack.getItemDamage();
-			int var14 = Block.blocksList[stack.itemID].func_85104_a(world, x, y, z, facing, hitX, hitY, hitZ, var13);
+			int var14 = Block.blocksList[stack.itemID].onBlockPlaced(world, x, y, z, facing, hitX, hitY, hitZ, var13);
 
 			if (placeBlockAt(stack, player, world, x, y, z, facing, hitX, hitY, hitZ, var14)) {
 				world.playSoundEffect((x + 0.5F), (y + 0.5F), (z + 0.5F), var12.stepSound.getPlaceSound(), (var12.stepSound.getVolume() + 1.0F) / 2.0F, var12.stepSound.getPitch() * 0.8F);
@@ -161,7 +161,7 @@ public class ItemChestTransporter extends Item {
 
 		if (world.getBlockId(x, y, z) == stack.itemID) {
 			Block.blocksList[stack.itemID].onBlockPlacedBy(world, x, y, z, player);
-			Block.blocksList[stack.itemID].func_85105_g(world, x, y, z, metadata);
+			Block.blocksList[stack.itemID].onPostBlockPlaced(world, x, y, z, metadata);
 		}
 
 		return true;
