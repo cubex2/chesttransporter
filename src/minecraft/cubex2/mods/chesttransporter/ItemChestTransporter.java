@@ -10,6 +10,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagByte;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
@@ -56,7 +58,10 @@ public class ItemChestTransporter extends Item {
 				if (chest != null) {
 					Block chestBlock = Block.blocksList[world.getBlockId(x, y, z)];
 					int metadata = world.getBlockMetadata(x, y, z);
-					stack.setItemDamage(getNewDamageFromChest(chestBlock, metadata));
+					int newDamage = getNewDamageFromChest(chestBlock, metadata);
+					if (newDamage == 0)
+						return;
+					stack.setItemDamage(newDamage);
 					moveItemsIntoStack(chest, stack);
 					world.setBlockAndMetadataWithNotify(x, y, z, 0, 0);
 					world.playSoundEffect((x + 0.5F), (y + 0.5F), (z + 0.5F), chestBlock.stepSound.getStepSound(), (chestBlock.stepSound.getVolume() + 1.0F) / 2.0F, chestBlock.stepSound.getPitch() * 0.5F);
@@ -208,7 +213,12 @@ public class ItemChestTransporter extends Item {
 
 			for (int i = 0; i < nbtList.tagCount(); ++i) {
 				NBTTagCompound nbtTagCompound = (NBTTagCompound) nbtList.tagAt(i);
-				int j = nbtTagCompound.getByte("Slot") & 255;
+				NBTBase nbt = nbtTagCompound.getTag("Slot");
+				int j = -1;
+				if (nbt instanceof NBTTagByte)
+					j = nbtTagCompound.getByte("Slot") & 255;
+				else
+					j = nbtTagCompound.getShort("Slot");
 
 				if (j >= 0) {
 					ItemStack itemstack = ItemStack.loadItemStackFromNBT(nbtTagCompound);
@@ -228,6 +238,8 @@ public class ItemChestTransporter extends Item {
 			return true;
 		if (ChestTransporter.ironChestBlock != null && id == ChestTransporter.ironChestBlock.blockID)
 			return true;
+		if (ChestTransporter.multiPageChestBlock != null && id == ChestTransporter.multiPageChestBlock.blockID)
+			return true;
 		return false;
 	}
 
@@ -238,14 +250,19 @@ public class ItemChestTransporter extends Item {
 			if (metadata < 6)
 				return 2 + metadata;
 		}
+		if (ChestTransporter.multiPageChestBlock != null && block == ChestTransporter.multiPageChestBlock) {
+			return 8;
+		}
 		return 0;
 	}
 
 	private ItemStack getStackFromDamage(int damage) {
 		if (damage == 1)
 			return new ItemStack(Block.chest);
-		if (damage > 1 && damage <= 7)
+		if (damage >= 2 && damage <= 7)
 			return new ItemStack(ChestTransporter.ironChestBlock, 1, damage - 2);
+		if (damage == 8)
+			return new ItemStack(ChestTransporter.multiPageChestBlock);
 		return null;
 	}
 
@@ -257,7 +274,7 @@ public class ItemChestTransporter extends Item {
 		for (int i = 0; i < chest.getSizeInventory(); ++i) {
 			if (chest.getStackInSlot(i) != null) {
 				NBTTagCompound nbtTabCompound2 = new NBTTagCompound();
-				nbtTabCompound2.setByte("Slot", (byte) i);
+				nbtTabCompound2.setShort("Slot", (short) i);
 				chest.getStackInSlot(i).copy().writeToNBT(nbtTabCompound2);
 				chest.setInventorySlotContents(i, null);
 				nbtList.appendTag(nbtTabCompound2);
@@ -271,7 +288,12 @@ public class ItemChestTransporter extends Item {
 
 		for (int i = 0; i < nbtList.tagCount(); ++i) {
 			NBTTagCompound nbtTagCompound = (NBTTagCompound) nbtList.tagAt(i);
-			int j = nbtTagCompound.getByte("Slot") & 255;
+			NBTBase nbt = nbtTagCompound.getTag("Slot");
+			int j = -1;
+			if (nbt instanceof NBTTagByte)
+				j = nbtTagCompound.getByte("Slot") & 255;
+			else
+				j = nbtTagCompound.getShort("Slot");
 
 			if (j >= 0 && j < chest.getSizeInventory()) {
 				chest.setInventorySlotContents(j, ItemStack.loadItemStackFromNBT(nbtTagCompound).copy());

@@ -9,11 +9,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.PostInit;
-import cpw.mods.fml.common.ModMetadata;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.Mod.PostInit;
 import cpw.mods.fml.common.Mod.PreInit;
+import cpw.mods.fml.common.ModMetadata;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -22,7 +22,7 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "1.1.3")
+@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "1.1.4")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class ChestTransporter {
 	@Instance("ChestTransporter")
@@ -32,6 +32,7 @@ public class ChestTransporter {
 	public static ItemChestTransporter chestTransporter;
 	private int itemId;
 	public static Block ironChestBlock;
+	public static Block multiPageChestBlock;
 
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event) {
@@ -58,17 +59,22 @@ public class ChestTransporter {
 		GameRegistry.addRecipe(new ItemStack(chestTransporter), "S S", "SSS", " S ", Character.valueOf('S'), Item.stick);
 		proxy.registerRenderInformation();
 	}
-	
+
 	@PostInit
-	public void postInit(FMLPostInitializationEvent evt)
-	{
+	public void postInit(FMLPostInitializationEvent evt) {
 		try {
 			Class clazz = Class.forName("cpw.mods.ironchest.IronChest");
-			ironChestBlock = (Block)clazz.getField("ironChestBlock").get(null);
+			ironChestBlock = (Block) clazz.getField("ironChestBlock").get(null);
 		} catch (ClassNotFoundException e) {
 			// IronChest is not installed
 		} catch (Exception e) {
-			
+		}
+		try {
+			Class clazz = Class.forName("cubex2.mods.multipagechest.MultiPageChest");
+			multiPageChestBlock = (Block) clazz.getField("chestBlock").get(null);
+		} catch (ClassNotFoundException e) {
+			// MultiPageChest is not installed
+		} catch (Exception e) {
 		}
 	}
 
