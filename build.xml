@@ -45,23 +45,6 @@
 		</exec>
 	</target>
 
-	<target name="release-shared">
-		<!-- Prep for the release -->
-		<antcall target="clean" />
-		<antcall target="build" />
-		<antcall target="recompile" />
-		<antcall target="reobfuscate" />
-
-		<!-- Build the jar -->
-		<mkdir dir="${dir.share}/${release.minecraft.version}/Chest-Transporter/${release.mod.version}" />
-		<jar destfile="${dir.share}/${release.minecraft.version}/Chest-Transporter/${release.mod.version}/chestTransporter-${release.mod.version}-universal.zip">
-			<fileset dir="${dir.development}/mcp/reobf/minecraft" />
-			<fileset dir="${dir.development}/source/Chest-Transporter/resources" />
-		</jar>
-
-		<antcall target="clean" />
-	</target>
-
 	<target name="release">
 		<!-- Prep for the release -->
 		<antcall target="clean" />
