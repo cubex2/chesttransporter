@@ -1,0 +1,16 @@
+[
+{
+  "modid": "ChestTransporter",
+  "name": "Chest Transporter",
+  "description": "Adds an item that allows you to transport chests.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "http://www.minecraftforum.net/topic/506109-",
+  "updateUrl": "",
+  "authors": ["CubeX2"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

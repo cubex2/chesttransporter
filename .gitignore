@@ -1,1 +1,4 @@
-build.properties
+.gradle
+build
+eclipse
+out
