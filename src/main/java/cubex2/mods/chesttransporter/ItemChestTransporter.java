@@ -293,6 +293,8 @@ public class ItemChestTransporter extends Item
         Block block = world.getBlock(x, y, z);
         if (block == Blocks.chest)
             return true;
+        if (block == Blocks.trapped_chest)
+            return true;
         if (ChestTransporter.ironChestBlock != null && block == ChestTransporter.ironChestBlock)
             return true;
         if (ChestTransporter.multiPageChestBlock != null && block == ChestTransporter.multiPageChestBlock)
@@ -313,6 +315,8 @@ public class ItemChestTransporter extends Item
         }
         if (ChestTransporter.multiPageChestBlock != null && block == ChestTransporter.multiPageChestBlock)
             return 8;
+        if (block == Blocks.trapped_chest)
+            return 10;
         return 0;
     }
 
@@ -326,6 +330,8 @@ public class ItemChestTransporter extends Item
             return new ItemStack(ChestTransporter.multiPageChestBlock);
         if (damage == 9)
             return new ItemStack(ChestTransporter.ironChestBlock, 1, 6);
+        if (damage == 10)
+            return new ItemStack(Blocks.trapped_chest);
         return null;
     }
 
@@ -382,7 +388,7 @@ public class ItemChestTransporter extends Item
     public void registerIcons(IIconRegister iconRegister)
     {
         iconRegister.registerIcon("chesttransporter:0");
-        icons = new IIcon[10];
+        icons = new IIcon[11];
         for (int i = 0; i < icons.length; i++)
         {
             icons[i] = iconRegister.registerIcon("chesttransporter:" + i);
