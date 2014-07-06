@@ -11,18 +11,18 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.1-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
     }
 }
 
 apply plugin: 'forge'
 
-version = "1.1.8"
+version = "1.1.10"
 group= "cubex2.chesttransporter" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "ChestTransporter"
 
 minecraft {
-    version = "1.7.2-10.12.0.1024"
+    version = "1.7.10-10.13.0.1160"
     assetDir = "eclipse/assets"
 }
 processResources
