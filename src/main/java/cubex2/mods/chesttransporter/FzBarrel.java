@@ -2,23 +2,26 @@ package cubex2.mods.chesttransporter;
 
 import cpw.mods.fml.common.ObfuscationReflectionHelper;
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.IIcon;
 
 public class FzBarrel extends TransportableChest
 {
+    private final IIcon[] icons = new IIcon[7];
+
     public FzBarrel(Block chestBlock, int chestMeta, int transporterDV)
     {
-        super(chestBlock, chestMeta, transporterDV);
+        super(chestBlock, chestMeta, transporterDV, null);
     }
 
     @Override
     public ItemStack createChestStack()
     {
-        Item item = Item.getItemFromBlock(getChestBlock());
         return new ItemStack(Item.getItemFromBlock(getChestBlock()), 1, 30);
     }
 
@@ -80,7 +83,7 @@ public class FzBarrel extends TransportableChest
     }
 
     @Override
-    public int getIconIndex(ItemStack stack)
+    public IIcon getIcon(ItemStack stack)
     {
         NBTTagCompound logNbt = stack.getTagCompound().getCompoundTag("WoodLog");
         ItemStack log = ItemStack.loadItemStackFromNBT(logNbt);
@@ -88,23 +91,33 @@ public class FzBarrel extends TransportableChest
         if (log.getItem() == Item.getItemFromBlock(Blocks.log))
         {
             if (log.getItemDamage() == 0)
-                return 11;
+                return icons[0];
             if (log.getItemDamage() == 1)
-                return 12;
+                return icons[1];
             if (log.getItemDamage() == 2)
-                return 13;
+                return icons[2];
             if (log.getItemDamage() == 3)
-                return 14;
+                return icons[3];
         } else if (log.getItem() == Item.getItemFromBlock(Blocks.log2))
         {
             if (log.getItemDamage() == 0)
-                return 15;
+                return icons[4];
             if (log.getItemDamage() == 1)
-                return 16;
+                return icons[5];
         } else if (log.getItem() == Item.getItemFromBlock(Blocks.bedrock))
         {
-            return 17;
+            return icons[6];
         }
-        return 1;
+        return icons[0];
+    }
+
+    @Override
+    public void registerIcon(IIconRegister iconRegister)
+    {
+        String[] names = new String[]{"oak", "spruce", "birch", "jungle", "acacia", "dark_oak", "creative"};
+        for (int i = 0; i < icons.length; i++)
+        {
+            icons[i] = iconRegister.registerIcon("chesttransporter:barrel_" + names[i]);
+        }
     }
 }
