@@ -4,8 +4,6 @@ import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameData;
@@ -53,7 +51,7 @@ public class ChestTransporter
             Block block = GameData.getBlockRegistry().getObject("IronChest:BlockIronChest");
             if (block != null && block != Blocks.air)
             {
-                String[] names = new String[] {"iron", "gold", "diamond", "copper", "tin", "crystal"};
+                String[] names = new String[]{"iron", "gold", "diamond", "copper", "tin", "crystal"};
                 for (int i = 0; i < 6; i++)
                 {
                     ChestRegistry.register(new TransportableChest(block, i, 2 + i, names[i]));
@@ -79,6 +77,22 @@ public class ChestTransporter
                 ChestRegistry.register(new FzBarrel(block, 2, 11));
             }
         }
+
+        if (Loader.isModLoaded("varietychests"))
+        {
+            Block block = GameData.getBlockRegistry().getObject("varietychests:customchest");
+            if (block != null && block != Blocks.air)
+            {
+                ChestRegistry.register(new VariertyChest(block, -1, 12, false));
+            }
+            block = GameData.getBlockRegistry().getObject("varietychests:customglowingchest");
+            if (block != null && block != Blocks.air)
+            {
+                ChestRegistry.register(new VariertyChest(block, -1, 13, true));
+            }
+        }
     }
+
+
 
 }

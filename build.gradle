@@ -22,7 +22,7 @@ group= "cubex2.chesttransporter" // http://maven.apache.org/guides/mini/guide-na
 archivesBaseName = "ChestTransporter"
 
 minecraft {
-    version = "1.7.10-10.13.0.1160"
+    version = "1.7.10-10.13.2.1230"
     assetDir = "eclipse/assets"
 }
 processResources
