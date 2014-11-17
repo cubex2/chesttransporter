@@ -63,11 +63,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ChestTransporter.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="ChestTransporter.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/ChestTransporter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7973485" vertical-offset="1109" max-vertical-offset="1955">
-              <caret line="103" column="56" selection-start-line="103" selection-start-column="56" selection-end-line="103" selection-end-column="56" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1160" max-vertical-offset="2176">
+              <caret line="89" column="13" selection-start-line="89" selection-start-column="13" selection-end-line="89" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -93,11 +93,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ItemChestTransporter.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="ItemChestTransporter.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/ItemChestTransporter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="3922" max-vertical-offset="6579">
-              <caret line="375" column="42" selection-start-line="375" selection-start-column="42" selection-end-line="375" selection-end-column="42" />
+            <state vertical-scroll-proportion="-0.1553398" vertical-offset="5656" max-vertical-offset="6579">
+              <caret line="357" column="35" selection-start-line="357" selection-start-column="35" selection-end-line="357" selection-end-column="35" />
               <folding>
                 <element signature="e#9695#9696#0" expanded="true" />
                 <element signature="e#9722#9723#0" expanded="true" />
@@ -113,7 +113,7 @@
       <file leaf-file-name="ChestRegistry.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/ChestRegistry.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="742" max-vertical-offset="1462">
+            <state vertical-scroll-proportion="0.0" vertical-offset="781" max-vertical-offset="1462">
               <caret line="69" column="0" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
               <folding>
                 <element signature="e#2423#2424#0" expanded="true" />
@@ -144,8 +144,8 @@
         <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/VariertyChest.java" />
         <option value="$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/ChestRegistry.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/ChestTransporter.java" />
         <option value="$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/ItemChestTransporter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/ChestTransporter.java" />
       </list>
     </option>
   </component>
@@ -895,6 +895,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/ChestTransporter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1160" max-vertical-offset="2176">
+          <caret line="89" column="13" selection-start-line="89" selection-start-column="13" selection-end-line="89" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/ChestRegistry.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="742" max-vertical-offset="1462">
@@ -902,29 +910,6 @@
           <folding>
             <element signature="e#2423#2424#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/ItemChestTransporter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3922" max-vertical-offset="6579">
-          <caret line="375" column="42" selection-start-line="375" selection-start-column="42" selection-end-line="375" selection-end-column="42" />
-          <folding>
-            <element signature="e#9695#9696#0" expanded="true" />
-            <element signature="e#9722#9723#0" expanded="true" />
-            <element signature="e#9785#9786#0" expanded="true" />
-            <element signature="e#9818#9819#0" expanded="true" />
-            <element signature="e#10317#10318#0" expanded="true" />
-            <element signature="e#10344#10345#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/TransportableChest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="232" max-vertical-offset="1003">
-          <caret line="34" column="15" selection-start-line="34" selection-start-column="15" selection-end-line="34" selection-end-column="15" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -936,11 +921,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/ChestTransporter.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/TransportableChest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7973485" vertical-offset="1109" max-vertical-offset="1955">
-          <caret line="103" column="56" selection-start-line="103" selection-start-column="56" selection-end-line="103" selection-end-column="56" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="232" max-vertical-offset="1003">
+          <caret line="34" column="15" selection-start-line="34" selection-start-column="15" selection-end-line="34" selection-end-column="15" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/ItemChestTransporter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.1553398" vertical-offset="5656" max-vertical-offset="6579">
+          <caret line="357" column="35" selection-start-line="357" selection-start-column="35" selection-end-line="357" selection-end-column="35" />
+          <folding>
+            <element signature="e#9695#9696#0" expanded="true" />
+            <element signature="e#9722#9723#0" expanded="true" />
+            <element signature="e#9785#9786#0" expanded="true" />
+            <element signature="e#9818#9819#0" expanded="true" />
+            <element signature="e#10317#10318#0" expanded="true" />
+            <element signature="e#10344#10345#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

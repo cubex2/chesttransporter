@@ -95,6 +95,19 @@ public class ChestTransporter
             }
         }
 
+        if (Loader.isModLoaded("compactchests"))
+        {
+            String[] names = new String[]{"quadruple", "sextuple", "triple", "double", "quintuple"};
+            for (int i = 0; i < names.length; i++)
+            {
+                Block block = GameData.getBlockRegistry().getObject("compactchests:" + names[i] + "Chest");
+                if (block != null && block != Blocks.air)
+                {
+                    ChestRegistry.register(new TransportableChest(block, -1, 14 + i, "cc_" + names[i]));
+                }
+            }
+        }
+
         if (Loader.isModLoaded("ironchestminecarts") && Loader.isModLoaded("IronChest"))
         {
             String[] classNames = new String[]{"ganymedes01.ironchestminecarts.minecarts.types.EntityMinecartIronChest",
