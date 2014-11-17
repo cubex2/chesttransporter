@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityMinecart;
-import net.minecraft.entity.item.EntityMinecartChest;
 import net.minecraft.entity.item.EntityMinecartEmpty;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -26,6 +25,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.minecart.MinecartInteractEvent;
+import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 
@@ -201,27 +201,29 @@ public class ItemChestTransporter extends Item
 
     }
 
-
     @SubscribeEvent
-    public void mincartInteract(MinecartInteractEvent event)
+    public void entityInteract(EntityInteractEvent event)
     {
-        ItemStack stack = event.player.getCurrentEquippedItem();
-        EntityMinecart minecart = event.minecart;
+        if (!(event.target instanceof EntityMinecart))
+            return;
+
+        ItemStack stack = event.entityPlayer.getCurrentEquippedItem();
+        EntityMinecart minecart = (EntityMinecart) event.target;
         if (stack == null || stack.getItem() != this || minecart == null)
             return;
 
         int chestType = getTagCompound(stack).getByte("ChestType");
-        EntityPlayer player = event.player;
+        EntityPlayer player = event.entityPlayer;
 
         if (minecart instanceof EntityMinecartEmpty && minecart.riddenByEntity == null && ChestRegistry.isMinecartChest(chestType))
         {
             // put chest into minecart
-            EntityMinecartChest newMinecart = ChestRegistry.createMinecart(minecart.worldObj, chestType);
+            EntityMinecart newMinecart = ChestRegistry.createMinecart(minecart.worldObj, chestType);
             if (!player.worldObj.isRemote)
             {
                 replaceMinecart(minecart, newMinecart);
             }
-            moveItemsIntoChest(stack, newMinecart);
+            moveItemsIntoChest(stack, (IInventory) newMinecart);
             getTagCompound(stack).setByte("ChestType", (byte) 0);
             minecart.worldObj.playSoundEffect((float) minecart.posX + 0.5F, (float) minecart.posY + 0.5F, (float) minecart.posZ + 0.5F, Blocks.chest.stepSound.getBreakSound(), (Blocks.chest.stepSound.getVolume() + 1.0F) / 2.0F, Blocks.chest.stepSound.getPitch() * 0.8F);
             if (!player.capabilities.isCreativeMode)
@@ -233,7 +235,7 @@ public class ItemChestTransporter extends Item
         } else if (ChestRegistry.isSupportedMinecart(minecart) && chestType == 0)
         {
             // grab chest from minecart
-            moveItemsIntoStack((EntityMinecartChest) minecart, stack);
+            moveItemsIntoStack((IInventory) minecart, stack);
             getTagCompound(stack).setByte("ChestType", (byte) ChestRegistry.getChestType(minecart));
             minecart.worldObj.playSoundEffect((float) minecart.posX + 0.5F, (float) minecart.posY + 0.5F, (float) minecart.posZ + 0.5F, Blocks.chest.stepSound.getBreakSound(), (Blocks.chest.stepSound.getVolume() + 1.0F) / 2.0F, Blocks.chest.stepSound.getPitch() * 0.5F);
             if (!player.worldObj.isRemote)

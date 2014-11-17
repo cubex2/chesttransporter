@@ -110,13 +110,38 @@ public class ChestTransporter
 
         if (Loader.isModLoaded("ironchestminecarts") && Loader.isModLoaded("IronChest"))
         {
-            String[] classNames = new String[]{"ganymedes01.ironchestminecarts.minecarts.types.EntityMinecartIronChest",
+            String[] classNames = new String[]{
+                    "ganymedes01.ironchestminecarts.minecarts.types.EntityMinecartIronChest",
                     "ganymedes01.ironchestminecarts.minecarts.types.EntityMinecartGoldChest",
                     "ganymedes01.ironchestminecarts.minecarts.types.EntityMinecartDiamondChest",
                     "ganymedes01.ironchestminecarts.minecarts.types.EntityMinecartCopperChest",
                     "ganymedes01.ironchestminecarts.minecarts.types.EntityMinecartSilverChest",
                     "ganymedes01.ironchestminecarts.minecarts.types.EntityMinecartCrystalChest",
                     "ganymedes01.ironchestminecarts.minecarts.types.EntityMinecartObsidianChest"};
+
+            try
+            {
+                for (int i = 0; i < 7; i++)
+                {
+                    ChestRegistry.registerMinecart((Class<? extends EntityMinecartChest>) Class.forName(classNames[i]), ChestRegistry.dvToChest.get(3 + i));
+                }
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+
+        if (Loader.isModLoaded("extracarts") && Loader.isModLoaded("IronChest"))
+        {
+            String[] classNames = new String[]{
+                    "com.dta.extracarts.mods.ironchest.entities.EntityIronChestCart",
+                    "com.dta.extracarts.mods.ironchest.entities.EntityGoldChestCart",
+                    "com.dta.extracarts.mods.ironchest.entities.EntityDiamondChestCart",
+                    "com.dta.extracarts.mods.ironchest.entities.EntityCopperChestCart",
+                    "com.dta.extracarts.mods.ironchest.entities.EntitySilverChestCart",
+                    "com.dta.extracarts.mods.ironchest.entities.EntityCrystalChestCart",
+                    "com.dta.extracarts.mods.ironchest.entities.EntityObsidianChestCart"
+            };
 
             try
             {

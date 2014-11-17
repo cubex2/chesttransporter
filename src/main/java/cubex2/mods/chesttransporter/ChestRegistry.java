@@ -5,10 +5,8 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityMinecart;
-import net.minecraft.entity.item.EntityMinecartChest;
 import net.minecraft.world.World;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -20,9 +18,9 @@ public class ChestRegistry
     public static Map<Integer, TransportableChest> dvToChest = Maps.newHashMap();
     public static Map<Block, List<TransportableChest>> blockToChests = Maps.newHashMap();
 
-    public static Set<Class<? extends EntityMinecartChest>> minecarts = Sets.newHashSet();
-    public static Map<Class<? extends EntityMinecartChest>, TransportableChest> minecartToChest = Maps.newHashMap();
-    public static Map<TransportableChest, Class<? extends EntityMinecartChest>> chestToMinecart = Maps.newHashMap();
+    public static Set<Class<? extends EntityMinecart>> minecarts = Sets.newHashSet();
+    public static Map<Class<? extends EntityMinecart>, TransportableChest> minecartToChest = Maps.newHashMap();
+    public static Map<TransportableChest, Class<? extends EntityMinecart>> chestToMinecart = Maps.newHashMap();
 
     public static void register(TransportableChest chest)
     {
@@ -34,7 +32,7 @@ public class ChestRegistry
         blockToChests.get(chest.chestBlock).add(chest);
     }
 
-    public static void registerMinecart(Class<? extends EntityMinecartChest> clazz, TransportableChest chest)
+    public static void registerMinecart(Class<? extends EntityMinecart> clazz, TransportableChest chest)
     {
         minecarts.add(clazz);
         minecartToChest.put(clazz, chest);
@@ -70,12 +68,12 @@ public class ChestRegistry
         return chestToMinecart.containsKey(dvToChest.get(dv));
     }
 
-    public static Class<? extends EntityMinecartChest> getMinecartClass(int dv)
+    public static Class<? extends EntityMinecart> getMinecartClass(int dv)
     {
         return chestToMinecart.get(dvToChest.get(dv));
     }
 
-    public static EntityMinecartChest createMinecart(World world, int dv)
+    public static EntityMinecart createMinecart(World world, int dv)
     {
         try
         {
