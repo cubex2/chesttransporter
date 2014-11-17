@@ -2,17 +2,27 @@ package cubex2.mods.chesttransporter;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
+import net.minecraft.entity.item.EntityMinecart;
+import net.minecraft.entity.item.EntityMinecartChest;
+import net.minecraft.world.World;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class ChestRegistry
 {
     public static List<TransportableChest> chests = Lists.newArrayList();
     public static Map<Integer, TransportableChest> dvToChest = Maps.newHashMap();
     public static Map<Block, List<TransportableChest>> blockToChests = Maps.newHashMap();
+
+    public static Set<Class<? extends EntityMinecartChest>> minecarts = Sets.newHashSet();
+    public static Map<Class<? extends EntityMinecartChest>, TransportableChest> minecartToChest = Maps.newHashMap();
+    public static Map<TransportableChest, Class<? extends EntityMinecartChest>> chestToMinecart = Maps.newHashMap();
 
     public static void register(TransportableChest chest)
     {
@@ -22,6 +32,13 @@ public class ChestRegistry
         if (!blockToChests.containsKey(chest.chestBlock))
             blockToChests.put(chest.chestBlock, new ArrayList<TransportableChest>());
         blockToChests.get(chest.chestBlock).add(chest);
+    }
+
+    public static void registerMinecart(Class<? extends EntityMinecartChest> clazz, TransportableChest chest)
+    {
+        minecarts.add(clazz);
+        minecartToChest.put(clazz, chest);
+        chestToMinecart.put(chest, clazz);
     }
 
     public static boolean isChest(Block block, int meta)
@@ -41,5 +58,38 @@ public class ChestRegistry
         }
 
         return null;
+    }
+
+    public static boolean isSupportedMinecart(EntityMinecart minecart)
+    {
+        return minecarts.contains(minecart.getClass());
+    }
+
+    public static boolean isMinecartChest(int dv)
+    {
+        return chestToMinecart.containsKey(dvToChest.get(dv));
+    }
+
+    public static Class<? extends EntityMinecartChest> getMinecartClass(int dv)
+    {
+        return chestToMinecart.get(dvToChest.get(dv));
+    }
+
+    public static EntityMinecartChest createMinecart(World world, int dv)
+    {
+        try
+        {
+            return getMinecartClass(dv).getConstructor(World.class).newInstance(world);
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static int getChestType(EntityMinecart minecart)
+    {
+        return minecartToChest.get(minecart.getClass()).transporterDV;
     }
 }

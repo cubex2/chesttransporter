@@ -211,34 +211,15 @@ public class ItemChestTransporter extends Item
             return;
 
         int chestType = getTagCompound(stack).getByte("ChestType");
-
-        if (chestType != getChestType(Blocks.chest, 0) && chestType != 0)
-            return;
-
         EntityPlayer player = event.player;
 
-        if (chestType == 0 && minecart instanceof EntityMinecartChest)
+        if (minecart instanceof EntityMinecartEmpty && minecart.riddenByEntity == null && ChestRegistry.isMinecartChest(chestType))
         {
-            moveItemsIntoStack((EntityMinecartChest) minecart, stack);
-            getTagCompound(stack).setByte("ChestType", (byte) 1);
-            minecart.worldObj.playSoundEffect((float) minecart.posX + 0.5F, (float) minecart.posY + 0.5F, (float) minecart.posZ + 0.5F, Blocks.chest.stepSound.getBreakSound(), (Blocks.chest.stepSound.getVolume() + 1.0F) / 2.0F, Blocks.chest.stepSound.getPitch() * 0.5F);
+            // put chest into minecart
+            EntityMinecartChest newMinecart = ChestRegistry.createMinecart(minecart.worldObj, chestType);
             if (!player.worldObj.isRemote)
             {
-                EntityMinecartEmpty newMinecart = new EntityMinecartEmpty(minecart.worldObj);
-                newMinecart.setPosition(minecart.posX, minecart.posY, minecart.posZ);
-                newMinecart.setAngles(minecart.rotationPitch, minecart.rotationYaw);
-                player.worldObj.spawnEntityInWorld(newMinecart);
-                minecart.setDead();
-            }
-        } else if (chestType == 1 && minecart instanceof EntityMinecartEmpty && minecart.riddenByEntity == null)
-        {
-            EntityMinecartChest newMinecart = new EntityMinecartChest(minecart.worldObj);
-            if (!player.worldObj.isRemote)
-            {
-                newMinecart.setPosition(minecart.posX, minecart.posY, minecart.posZ);
-                newMinecart.setAngles(minecart.rotationPitch, minecart.rotationYaw);
-                minecart.worldObj.spawnEntityInWorld(newMinecart);
-                minecart.setDead();
+                replaceMinecart(minecart, newMinecart);
             }
             moveItemsIntoChest(stack, newMinecart);
             getTagCompound(stack).setByte("ChestType", (byte) 0);
@@ -247,8 +228,30 @@ public class ItemChestTransporter extends Item
             {
                 stack.damageItem(1, player);
             }
+
+            event.setCanceled(true);
+        } else if (ChestRegistry.isSupportedMinecart(minecart) && chestType == 0)
+        {
+            // grab chest from minecart
+            moveItemsIntoStack((EntityMinecartChest) minecart, stack);
+            getTagCompound(stack).setByte("ChestType", (byte) ChestRegistry.getChestType(minecart));
+            minecart.worldObj.playSoundEffect((float) minecart.posX + 0.5F, (float) minecart.posY + 0.5F, (float) minecart.posZ + 0.5F, Blocks.chest.stepSound.getBreakSound(), (Blocks.chest.stepSound.getVolume() + 1.0F) / 2.0F, Blocks.chest.stepSound.getPitch() * 0.5F);
+            if (!player.worldObj.isRemote)
+            {
+                EntityMinecartEmpty newMinecart = new EntityMinecartEmpty(minecart.worldObj);
+                replaceMinecart(minecart, newMinecart);
+            }
+
+            event.setCanceled(true);
         }
-        event.setCanceled(true);
+    }
+
+    private void replaceMinecart(EntityMinecart old, EntityMinecart now)
+    {
+        now.setPosition(old.posX, old.posY, old.posZ);
+        now.setAngles(old.rotationPitch, old.rotationYaw);
+        old.worldObj.spawnEntityInWorld(now);
+        old.setDead();
     }
 
     @Override

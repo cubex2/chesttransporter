@@ -9,6 +9,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameData;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.entity.item.EntityMinecartChest;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -43,20 +44,22 @@ public class ChestTransporter
     @EventHandler
     public void postInit(FMLPostInitializationEvent evt)
     {
-        ChestRegistry.register(new TransportableChest(Blocks.chest, -1, 1, "vanilla"));
-        ChestRegistry.register(new TransportableChest(Blocks.trapped_chest, -1, 10, "vanilla_trapped"));
+        TransportableChest chest = new TransportableChest(Blocks.chest, -1, 1, "vanilla");
+        ChestRegistry.register(chest);
+        ChestRegistry.registerMinecart(EntityMinecartChest.class, chest);
+
+        ChestRegistry.register(new TransportableChest(Blocks.trapped_chest, -1, 2, "vanilla_trapped"));
 
         if (Loader.isModLoaded("IronChest"))
         {
             Block block = GameData.getBlockRegistry().getObject("IronChest:BlockIronChest");
             if (block != null && block != Blocks.air)
             {
-                String[] names = new String[]{"iron", "gold", "diamond", "copper", "tin", "crystal"};
-                for (int i = 0; i < 6; i++)
+                String[] names = new String[]{"iron", "gold", "diamond", "copper", "tin", "crystal", "obsidian"};
+                for (int i = 0; i < 7; i++)
                 {
-                    ChestRegistry.register(new TransportableChest(block, i, 2 + i, names[i]));
+                    ChestRegistry.register(new TransportableChest(block, i, 3 + i, names[i]));
                 }
-                ChestRegistry.register(new TransportableChest(block, 6, 9, "obsidian"));
             }
         }
 
@@ -65,7 +68,7 @@ public class ChestTransporter
             Block block = GameData.getBlockRegistry().getObject("MultiPageChest:multipagechest");
             if (block != null && block != Blocks.air)
             {
-                ChestRegistry.register(new TransportableChest(block, -1, 8, "multipagechest"));
+                ChestRegistry.register(new TransportableChest(block, -1, 10, "multipagechest"));
             }
         }
 
@@ -91,8 +94,29 @@ public class ChestTransporter
                 ChestRegistry.register(new VariertyChest(block, -1, 13, true));
             }
         }
-    }
 
+        if (Loader.isModLoaded("ironchestminecarts") && Loader.isModLoaded("IronChest"))
+        {
+            String[] classNames = new String[]{"ganymedes01.ironchestminecarts.minecarts.types.EntityMinecartIronChest",
+                    "ganymedes01.ironchestminecarts.minecarts.types.EntityMinecartGoldChest",
+                    "ganymedes01.ironchestminecarts.minecarts.types.EntityMinecartDiamondChest",
+                    "ganymedes01.ironchestminecarts.minecarts.types.EntityMinecartCopperChest",
+                    "ganymedes01.ironchestminecarts.minecarts.types.EntityMinecartSilverChest",
+                    "ganymedes01.ironchestminecarts.minecarts.types.EntityMinecartCrystalChest",
+                    "ganymedes01.ironchestminecarts.minecarts.types.EntityMinecartObsidianChest"};
+
+            try
+            {
+                for (int i = 0; i < 7; i++)
+                {
+                    ChestRegistry.registerMinecart((Class<? extends EntityMinecartChest>) Class.forName(classNames[i]), ChestRegistry.dvToChest.get(3 + i));
+                }
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }
 
 
 }
