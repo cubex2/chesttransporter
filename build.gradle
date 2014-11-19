@@ -17,7 +17,7 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "1.2.0"
+version = "2.0.0"
 group= "cubex2.chesttransporter" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "ChestTransporter"
 
