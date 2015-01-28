@@ -24,7 +24,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.minecart.MinecartInteractEvent;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
@@ -42,7 +41,7 @@ public class ItemChestTransporter extends Item
     {
         super();
         this.iconName = iconName;
-        setUnlocalizedName("chesttransporter");
+        setUnlocalizedName("chesttransporter_" + iconName);
         setMaxStackSize(1);
         setMaxDamage(maxDamage);
         setCreativeTab(CreativeTabs.tabTools);
@@ -50,7 +49,7 @@ public class ItemChestTransporter extends Item
     }
 
     @SubscribeEvent
-    public void OnPlayerInteract(PlayerInteractEvent event)
+    public void onPlayerInteract(PlayerInteractEvent event)
     {
         if (event.action == Action.RIGHT_CLICK_BLOCK)
         {
@@ -100,11 +99,15 @@ public class ItemChestTransporter extends Item
     private void placeChest(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int face)
     {
         int chestType = getTagCompound(stack).getByte("ChestType");
-
-        ItemStack chestStack = getStackFromDamage(chestType);
-        chestStack.tryPlaceItemIntoWorld(player, world, x, y, z, face, 0.0f, 0.0f, 0.0f);
+        if (!ChestRegistry.dvToChest.containsKey(chestType))
+            return;
 
         int[] chestCoords = getChestCoords(world, x, y, z, face);
+
+        ItemStack chestStack = getStackFromDamage(chestType);
+        if (!chestStack.tryPlaceItemIntoWorld(player, world, x, y, z, face, 0.0f, 0.0f, 0.0f))
+            return;
+
         if (chestCoords != null)
         {
             int x1 = chestCoords[0];
@@ -368,6 +371,8 @@ public class ItemChestTransporter extends Item
 
     private void moveItemsIntoChest(ItemStack stack, IInventory chest)
     {
+        if (!stack.hasTagCompound()) return;
+
         NBTTagList nbtList = stack.stackTagCompound.getTagList("Items", 10);
 
         for (int i = 0; i < nbtList.tagCount(); ++i)

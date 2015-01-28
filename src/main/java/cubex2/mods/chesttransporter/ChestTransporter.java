@@ -15,7 +15,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.0.0")
+@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.0.1")
 public class ChestTransporter
 {
     @Instance("ChestTransporter")
@@ -23,22 +23,26 @@ public class ChestTransporter
 
     public static ItemChestTransporter chestTransporter;
     public static ItemChestTransporter chestTransporterIron;
+    public static ItemChestTransporter chestTransporterGold;
     public static ItemChestTransporter chestTransporterDiamond;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
-        chestTransporter = new ItemChestTransporter(4, "wood");
-        chestTransporterIron = new ItemChestTransporter(19, "iron");
-        chestTransporterDiamond = new ItemChestTransporter(99, "diamond");
+        chestTransporter = new ItemChestTransporter(0, "wood");
+        chestTransporterIron = new ItemChestTransporter(9, "iron");
+        chestTransporterGold = new ItemChestTransporter(19, "gold");
+        chestTransporterDiamond = new ItemChestTransporter(79, "diamond");
 
         GameRegistry.registerItem(chestTransporter, "chesttransporter");
         GameRegistry.registerItem(chestTransporterIron, "chesttransporter_iron");
+        GameRegistry.registerItem(chestTransporterGold, "chesttransporter_gold");
         GameRegistry.registerItem(chestTransporterDiamond, "chesttransporter_diamond");
 
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(chestTransporter), "S S", "SSS", " S ", 'S', Items.stick));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(chestTransporterIron), "S S", "SSS", " S ", 'S', Items.iron_ingot));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(chestTransporterDiamond), "S S", "SSS", " S ", 'S', Items.diamond));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(chestTransporterIron), "S S", "SSS", " M ", 'S', Items.stick, 'M', Items.iron_ingot));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(chestTransporterGold), "S S", "SSS", " M ", 'S', Items.stick, 'M', Items.gold_ingot));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(chestTransporterDiamond), "S S", "SSS", " M ", 'S',Items.stick, 'M', Items.diamond));
     }
 
     @EventHandler

@@ -1,3 +1,4 @@
-item.chesttransporter.name=Wooden Chest Transporter
+item.chesttransporter_wood.name=Wooden Chest Transporter
 item.chesttransporter_iron.name=Iron Chest Transporter
+item.chesttransporter_gold.name=Golden Chest Transporter
 item.chesttransporter_diamond.name=Diamond Chest Transporter
