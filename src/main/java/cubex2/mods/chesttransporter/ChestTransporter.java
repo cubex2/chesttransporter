@@ -15,7 +15,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.0.1")
+@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.0.2")
 public class ChestTransporter
 {
     @Instance("ChestTransporter")
@@ -29,7 +29,7 @@ public class ChestTransporter
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
-        chestTransporter = new ItemChestTransporter(0, "wood");
+        chestTransporter = new ItemChestTransporter(1, "wood");
         chestTransporterIron = new ItemChestTransporter(9, "iron");
         chestTransporterGold = new ItemChestTransporter(19, "gold");
         chestTransporterDiamond = new ItemChestTransporter(79, "diamond");

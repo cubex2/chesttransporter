@@ -127,6 +127,8 @@ public class ItemChestTransporter extends Item
             if (!player.capabilities.isCreativeMode)
             {
                 stack.damageItem(1, player);
+                if (this == ChestTransporter.chestTransporter)
+                    stack.damageItem(1, player);
             }
         }
     }
@@ -232,6 +234,8 @@ public class ItemChestTransporter extends Item
             if (!player.capabilities.isCreativeMode)
             {
                 stack.damageItem(1, player);
+                if (this == ChestTransporter.chestTransporter)
+                    stack.damageItem(1, player);
             }
 
             event.setCanceled(true);
