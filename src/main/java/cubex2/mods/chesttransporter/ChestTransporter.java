@@ -15,7 +15,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.0.2")
+@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.0.3")
 public class ChestTransporter
 {
     @Instance("ChestTransporter")
@@ -105,6 +105,18 @@ public class ChestTransporter
             for (int i = 0; i < names.length; i++)
             {
                 Block block = GameData.getBlockRegistry().getObject("compactchests:" + names[i] + "Chest");
+                if (block != null && block != Blocks.air)
+                {
+                    ChestRegistry.register(new TransportableChest(block, -1, 14 + i, "cc_" + names[i]));
+                }
+            }
+        }
+        else if (Loader.isModLoaded("compactstorage"))
+        {
+            String[] names = new String[]{"quadruple", "sextuple", "triple", "double", "quintuple"};
+            for (int i = 0; i < names.length; i++)
+            {
+                Block block = GameData.getBlockRegistry().getObject("compactstorage:" + names[i] + "Chest");
                 if (block != null && block != Blocks.air)
                 {
                     ChestRegistry.register(new TransportableChest(block, -1, 14 + i, "cc_" + names[i]));
