@@ -18,9 +18,6 @@
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
-  <component name="DaemonCodeAnalyzer">
-    <disable_hints />
-  </component>
   <component name="DebuggerManager">
     <ui_properties converted="true" />
     <breakpoint_any converted="true" default_condition_enabled="true" default_suspend_policy="SuspendAll">
@@ -61,6 +58,26 @@
     </breakpoint_any>
     <breakpoint_rules converted="true" />
   </component>
+  <component name="DockManager">
+    <window id="1">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file leaf-file-name="ChestType.class" pinned="false" current-in-tab="true">
+              <entry file="jar://$PROJECT_DIR$/eclipse/mods/VarietyChests-1.7.10-1.4.0.jar!/de/sanandrew/mods/varietychests/util/ChestType.class">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state vertical-scroll-proportion="0.0">
+                    <caret line="5" column="42" selection-start-line="5" selection-start-column="42" selection-end-line="5" selection-end-column="42" />
+                    <folding />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
+  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="ChestTransporter" />
@@ -70,7 +87,7 @@
       <file leaf-file-name="ChestTransporter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/ChestTransporter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2873">
+            <state vertical-scroll-proportion="0.0">
               <caret line="17" column="77" selection-start-line="17" selection-start-column="77" selection-end-line="17" selection-end-column="77" />
               <folding />
             </state>
@@ -80,28 +97,58 @@
       <file leaf-file-name="en_US.lang" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/assets/chesttransporter/lang/en_US.lang">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="170">
+            <state vertical-scroll-proportion="0.0">
               <caret line="0" column="26" selection-start-line="0" selection-start-column="26" selection-end-line="0" selection-end-column="26" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.61174244" vertical-offset="0" max-vertical-offset="816">
+            <state vertical-scroll-proportion="0.0">
               <caret line="19" column="16" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="VariertyChest.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="VariertyChest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/VariertyChest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="816" max-vertical-offset="1479">
-              <caret line="57" column="9" selection-start-line="57" selection-start-column="9" selection-end-line="57" selection-end-column="9" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="44" column="0" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TileEntityCustomChest.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$PROJECT_DIR$/eclipse/mods/VarietyChests-1.7.10-1.4.0.jar!/de/sanandrew/mods/varietychests/tileentity/TileEntityCustomChest.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Field.java" pinned="false" current-in-tab="false">
+        <entry file="jar://C:/Program Files/Java/jdk1.8.0_31/src.zip!/java/lang/reflect/Field.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="386" column="39" selection-start-line="386" selection-start-column="39" selection-end-line="386" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ReflectionHelper.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.2.1291/forgeBin-1.7.10-10.13.2.1291.jar!/cpw/mods/fml/relauncher/ReflectionHelper.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="46" column="27" selection-start-line="46" selection-start-column="27" selection-end-line="46" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -110,151 +157,9 @@
       <file leaf-file-name="ItemChestTransporter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/ItemChestTransporter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.5172415" vertical-offset="1657" max-vertical-offset="6630">
-              <caret line="140" column="9" selection-start-line="140" selection-start-column="9" selection-end-line="140" selection-end-column="9" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="362" column="9" selection-start-line="362" selection-start-column="9" selection-end-line="362" selection-end-column="9" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Item.java" pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.2.1230/forgeSrc-1.7.10-10.13.2.1230-sources.jar!/net/minecraft/item/Item.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="7275" max-vertical-offset="22593">
-              <caret line="525" column="16" selection-start-line="525" selection-start-column="16" selection-end-line="525" selection-end-column="16" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#3757#3758#0" expanded="false" />
-                <element signature="e#3825#3826#0" expanded="false" />
-                <element signature="e#3891#3892#0" expanded="false" />
-                <element signature="e#3960#3961#0" expanded="false" />
-                <element signature="e#39291#39292#0" expanded="false" />
-                <element signature="e#39315#39316#0" expanded="false" />
-                <element signature="e#39474#39475#0" expanded="false" />
-                <element signature="e#39510#39511#0" expanded="false" />
-                <element signature="e#39674#39675#0" expanded="false" />
-                <element signature="e#39747#39748#0" expanded="false" />
-                <element signature="e#40296#40297#0" expanded="false" />
-                <element signature="e#40323#40324#0" expanded="false" />
-                <element signature="e#40704#40705#0" expanded="false" />
-                <element signature="e#40737#40738#0" expanded="false" />
-                <element signature="e#40877#40878#0" expanded="false" />
-                <element signature="e#40917#40918#0" expanded="false" />
-                <element signature="e#41062#41063#0" expanded="false" />
-                <element signature="e#41086#41087#0" expanded="false" />
-                <element signature="e#41129#41130#0" expanded="false" />
-                <element signature="e#41168#41169#0" expanded="false" />
-                <element signature="e#41397#41398#0" expanded="false" />
-                <element signature="e#41434#41435#0" expanded="false" />
-                <element signature="e#41640#41641#0" expanded="false" />
-                <element signature="e#41702#41703#0" expanded="false" />
-                <element signature="e#42286#42287#0" expanded="false" />
-                <element signature="e#42314#42315#0" expanded="false" />
-                <element signature="e#42879#42880#0" expanded="false" />
-                <element signature="e#42914#42915#0" expanded="false" />
-                <element signature="e#43146#43147#0" expanded="false" />
-                <element signature="e#43174#43175#0" expanded="false" />
-                <element signature="e#43922#43923#0" expanded="false" />
-                <element signature="e#43975#43976#0" expanded="false" />
-                <element signature="e#44223#44224#0" expanded="false" />
-                <element signature="e#44276#44277#0" expanded="false" />
-                <element signature="e#44684#44685#0" expanded="false" />
-                <element signature="e#44711#44712#0" expanded="false" />
-                <element signature="e#44885#44886#0" expanded="false" />
-                <element signature="e#44912#44913#0" expanded="false" />
-                <element signature="e#44954#44955#0" expanded="false" />
-                <element signature="e#44995#44996#0" expanded="false" />
-                <element signature="e#45185#45186#0" expanded="false" />
-                <element signature="e#45234#45235#0" expanded="false" />
-                <element signature="e#45343#45344#0" expanded="false" />
-                <element signature="e#45374#45375#0" expanded="false" />
-                <element signature="e#45951#45952#0" expanded="false" />
-                <element signature="e#45979#45980#0" expanded="false" />
-                <element signature="e#46156#46157#0" expanded="false" />
-                <element signature="e#46194#46195#0" expanded="false" />
-                <element signature="e#46327#46328#0" expanded="false" />
-                <element signature="e#46351#46352#0" expanded="false" />
-                <element signature="e#46988#46989#0" expanded="false" />
-                <element signature="e#47028#47029#0" expanded="false" />
-                <element signature="e#47217#47218#0" expanded="false" />
-                <element signature="e#47281#47282#0" expanded="false" />
-                <element signature="e#47826#47827#0" expanded="false" />
-                <element signature="e#47877#47878#0" expanded="false" />
-                <element signature="e#50113#50114#0" expanded="false" />
-                <element signature="e#50137#50138#0" expanded="false" />
-                <element signature="e#50221#50222#0" expanded="false" />
-                <element signature="e#50249#50250#0" expanded="false" />
-                <element signature="e#51134#51135#0" expanded="false" />
-                <element signature="e#51176#51177#0" expanded="false" />
-                <element signature="e#51387#51388#0" expanded="false" />
-                <element signature="e#51414#51415#0" expanded="false" />
-                <element signature="e#51575#51576#0" expanded="false" />
-                <element signature="e#51603#51604#0" expanded="false" />
-                <element signature="e#51946#51947#0" expanded="false" />
-                <element signature="e#51990#51991#0" expanded="false" />
-                <element signature="e#52659#52660#0" expanded="false" />
-                <element signature="e#52714#52715#0" expanded="false" />
-                <element signature="e#53135#53136#0" expanded="false" />
-                <element signature="e#53162#53163#0" expanded="false" />
-                <element signature="e#54108#54109#0" expanded="false" />
-                <element signature="e#54162#54163#0" expanded="false" />
-                <element signature="e#54363#54364#0" expanded="false" />
-                <element signature="e#54413#54414#0" expanded="false" />
-                <element signature="e#55164#55165#0" expanded="false" />
-                <element signature="e#55192#55193#0" expanded="false" />
-                <element signature="e#56030#56031#0" expanded="false" />
-                <element signature="e#56058#56059#0" expanded="false" />
-                <element signature="e#57161#57162#0" expanded="false" />
-                <element signature="e#57222#57223#0" expanded="false" />
-                <element signature="e#58414#58415#0" expanded="false" />
-                <element signature="e#58441#58442#0" expanded="false" />
-                <element signature="e#58952#58953#0" expanded="false" />
-                <element signature="e#58980#58981#0" expanded="false" />
-                <element signature="e#59543#59544#0" expanded="false" />
-                <element signature="e#59570#59571#0" expanded="false" />
-                <element signature="e#59940#59941#0" expanded="false" />
-                <element signature="e#59968#59969#0" expanded="false" />
-                <element signature="e#60307#60308#0" expanded="false" />
-                <element signature="e#60368#60369#0" expanded="false" />
-                <element signature="e#60810#60811#0" expanded="false" />
-                <element signature="e#60873#60874#0" expanded="false" />
-                <element signature="e#62677#62678#0" expanded="false" />
-                <element signature="e#62705#62706#0" expanded="false" />
-                <element signature="e#63966#63967#0" expanded="false" />
-                <element signature="e#63993#63994#0" expanded="false" />
-                <element signature="e#64650#64651#0" expanded="false" />
-                <element signature="e#64677#64678#0" expanded="false" />
-                <element signature="e#65044#65045#0" expanded="false" />
-                <element signature="e#65071#65072#0" expanded="false" />
-                <element signature="e#65559#65560#0" expanded="false" />
-                <element signature="e#65586#65587#0" expanded="false" />
-                <element signature="e#65926#65927#0" expanded="false" />
-                <element signature="e#65954#65955#0" expanded="false" />
-                <element signature="e#67150#67151#0" expanded="false" />
-                <element signature="e#67189#67190#0" expanded="false" />
-                <element signature="e#67358#67359#0" expanded="false" />
-                <element signature="e#67397#67398#0" expanded="false" />
-                <element signature="e#67770#67771#0" expanded="false" />
-                <element signature="e#67814#67815#0" expanded="false" />
-                <element signature="e#68825#68826#0" expanded="false" />
-                <element signature="e#68868#68869#0" expanded="false" />
-                <element signature="e#69570#69571#0" expanded="false" />
-                <element signature="e#69619#69620#0" expanded="false" />
-                <element signature="e#70221#70222#0" expanded="false" />
-                <element signature="e#70268#70269#0" expanded="false" />
-                <element signature="e#70883#70884#0" expanded="false" />
-                <element signature="e#70926#70927#0" expanded="false" />
-                <element signature="e#73874#73875#0" expanded="false" />
-                <element signature="e#73917#73918#0" expanded="false" />
-                <element signature="e#74097#74098#0" expanded="false" />
-                <element signature="e#74159#74160#0" expanded="false" />
-                <element signature="e#74270#74271#0" expanded="false" />
-                <element signature="e#74320#74321#0" expanded="false" />
-                <element signature="e#74497#74498#0" expanded="false" />
-                <element signature="e#74545#74546#0" expanded="false" />
-                <element signature="e#74688#74689#0" expanded="false" />
-                <element signature="e#74738#74739#0" expanded="false" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -266,18 +171,27 @@
       <setting name="OPEN_NEW_TAB" value="false" />
     </FindUsagesManager>
   </component>
+  <component name="GradleLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/ItemChestTransporter.java" />
         <option value="$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/ChestTransporter.java" />
         <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/VariertyChest.java" />
       </list>
     </option>
   </component>
   <component name="ModuleEditorState">
     <option name="LAST_EDITED_MODULE_NAME" />
     <option name="LAST_EDITED_TAB_NAME" />
+  </component>
+  <component name="NamedScopeManager">
+    <order />
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
@@ -316,7 +230,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -440,8 +353,150 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ChestTransporter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ChestTransporter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="eclipse" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ChestTransporter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ChestTransporter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="eclipse" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mods" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="VarietyChests-1.7.10-1.4.0.jar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ChestTransporter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ChestTransporter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="eclipse" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mods" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="VarietyChests-1.7.10-1.4.0.jar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="varietychests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ChestTransporter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ChestTransporter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="eclipse" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mods" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="VarietyChests-1.7.10-1.4.0.jar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="varietychests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tileentity" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ChestTransporter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ChestTransporter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="eclipse" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mods" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="VarietyChests-1.7.10-1.4.0.jar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="varietychests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="crafting" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ChestTransporter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ChestTransporter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="eclipse" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mods" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -452,44 +507,15 @@
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="recentsLimit" value="5" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="dynamic.classpath" value="false" />
     <property name="FullScreen" value="false" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
   </component>
   <component name="RunManager" selected="Application.Minecraft Client">
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-      <method />
-    </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit">
-      <extension name="coverage" enabled="false" merge="false" runner="idea" />
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
       <module name="" />
       <option name="ACTIVITY_CLASS" value="" />
@@ -532,32 +558,78 @@
       <method />
     </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
+      <module />
       <option name="HTML_USED" value="false" />
       <option name="WIDTH" value="400" />
       <option name="HEIGHT" value="300" />
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
-    <configuration default="true" type="uTestRunConfiguration" factoryName="utest">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <extension name="scalaCoverage" />
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
       <module name="" />
-      <setting name="path" value="" />
-      <setting name="package" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workingDirectory" value="$PROJECT_DIR$" />
-      <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="" />
-      <setting name="testKind" value="Class" />
-      <setting name="showProgressMessages" value="true" />
       <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list />
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="JarApplication" factoryName="JAR Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="JAR_PATH" value="$PROJECT_DIR$/eclipse/mods/VarietyChests-1.7.10-1.4.0.jar" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
       <method />
     </configuration>
     <configuration default="true" type="ScalaTestRunConfiguration" factoryName="ScalaTest">
@@ -620,18 +692,19 @@
       <listeners />
       <method />
     </configuration>
-    <configuration default="true" type="Application" factoryName="Application">
-      <extension name="coverage" enabled="false" merge="false" runner="idea" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
+    <configuration default="true" type="uTestRunConfiguration" factoryName="utest">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <extension name="scalaCoverage" />
       <module name="" />
+      <setting name="path" value="" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="$PROJECT_DIR$" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="" />
+      <setting name="testKind" value="Class" />
+      <setting name="showProgressMessages" value="true" />
       <envs />
       <method />
     </configuration>
@@ -684,6 +757,11 @@
       <Port>5050</Port>
     </configuration>
   </component>
+  <component name="SbtLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+  </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="SvnConfiguration">
     <configuration />
@@ -718,34 +796,34 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="false" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972974" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32864866" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972974" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972974" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16897655" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16897655" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39891893" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Palette " active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="ASM" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39891893" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32864866" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972974" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972974" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -761,14 +839,11 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="myTodoPanelSettings">
-      <TodoPanelSettings />
-    </option>
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="39" />
+      <option name="time" value="41" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -779,7 +854,7 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/resources/assets/chesttransporter/lang/en_US.lang">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="170">
+        <state vertical-scroll-proportion="0.0">
           <caret line="0" column="26" selection-start-line="0" selection-start-column="26" selection-end-line="0" selection-end-column="26" />
           <folding />
         </state>
@@ -787,7 +862,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="816">
+        <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
@@ -795,7 +870,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/VariertyChest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="816" max-vertical-offset="1479">
+        <state vertical-scroll-proportion="0.0">
           <caret line="57" column="9" selection-start-line="57" selection-start-column="9" selection-end-line="57" selection-end-column="9" />
           <folding />
         </state>
@@ -803,7 +878,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/ItemChestTransporter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1483" max-vertical-offset="6630">
+        <state vertical-scroll-proportion="0.0">
           <caret line="128" column="32" selection-start-line="128" selection-start-column="32" selection-end-line="128" selection-end-column="32" />
           <folding />
         </state>
@@ -811,327 +886,14 @@
     </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.2.1230/forgeSrc-1.7.10-10.13.2.1230-sources.jar!/net/minecraft/item/Item.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="7275" max-vertical-offset="22593">
+        <state vertical-scroll-proportion="0.0">
           <caret line="525" column="16" selection-start-line="525" selection-start-column="16" selection-end-line="525" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#3757#3758#0" expanded="false" />
-            <element signature="e#3825#3826#0" expanded="false" />
-            <element signature="e#3891#3892#0" expanded="false" />
-            <element signature="e#3960#3961#0" expanded="false" />
-            <element signature="e#39291#39292#0" expanded="false" />
-            <element signature="e#39315#39316#0" expanded="false" />
-            <element signature="e#39474#39475#0" expanded="false" />
-            <element signature="e#39510#39511#0" expanded="false" />
-            <element signature="e#39674#39675#0" expanded="false" />
-            <element signature="e#39747#39748#0" expanded="false" />
-            <element signature="e#40296#40297#0" expanded="false" />
-            <element signature="e#40323#40324#0" expanded="false" />
-            <element signature="e#40704#40705#0" expanded="false" />
-            <element signature="e#40737#40738#0" expanded="false" />
-            <element signature="e#40877#40878#0" expanded="false" />
-            <element signature="e#40917#40918#0" expanded="false" />
-            <element signature="e#41062#41063#0" expanded="false" />
-            <element signature="e#41086#41087#0" expanded="false" />
-            <element signature="e#41129#41130#0" expanded="false" />
-            <element signature="e#41168#41169#0" expanded="false" />
-            <element signature="e#41397#41398#0" expanded="false" />
-            <element signature="e#41434#41435#0" expanded="false" />
-            <element signature="e#41640#41641#0" expanded="false" />
-            <element signature="e#41702#41703#0" expanded="false" />
-            <element signature="e#42286#42287#0" expanded="false" />
-            <element signature="e#42314#42315#0" expanded="false" />
-            <element signature="e#42879#42880#0" expanded="false" />
-            <element signature="e#42914#42915#0" expanded="false" />
-            <element signature="e#43146#43147#0" expanded="false" />
-            <element signature="e#43174#43175#0" expanded="false" />
-            <element signature="e#43922#43923#0" expanded="false" />
-            <element signature="e#43975#43976#0" expanded="false" />
-            <element signature="e#44223#44224#0" expanded="false" />
-            <element signature="e#44276#44277#0" expanded="false" />
-            <element signature="e#44684#44685#0" expanded="false" />
-            <element signature="e#44711#44712#0" expanded="false" />
-            <element signature="e#44885#44886#0" expanded="false" />
-            <element signature="e#44912#44913#0" expanded="false" />
-            <element signature="e#44954#44955#0" expanded="false" />
-            <element signature="e#44995#44996#0" expanded="false" />
-            <element signature="e#45185#45186#0" expanded="false" />
-            <element signature="e#45234#45235#0" expanded="false" />
-            <element signature="e#45343#45344#0" expanded="false" />
-            <element signature="e#45374#45375#0" expanded="false" />
-            <element signature="e#45951#45952#0" expanded="false" />
-            <element signature="e#45979#45980#0" expanded="false" />
-            <element signature="e#46156#46157#0" expanded="false" />
-            <element signature="e#46194#46195#0" expanded="false" />
-            <element signature="e#46327#46328#0" expanded="false" />
-            <element signature="e#46351#46352#0" expanded="false" />
-            <element signature="e#46988#46989#0" expanded="false" />
-            <element signature="e#47028#47029#0" expanded="false" />
-            <element signature="e#47217#47218#0" expanded="false" />
-            <element signature="e#47281#47282#0" expanded="false" />
-            <element signature="e#47826#47827#0" expanded="false" />
-            <element signature="e#47877#47878#0" expanded="false" />
-            <element signature="e#50113#50114#0" expanded="false" />
-            <element signature="e#50137#50138#0" expanded="false" />
-            <element signature="e#50221#50222#0" expanded="false" />
-            <element signature="e#50249#50250#0" expanded="false" />
-            <element signature="e#51134#51135#0" expanded="false" />
-            <element signature="e#51176#51177#0" expanded="false" />
-            <element signature="e#51387#51388#0" expanded="false" />
-            <element signature="e#51414#51415#0" expanded="false" />
-            <element signature="e#51575#51576#0" expanded="false" />
-            <element signature="e#51603#51604#0" expanded="false" />
-            <element signature="e#51946#51947#0" expanded="false" />
-            <element signature="e#51990#51991#0" expanded="false" />
-            <element signature="e#52659#52660#0" expanded="false" />
-            <element signature="e#52714#52715#0" expanded="false" />
-            <element signature="e#53135#53136#0" expanded="false" />
-            <element signature="e#53162#53163#0" expanded="false" />
-            <element signature="e#54108#54109#0" expanded="false" />
-            <element signature="e#54162#54163#0" expanded="false" />
-            <element signature="e#54363#54364#0" expanded="false" />
-            <element signature="e#54413#54414#0" expanded="false" />
-            <element signature="e#55164#55165#0" expanded="false" />
-            <element signature="e#55192#55193#0" expanded="false" />
-            <element signature="e#56030#56031#0" expanded="false" />
-            <element signature="e#56058#56059#0" expanded="false" />
-            <element signature="e#57161#57162#0" expanded="false" />
-            <element signature="e#57222#57223#0" expanded="false" />
-            <element signature="e#58414#58415#0" expanded="false" />
-            <element signature="e#58441#58442#0" expanded="false" />
-            <element signature="e#58952#58953#0" expanded="false" />
-            <element signature="e#58980#58981#0" expanded="false" />
-            <element signature="e#59543#59544#0" expanded="false" />
-            <element signature="e#59570#59571#0" expanded="false" />
-            <element signature="e#59940#59941#0" expanded="false" />
-            <element signature="e#59968#59969#0" expanded="false" />
-            <element signature="e#60307#60308#0" expanded="false" />
-            <element signature="e#60368#60369#0" expanded="false" />
-            <element signature="e#60810#60811#0" expanded="false" />
-            <element signature="e#60873#60874#0" expanded="false" />
-            <element signature="e#62677#62678#0" expanded="false" />
-            <element signature="e#62705#62706#0" expanded="false" />
-            <element signature="e#63966#63967#0" expanded="false" />
-            <element signature="e#63993#63994#0" expanded="false" />
-            <element signature="e#64650#64651#0" expanded="false" />
-            <element signature="e#64677#64678#0" expanded="false" />
-            <element signature="e#65044#65045#0" expanded="false" />
-            <element signature="e#65071#65072#0" expanded="false" />
-            <element signature="e#65559#65560#0" expanded="false" />
-            <element signature="e#65586#65587#0" expanded="false" />
-            <element signature="e#65926#65927#0" expanded="false" />
-            <element signature="e#65954#65955#0" expanded="false" />
-            <element signature="e#67150#67151#0" expanded="false" />
-            <element signature="e#67189#67190#0" expanded="false" />
-            <element signature="e#67358#67359#0" expanded="false" />
-            <element signature="e#67397#67398#0" expanded="false" />
-            <element signature="e#67770#67771#0" expanded="false" />
-            <element signature="e#67814#67815#0" expanded="false" />
-            <element signature="e#68825#68826#0" expanded="false" />
-            <element signature="e#68868#68869#0" expanded="false" />
-            <element signature="e#69570#69571#0" expanded="false" />
-            <element signature="e#69619#69620#0" expanded="false" />
-            <element signature="e#70221#70222#0" expanded="false" />
-            <element signature="e#70268#70269#0" expanded="false" />
-            <element signature="e#70883#70884#0" expanded="false" />
-            <element signature="e#70926#70927#0" expanded="false" />
-            <element signature="e#73874#73875#0" expanded="false" />
-            <element signature="e#73917#73918#0" expanded="false" />
-            <element signature="e#74097#74098#0" expanded="false" />
-            <element signature="e#74159#74160#0" expanded="false" />
-            <element signature="e#74270#74271#0" expanded="false" />
-            <element signature="e#74320#74321#0" expanded="false" />
-            <element signature="e#74497#74498#0" expanded="false" />
-            <element signature="e#74545#74546#0" expanded="false" />
-            <element signature="e#74688#74689#0" expanded="false" />
-            <element signature="e#74738#74739#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/ChestTransporter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="2669">
-          <caret line="17" column="77" selection-start-line="17" selection-start-column="77" selection-end-line="17" selection-end-column="77" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/assets/chesttransporter/lang/en_US.lang">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="170">
-          <caret line="0" column="26" selection-start-line="0" selection-start-column="26" selection-end-line="0" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="816">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/VariertyChest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="816" max-vertical-offset="1479">
-          <caret line="57" column="9" selection-start-line="57" selection-start-column="9" selection-end-line="57" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/ItemChestTransporter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1483" max-vertical-offset="6630">
-          <caret line="128" column="32" selection-start-line="128" selection-start-column="32" selection-end-line="128" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.2.1230/forgeSrc-1.7.10-10.13.2.1230-sources.jar!/net/minecraft/item/Item.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="7275" max-vertical-offset="22593">
-          <caret line="525" column="16" selection-start-line="525" selection-start-column="16" selection-end-line="525" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#3757#3758#0" expanded="false" />
-            <element signature="e#3825#3826#0" expanded="false" />
-            <element signature="e#3891#3892#0" expanded="false" />
-            <element signature="e#3960#3961#0" expanded="false" />
-            <element signature="e#39291#39292#0" expanded="false" />
-            <element signature="e#39315#39316#0" expanded="false" />
-            <element signature="e#39474#39475#0" expanded="false" />
-            <element signature="e#39510#39511#0" expanded="false" />
-            <element signature="e#39674#39675#0" expanded="false" />
-            <element signature="e#39747#39748#0" expanded="false" />
-            <element signature="e#40296#40297#0" expanded="false" />
-            <element signature="e#40323#40324#0" expanded="false" />
-            <element signature="e#40704#40705#0" expanded="false" />
-            <element signature="e#40737#40738#0" expanded="false" />
-            <element signature="e#40877#40878#0" expanded="false" />
-            <element signature="e#40917#40918#0" expanded="false" />
-            <element signature="e#41062#41063#0" expanded="false" />
-            <element signature="e#41086#41087#0" expanded="false" />
-            <element signature="e#41129#41130#0" expanded="false" />
-            <element signature="e#41168#41169#0" expanded="false" />
-            <element signature="e#41397#41398#0" expanded="false" />
-            <element signature="e#41434#41435#0" expanded="false" />
-            <element signature="e#41640#41641#0" expanded="false" />
-            <element signature="e#41702#41703#0" expanded="false" />
-            <element signature="e#42286#42287#0" expanded="false" />
-            <element signature="e#42314#42315#0" expanded="false" />
-            <element signature="e#42879#42880#0" expanded="false" />
-            <element signature="e#42914#42915#0" expanded="false" />
-            <element signature="e#43146#43147#0" expanded="false" />
-            <element signature="e#43174#43175#0" expanded="false" />
-            <element signature="e#43922#43923#0" expanded="false" />
-            <element signature="e#43975#43976#0" expanded="false" />
-            <element signature="e#44223#44224#0" expanded="false" />
-            <element signature="e#44276#44277#0" expanded="false" />
-            <element signature="e#44684#44685#0" expanded="false" />
-            <element signature="e#44711#44712#0" expanded="false" />
-            <element signature="e#44885#44886#0" expanded="false" />
-            <element signature="e#44912#44913#0" expanded="false" />
-            <element signature="e#44954#44955#0" expanded="false" />
-            <element signature="e#44995#44996#0" expanded="false" />
-            <element signature="e#45185#45186#0" expanded="false" />
-            <element signature="e#45234#45235#0" expanded="false" />
-            <element signature="e#45343#45344#0" expanded="false" />
-            <element signature="e#45374#45375#0" expanded="false" />
-            <element signature="e#45951#45952#0" expanded="false" />
-            <element signature="e#45979#45980#0" expanded="false" />
-            <element signature="e#46156#46157#0" expanded="false" />
-            <element signature="e#46194#46195#0" expanded="false" />
-            <element signature="e#46327#46328#0" expanded="false" />
-            <element signature="e#46351#46352#0" expanded="false" />
-            <element signature="e#46988#46989#0" expanded="false" />
-            <element signature="e#47028#47029#0" expanded="false" />
-            <element signature="e#47217#47218#0" expanded="false" />
-            <element signature="e#47281#47282#0" expanded="false" />
-            <element signature="e#47826#47827#0" expanded="false" />
-            <element signature="e#47877#47878#0" expanded="false" />
-            <element signature="e#50113#50114#0" expanded="false" />
-            <element signature="e#50137#50138#0" expanded="false" />
-            <element signature="e#50221#50222#0" expanded="false" />
-            <element signature="e#50249#50250#0" expanded="false" />
-            <element signature="e#51134#51135#0" expanded="false" />
-            <element signature="e#51176#51177#0" expanded="false" />
-            <element signature="e#51387#51388#0" expanded="false" />
-            <element signature="e#51414#51415#0" expanded="false" />
-            <element signature="e#51575#51576#0" expanded="false" />
-            <element signature="e#51603#51604#0" expanded="false" />
-            <element signature="e#51946#51947#0" expanded="false" />
-            <element signature="e#51990#51991#0" expanded="false" />
-            <element signature="e#52659#52660#0" expanded="false" />
-            <element signature="e#52714#52715#0" expanded="false" />
-            <element signature="e#53135#53136#0" expanded="false" />
-            <element signature="e#53162#53163#0" expanded="false" />
-            <element signature="e#54108#54109#0" expanded="false" />
-            <element signature="e#54162#54163#0" expanded="false" />
-            <element signature="e#54363#54364#0" expanded="false" />
-            <element signature="e#54413#54414#0" expanded="false" />
-            <element signature="e#55164#55165#0" expanded="false" />
-            <element signature="e#55192#55193#0" expanded="false" />
-            <element signature="e#56030#56031#0" expanded="false" />
-            <element signature="e#56058#56059#0" expanded="false" />
-            <element signature="e#57161#57162#0" expanded="false" />
-            <element signature="e#57222#57223#0" expanded="false" />
-            <element signature="e#58414#58415#0" expanded="false" />
-            <element signature="e#58441#58442#0" expanded="false" />
-            <element signature="e#58952#58953#0" expanded="false" />
-            <element signature="e#58980#58981#0" expanded="false" />
-            <element signature="e#59543#59544#0" expanded="false" />
-            <element signature="e#59570#59571#0" expanded="false" />
-            <element signature="e#59940#59941#0" expanded="false" />
-            <element signature="e#59968#59969#0" expanded="false" />
-            <element signature="e#60307#60308#0" expanded="false" />
-            <element signature="e#60368#60369#0" expanded="false" />
-            <element signature="e#60810#60811#0" expanded="false" />
-            <element signature="e#60873#60874#0" expanded="false" />
-            <element signature="e#62677#62678#0" expanded="false" />
-            <element signature="e#62705#62706#0" expanded="false" />
-            <element signature="e#63966#63967#0" expanded="false" />
-            <element signature="e#63993#63994#0" expanded="false" />
-            <element signature="e#64650#64651#0" expanded="false" />
-            <element signature="e#64677#64678#0" expanded="false" />
-            <element signature="e#65044#65045#0" expanded="false" />
-            <element signature="e#65071#65072#0" expanded="false" />
-            <element signature="e#65559#65560#0" expanded="false" />
-            <element signature="e#65586#65587#0" expanded="false" />
-            <element signature="e#65926#65927#0" expanded="false" />
-            <element signature="e#65954#65955#0" expanded="false" />
-            <element signature="e#67150#67151#0" expanded="false" />
-            <element signature="e#67189#67190#0" expanded="false" />
-            <element signature="e#67358#67359#0" expanded="false" />
-            <element signature="e#67397#67398#0" expanded="false" />
-            <element signature="e#67770#67771#0" expanded="false" />
-            <element signature="e#67814#67815#0" expanded="false" />
-            <element signature="e#68825#68826#0" expanded="false" />
-            <element signature="e#68868#68869#0" expanded="false" />
-            <element signature="e#69570#69571#0" expanded="false" />
-            <element signature="e#69619#69620#0" expanded="false" />
-            <element signature="e#70221#70222#0" expanded="false" />
-            <element signature="e#70268#70269#0" expanded="false" />
-            <element signature="e#70883#70884#0" expanded="false" />
-            <element signature="e#70926#70927#0" expanded="false" />
-            <element signature="e#73874#73875#0" expanded="false" />
-            <element signature="e#73917#73918#0" expanded="false" />
-            <element signature="e#74097#74098#0" expanded="false" />
-            <element signature="e#74159#74160#0" expanded="false" />
-            <element signature="e#74270#74271#0" expanded="false" />
-            <element signature="e#74320#74321#0" expanded="false" />
-            <element signature="e#74497#74498#0" expanded="false" />
-            <element signature="e#74545#74546#0" expanded="false" />
-            <element signature="e#74688#74689#0" expanded="false" />
-            <element signature="e#74738#74739#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/ChestTransporter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2669">
+        <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
@@ -1139,7 +901,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/assets/chesttransporter/lang/en_US.lang">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="170">
+        <state vertical-scroll-proportion="0.0">
           <caret line="0" column="26" selection-start-line="0" selection-start-column="26" selection-end-line="0" selection-end-column="26" />
           <folding />
         </state>
@@ -1147,7 +909,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="323" max-vertical-offset="816">
+        <state vertical-scroll-proportion="0.0">
           <caret line="19" column="16" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
           <folding />
         </state>
@@ -1155,7 +917,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/VariertyChest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="816" max-vertical-offset="1479">
+        <state vertical-scroll-proportion="0.0">
           <caret line="57" column="9" selection-start-line="57" selection-start-column="9" selection-end-line="57" selection-end-column="9" />
           <folding />
         </state>
@@ -1163,7 +925,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/ItemChestTransporter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="896" max-vertical-offset="6562">
+        <state vertical-scroll-proportion="0.0">
           <caret line="98" column="17" selection-start-line="98" selection-start-column="17" selection-end-line="98" selection-end-column="17" />
           <folding />
         </state>
@@ -1171,7 +933,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/ChestTransporter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2669">
+        <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
@@ -1179,7 +941,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/assets/chesttransporter/lang/en_US.lang">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="170">
+        <state vertical-scroll-proportion="0.0">
           <caret line="0" column="26" selection-start-line="0" selection-start-column="26" selection-end-line="0" selection-end-column="26" />
           <folding />
         </state>
@@ -1187,7 +949,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="288" max-vertical-offset="816">
+        <state vertical-scroll-proportion="0.0">
           <caret line="19" column="16" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
           <folding />
         </state>
@@ -1195,7 +957,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/VariertyChest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="816" max-vertical-offset="1479">
+        <state vertical-scroll-proportion="0.0">
           <caret line="57" column="9" selection-start-line="57" selection-start-column="9" selection-end-line="57" selection-end-column="9" />
           <folding />
         </state>
@@ -1203,7 +965,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/ItemChestTransporter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="46" max-vertical-offset="6562">
+        <state vertical-scroll-proportion="0.0">
           <caret line="104" column="65" selection-start-line="104" selection-start-column="65" selection-end-line="104" selection-end-column="65" />
           <folding />
         </state>
@@ -1211,183 +973,175 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/mcmod.info">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="374">
+        <state vertical-scroll-proportion="0.0">
           <caret line="10" column="14" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/mcmod.info">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.18952063" vertical-offset="0" max-vertical-offset="897">
+        <state vertical-scroll-proportion="0.18952063">
           <caret line="10" column="14" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.0.1160/forgeSrc-1.7.10-10.13.0.1160-sources.jar!/net/minecraft/block/Block.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="18412" max-vertical-offset="40035">
+        <state vertical-scroll-proportion="0.0">
           <caret line="1269" column="16" selection-start-line="1269" selection-start-column="16" selection-end-line="1269" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.0.1160/forgeSrc-1.7.10-10.13.0.1160-sources.jar!/net/minecraft/world/chunk/Chunk.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="11119" max-vertical-offset="27268">
+        <state vertical-scroll-proportion="0.0">
           <caret line="623" column="19" selection-start-line="623" selection-start-column="19" selection-end-line="623" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.0.1160/forgeSrc-1.7.10-10.13.0.1160-sources.jar!/cpw/mods/fml/common/Loader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="8244" max-vertical-offset="14722">
+        <state vertical-scroll-proportion="0.0">
           <caret line="571" column="26" selection-start-line="571" selection-start-column="26" selection-end-line="571" selection-end-column="26" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.0.1160/forgeSrc-1.7.10-10.13.0.1160-sources.jar!/net/minecraftforge/event/ForgeEventFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="397" max-vertical-offset="2839">
+        <state vertical-scroll-proportion="0.0">
           <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.0.1160/forgeSrc-1.7.10-10.13.0.1160-sources.jar!/net/minecraft/world/World.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="17681" max-vertical-offset="72522">
+        <state vertical-scroll-proportion="0.0">
           <caret line="1142" column="40" selection-start-line="1142" selection-start-column="40" selection-end-line="1142" selection-end-column="40" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.0.1160/forgeSrc-1.7.10-10.13.0.1160-sources.jar!/net/minecraft/client/multiplayer/PlayerControllerMP.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="5340" max-vertical-offset="8653">
+        <state vertical-scroll-proportion="0.0">
           <caret line="362" column="31" selection-start-line="362" selection-start-column="31" selection-end-line="362" selection-end-column="31" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.0.1160/forgeSrc-1.7.10-10.13.0.1160-sources.jar!/net/minecraft/client/renderer/EntityRenderer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="4881" max-vertical-offset="34765">
+        <state vertical-scroll-proportion="0.0">
           <caret line="360" column="70" selection-start-line="360" selection-start-column="70" selection-end-line="360" selection-end-column="70" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.0.1160/forgeSrc-1.7.10-10.13.0.1160-sources.jar!/net/minecraft/item/ItemBlock.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2964876" vertical-offset="648" max-vertical-offset="3825">
+        <state vertical-scroll-proportion="0.2964876">
           <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.0.1160/forgeSrc-1.7.10-10.13.0.1160-sources.jar!/net/minecraft/item/Item.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="16016" max-vertical-offset="22338">
+        <state vertical-scroll-proportion="0.0">
           <caret line="1151" column="15" selection-start-line="1151" selection-start-column="15" selection-end-line="1151" selection-end-column="15" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.0.1160/forgeSrc-1.7.10-10.13.0.1160-sources.jar!/net/minecraft/client/Minecraft.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="512" max-vertical-offset="46937">
+        <state vertical-scroll-proportion="0.0">
           <caret line="213" column="24" selection-start-line="213" selection-start-column="24" selection-end-line="213" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.0.1160/forgeSrc-1.7.10-10.13.0.1160-sources.jar!/net/minecraft/item/EnumAction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
+        <state vertical-scroll-proportion="0.0">
           <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.0.1160/forgeSrc-1.7.10-10.13.0.1160.jar!/net/minecraft/item/EnumAction.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
+        <state vertical-scroll-proportion="0.0">
           <caret line="13" column="48" selection-start-line="13" selection-start-column="48" selection-end-line="13" selection-end-column="48" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.0.1160/forgeSrc-1.7.10-10.13.0.1160-sources.jar!/net/minecraftforge/client/IItemRenderer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2363">
+        <state vertical-scroll-proportion="0.0">
           <caret line="6" column="16" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.0.1160/forgeSrc-1.7.10-10.13.0.1160-sources.jar!/net/minecraft/client/renderer/ItemRenderer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="357" max-vertical-offset="12444">
+        <state vertical-scroll-proportion="0.0">
           <caret line="87" column="35" selection-start-line="87" selection-start-column="35" selection-end-line="87" selection-end-column="35" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.0.1160/forgeSrc-1.7.10-10.13.0.1160-sources.jar!/net/minecraft/entity/EntityLivingBase.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="24214" max-vertical-offset="37111">
+        <state vertical-scroll-proportion="0.0">
           <caret line="1558" column="0" selection-start-line="1558" selection-start-column="0" selection-end-line="1558" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.0.1160/forgeSrc-1.7.10-10.13.0.1160-sources.jar!/net/minecraft/client/renderer/entity/RenderItem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="12035" max-vertical-offset="13379">
+        <state vertical-scroll-proportion="0.0">
           <caret line="759" column="128" selection-start-line="759" selection-start-column="128" selection-end-line="759" selection-end-column="128" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.0.1160/forgeSrc-1.7.10-10.13.0.1160-sources.jar!/net/minecraft/nbt/NBTTagCompound.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2463" max-vertical-offset="7871">
+        <state vertical-scroll-proportion="0.0">
           <caret line="195" column="16" selection-start-line="195" selection-start-column="16" selection-end-line="195" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.0.1160/forgeSrc-1.7.10-10.13.0.1160-sources.jar!/net/minecraft/item/ItemStack.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="7265" max-vertical-offset="13821">
+        <state vertical-scroll-proportion="0.0">
           <caret line="515" column="26" selection-start-line="515" selection-start-column="26" selection-end-line="515" selection-end-column="26" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.0.1160/forgeSrc-1.7.10-10.13.0.1160-sources.jar!/net/minecraftforge/client/ForgeHooksClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.43119267" vertical-offset="1855" max-vertical-offset="7191">
+        <state vertical-scroll-proportion="0.43119267">
           <caret line="201" column="0" selection-start-line="201" selection-start-column="0" selection-end-line="202" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/FzBarrel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.6809378" vertical-offset="1025" max-vertical-offset="2006">
+        <state vertical-scroll-proportion="-0.6809378">
           <caret line="32" column="71" selection-start-line="32" selection-start-column="71" selection-end-line="32" selection-end-column="71" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/TransportableChest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="232" max-vertical-offset="1003">
+        <state vertical-scroll-proportion="0.0">
           <caret line="34" column="15" selection-start-line="34" selection-start-column="15" selection-end-line="34" selection-end-column="15" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/ChestRegistry.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="299" max-vertical-offset="1632">
+        <state vertical-scroll-proportion="0.0">
           <caret line="29" column="27" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/VariertyChest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="1479">
-          <caret line="57" column="9" selection-start-line="57" selection-start-column="9" selection-end-line="57" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/assets/chesttransporter/lang/en_US.lang">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="505">
+        <state vertical-scroll-proportion="0.0">
           <caret line="0" column="26" selection-start-line="0" selection-start-column="26" selection-end-line="0" selection-end-column="26" />
           <folding />
         </state>
@@ -1395,164 +1149,85 @@
     </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.2.1230/forgeSrc-1.7.10-10.13.2.1230-sources.jar!/net/minecraft/item/Item.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="7275" max-vertical-offset="22593">
+        <state vertical-scroll-proportion="0.0">
           <caret line="525" column="16" selection-start-line="525" selection-start-column="16" selection-end-line="525" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#3757#3758#0" expanded="false" />
-            <element signature="e#3825#3826#0" expanded="false" />
-            <element signature="e#3891#3892#0" expanded="false" />
-            <element signature="e#3960#3961#0" expanded="false" />
-            <element signature="e#39291#39292#0" expanded="false" />
-            <element signature="e#39315#39316#0" expanded="false" />
-            <element signature="e#39474#39475#0" expanded="false" />
-            <element signature="e#39510#39511#0" expanded="false" />
-            <element signature="e#39674#39675#0" expanded="false" />
-            <element signature="e#39747#39748#0" expanded="false" />
-            <element signature="e#40296#40297#0" expanded="false" />
-            <element signature="e#40323#40324#0" expanded="false" />
-            <element signature="e#40704#40705#0" expanded="false" />
-            <element signature="e#40737#40738#0" expanded="false" />
-            <element signature="e#40877#40878#0" expanded="false" />
-            <element signature="e#40917#40918#0" expanded="false" />
-            <element signature="e#41062#41063#0" expanded="false" />
-            <element signature="e#41086#41087#0" expanded="false" />
-            <element signature="e#41129#41130#0" expanded="false" />
-            <element signature="e#41168#41169#0" expanded="false" />
-            <element signature="e#41397#41398#0" expanded="false" />
-            <element signature="e#41434#41435#0" expanded="false" />
-            <element signature="e#41640#41641#0" expanded="false" />
-            <element signature="e#41702#41703#0" expanded="false" />
-            <element signature="e#42286#42287#0" expanded="false" />
-            <element signature="e#42314#42315#0" expanded="false" />
-            <element signature="e#42879#42880#0" expanded="false" />
-            <element signature="e#42914#42915#0" expanded="false" />
-            <element signature="e#43146#43147#0" expanded="false" />
-            <element signature="e#43174#43175#0" expanded="false" />
-            <element signature="e#43922#43923#0" expanded="false" />
-            <element signature="e#43975#43976#0" expanded="false" />
-            <element signature="e#44223#44224#0" expanded="false" />
-            <element signature="e#44276#44277#0" expanded="false" />
-            <element signature="e#44684#44685#0" expanded="false" />
-            <element signature="e#44711#44712#0" expanded="false" />
-            <element signature="e#44885#44886#0" expanded="false" />
-            <element signature="e#44912#44913#0" expanded="false" />
-            <element signature="e#44954#44955#0" expanded="false" />
-            <element signature="e#44995#44996#0" expanded="false" />
-            <element signature="e#45185#45186#0" expanded="false" />
-            <element signature="e#45234#45235#0" expanded="false" />
-            <element signature="e#45343#45344#0" expanded="false" />
-            <element signature="e#45374#45375#0" expanded="false" />
-            <element signature="e#45951#45952#0" expanded="false" />
-            <element signature="e#45979#45980#0" expanded="false" />
-            <element signature="e#46156#46157#0" expanded="false" />
-            <element signature="e#46194#46195#0" expanded="false" />
-            <element signature="e#46327#46328#0" expanded="false" />
-            <element signature="e#46351#46352#0" expanded="false" />
-            <element signature="e#46988#46989#0" expanded="false" />
-            <element signature="e#47028#47029#0" expanded="false" />
-            <element signature="e#47217#47218#0" expanded="false" />
-            <element signature="e#47281#47282#0" expanded="false" />
-            <element signature="e#47826#47827#0" expanded="false" />
-            <element signature="e#47877#47878#0" expanded="false" />
-            <element signature="e#50113#50114#0" expanded="false" />
-            <element signature="e#50137#50138#0" expanded="false" />
-            <element signature="e#50221#50222#0" expanded="false" />
-            <element signature="e#50249#50250#0" expanded="false" />
-            <element signature="e#51134#51135#0" expanded="false" />
-            <element signature="e#51176#51177#0" expanded="false" />
-            <element signature="e#51387#51388#0" expanded="false" />
-            <element signature="e#51414#51415#0" expanded="false" />
-            <element signature="e#51575#51576#0" expanded="false" />
-            <element signature="e#51603#51604#0" expanded="false" />
-            <element signature="e#51946#51947#0" expanded="false" />
-            <element signature="e#51990#51991#0" expanded="false" />
-            <element signature="e#52659#52660#0" expanded="false" />
-            <element signature="e#52714#52715#0" expanded="false" />
-            <element signature="e#53135#53136#0" expanded="false" />
-            <element signature="e#53162#53163#0" expanded="false" />
-            <element signature="e#54108#54109#0" expanded="false" />
-            <element signature="e#54162#54163#0" expanded="false" />
-            <element signature="e#54363#54364#0" expanded="false" />
-            <element signature="e#54413#54414#0" expanded="false" />
-            <element signature="e#55164#55165#0" expanded="false" />
-            <element signature="e#55192#55193#0" expanded="false" />
-            <element signature="e#56030#56031#0" expanded="false" />
-            <element signature="e#56058#56059#0" expanded="false" />
-            <element signature="e#57161#57162#0" expanded="false" />
-            <element signature="e#57222#57223#0" expanded="false" />
-            <element signature="e#58414#58415#0" expanded="false" />
-            <element signature="e#58441#58442#0" expanded="false" />
-            <element signature="e#58952#58953#0" expanded="false" />
-            <element signature="e#58980#58981#0" expanded="false" />
-            <element signature="e#59543#59544#0" expanded="false" />
-            <element signature="e#59570#59571#0" expanded="false" />
-            <element signature="e#59940#59941#0" expanded="false" />
-            <element signature="e#59968#59969#0" expanded="false" />
-            <element signature="e#60307#60308#0" expanded="false" />
-            <element signature="e#60368#60369#0" expanded="false" />
-            <element signature="e#60810#60811#0" expanded="false" />
-            <element signature="e#60873#60874#0" expanded="false" />
-            <element signature="e#62677#62678#0" expanded="false" />
-            <element signature="e#62705#62706#0" expanded="false" />
-            <element signature="e#63966#63967#0" expanded="false" />
-            <element signature="e#63993#63994#0" expanded="false" />
-            <element signature="e#64650#64651#0" expanded="false" />
-            <element signature="e#64677#64678#0" expanded="false" />
-            <element signature="e#65044#65045#0" expanded="false" />
-            <element signature="e#65071#65072#0" expanded="false" />
-            <element signature="e#65559#65560#0" expanded="false" />
-            <element signature="e#65586#65587#0" expanded="false" />
-            <element signature="e#65926#65927#0" expanded="false" />
-            <element signature="e#65954#65955#0" expanded="false" />
-            <element signature="e#67150#67151#0" expanded="false" />
-            <element signature="e#67189#67190#0" expanded="false" />
-            <element signature="e#67358#67359#0" expanded="false" />
-            <element signature="e#67397#67398#0" expanded="false" />
-            <element signature="e#67770#67771#0" expanded="false" />
-            <element signature="e#67814#67815#0" expanded="false" />
-            <element signature="e#68825#68826#0" expanded="false" />
-            <element signature="e#68868#68869#0" expanded="false" />
-            <element signature="e#69570#69571#0" expanded="false" />
-            <element signature="e#69619#69620#0" expanded="false" />
-            <element signature="e#70221#70222#0" expanded="false" />
-            <element signature="e#70268#70269#0" expanded="false" />
-            <element signature="e#70883#70884#0" expanded="false" />
-            <element signature="e#70926#70927#0" expanded="false" />
-            <element signature="e#73874#73875#0" expanded="false" />
-            <element signature="e#73917#73918#0" expanded="false" />
-            <element signature="e#74097#74098#0" expanded="false" />
-            <element signature="e#74159#74160#0" expanded="false" />
-            <element signature="e#74270#74271#0" expanded="false" />
-            <element signature="e#74320#74321#0" expanded="false" />
-            <element signature="e#74497#74498#0" expanded="false" />
-            <element signature="e#74545#74546#0" expanded="false" />
-            <element signature="e#74688#74689#0" expanded="false" />
-            <element signature="e#74738#74739#0" expanded="false" />
-          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="16" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/ItemChestTransporter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.5172415" vertical-offset="1657" max-vertical-offset="6630">
-          <caret line="140" column="9" selection-start-line="140" selection-start-column="9" selection-end-line="140" selection-end-column="9" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="362" column="9" selection-start-line="362" selection-start-column="9" selection-end-line="362" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/ChestTransporter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2873">
+        <state vertical-scroll-proportion="0.0">
           <caret line="17" column="77" selection-start-line="17" selection-start-column="77" selection-end-line="17" selection-end-column="77" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_31/jre/lib/rt.jar!/sun/reflect/FieldAccessor.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.61174244" vertical-offset="0" max-vertical-offset="816">
-          <caret line="19" column="16" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
+        <state vertical-scroll-proportion="0.28030303">
+          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.10-10.13.2.1291/forgeBin-1.7.10-10.13.2.1291.jar!/cpw/mods/fml/relauncher/ReflectionHelper.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="46" column="27" selection-start-line="46" selection-start-column="27" selection-end-line="46" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_31/src.zip!/java/lang/reflect/Field.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="386" column="39" selection-start-line="386" selection-start-column="39" selection-end-line="386" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/eclipse/mods/VarietyChests-1.7.10-1.4.0.jar!/de/sanandrew/mods/varietychests/tileentity/TileEntityCustomChest.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/eclipse/mods/VarietyChests-1.7.10-1.4.0.jar!/de/sanandrew/mods/varietychests/crafting/RecipePlainChests.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.1157684">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cubex2/mods/chesttransporter/VariertyChest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="44" column="0" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/eclipse/mods/VarietyChests-1.7.10-1.4.0.jar!/de/sanandrew/mods/varietychests/util/ChestType.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="42" selection-start-line="5" selection-start-column="42" selection-end-line="5" selection-end-column="42" />
           <folding />
         </state>
       </provider>
@@ -1623,6 +1298,7 @@
       <state key="ProjectJDKs.UI" />
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
+          <last-edited>VarietyChests-1.7.10-1.4.0</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

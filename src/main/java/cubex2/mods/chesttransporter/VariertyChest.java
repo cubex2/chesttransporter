@@ -1,6 +1,7 @@
 package cubex2.mods.chesttransporter;
 
 import cpw.mods.fml.common.ObfuscationReflectionHelper;
+import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
@@ -32,11 +33,18 @@ public class VariertyChest extends TransportableChest
         try
         {
             Class clazz = Class.forName("de.sanandrew.mods.varietychests.tileentity.TileEntityCustomChest");
+            Class clazz1 = Class.forName("de.sanandrew.mods.varietychests.util.ChestType");
 
-            String chestType = (String) ObfuscationReflectionHelper.getPrivateValue(clazz, chestTE, "chestType");
+            Object chestType = ObfuscationReflectionHelper.getPrivateValue(clazz, chestTE, "chestType").toString();
 
-            transporter.getTagCompound().setString("VCChestType", chestType);
-        } catch (ClassNotFoundException e)
+            clazz1.getField("name").setAccessible(true);
+            Object chestName = clazz1.getDeclaredField("name").get(chestType);
+
+
+
+
+            transporter.getTagCompound().setString("VCChestType", (String) chestName);
+        } catch (Exception e)
         {
             e.printStackTrace();
         }

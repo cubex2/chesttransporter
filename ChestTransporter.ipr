@@ -187,4 +187,13 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="" />
   </component>
+  <component name="libraryTable">
+    <library name="VarietyChests-1.7.10-1.4.0">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/eclipse/mods/VarietyChests-1.7.10-1.4.0.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
+  </component>
 </project>
