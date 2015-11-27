@@ -1,33 +1,42 @@
 package cubex2.mods.chesttransporter;
 
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.registry.GameData;
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityMinecartChest;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.GameData;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.0.3")
+@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.1.0")
 public class ChestTransporter
 {
-    @Instance("ChestTransporter")
+    @Mod.Instance("ChestTransporter")
     public static ChestTransporter instance;
+
+    @SidedProxy(clientSide = "cubex2.mods.chesttransporter.ClientProxy", serverSide = "cubex2.mods.chesttransporter.CommonProxy")
+    public static CommonProxy proxy;
 
     public static ItemChestTransporter chestTransporter;
     public static ItemChestTransporter chestTransporterIron;
     public static ItemChestTransporter chestTransporterGold;
     public static ItemChestTransporter chestTransporterDiamond;
 
-    @EventHandler
+    @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)
+    {
+        proxy.preInit();
+    }
+
+    @Mod.EventHandler
+    public void init(FMLInitializationEvent event)
     {
         chestTransporter = new ItemChestTransporter(1, "wood");
         chestTransporterIron = new ItemChestTransporter(9, "iron");
@@ -43,9 +52,11 @@ public class ChestTransporter
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(chestTransporterIron), "S S", "SSS", " M ", 'S', Items.stick, 'M', Items.iron_ingot));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(chestTransporterGold), "S S", "SSS", " M ", 'S', Items.stick, 'M', Items.gold_ingot));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(chestTransporterDiamond), "S S", "SSS", " M ", 'S',Items.stick, 'M', Items.diamond));
+
+        proxy.registerModels();
     }
 
-    @EventHandler
+    @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent evt)
     {
         TransportableChest chest = new TransportableChest(Blocks.chest, -1, 1, "vanilla");
@@ -76,7 +87,7 @@ public class ChestTransporter
             }
         }
 
-        if (Loader.isModLoaded("factorization"))
+        /*if (Loader.isModLoaded("factorization"))
         {
             Block block = GameData.getBlockRegistry().getObject("factorization:FzBlock");
             if (block != null && block != Blocks.air)
@@ -97,7 +108,7 @@ public class ChestTransporter
             {
                 ChestRegistry.register(new VariertyChest(block, -1, 13, true));
             }
-        }
+        }*/
 
         if (Loader.isModLoaded("compactchests"))
         {

@@ -1,18 +1,17 @@
 package cubex2.mods.chesttransporter;
 
-import cpw.mods.fml.common.ObfuscationReflectionHelper;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 public class FzBarrel extends TransportableChest
 {
-    private final IIcon[] icons = new IIcon[7];
+    private static final String[] names = new String[]{"oak", "spruce", "birch", "jungle", "acacia", "dark_oak", "creative"};
+    //private final IIcon[] icons = new IIcon[7];
 
     public FzBarrel(Block chestBlock, int chestMeta, int transporterDV)
     {
@@ -82,7 +81,7 @@ public class FzBarrel extends TransportableChest
         }
     }
 
-    @Override
+    /*@Override
     public IIcon getIcon(ItemStack stack)
     {
         NBTTagCompound logNbt = stack.getTagCompound().getCompoundTag("WoodLog");
@@ -118,6 +117,34 @@ public class FzBarrel extends TransportableChest
         for (int i = 0; i < icons.length; i++)
         {
             icons[i] = iconRegister.registerIcon("chesttransporter:barrel_" + names[i]);
+        }
+    }*/
+
+    @Override
+    public String getModelName(ItemStack stack)
+    {
+        NBTTagCompound logNbt = stack.getTagCompound().getCompoundTag("WoodLog");
+        ItemStack log = ItemStack.loadItemStackFromNBT(logNbt);
+
+        if (log.getItem() == Item.getItemFromBlock(Blocks.log))
+        {
+            return "barrel_" + names[log.getItemDamage()];
+        } else if (log.getItem() == Item.getItemFromBlock(Blocks.log2))
+        {
+            return "barrel_" + names[log.getItemDamage() + 4];
+        } else if (log.getItem() == Item.getItemFromBlock(Blocks.bedrock))
+        {
+            return "barrel_creative";
+        }
+        return "barrel_oak";
+    }
+
+    @Override
+    public void addModelLocations()
+    {
+        for (String name : names)
+        {
+            ChestTransporter.proxy.addModelLocation("barrel_" + name);
         }
     }
 }

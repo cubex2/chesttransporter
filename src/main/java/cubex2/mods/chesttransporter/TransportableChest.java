@@ -1,17 +1,14 @@
 package cubex2.mods.chesttransporter;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
 
 public class TransportableChest
 {
     protected final Block chestBlock;
     protected final int chestMeta;
     protected final int transporterDV;
-    protected IIcon icon;
     private final String iconName;
 
     public TransportableChest(Block chestBlock, int chestMeta, int transporterDV, String iconName)
@@ -20,6 +17,7 @@ public class TransportableChest
         this.chestMeta = chestMeta;
         this.transporterDV = transporterDV;
         this.iconName = iconName;
+        addModelLocations();
     }
 
     public Block getChestBlock()
@@ -54,13 +52,13 @@ public class TransportableChest
         // do nothing
     }
 
-    public IIcon getIcon(ItemStack stack)
+    public String getModelName(ItemStack stack)
     {
-        return icon;
+        return iconName;
     }
 
-    public void registerIcon(IIconRegister iconRegister)
+    public void addModelLocations()
     {
-        icon = iconRegister.registerIcon("chesttransporter:" + iconName);
+        ChestTransporter.proxy.addModelLocation(iconName);
     }
 }

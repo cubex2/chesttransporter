@@ -1,10 +1,9 @@
 package cubex2.mods.chesttransporter;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.BlockSnow;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityMinecart;
@@ -21,26 +20,23 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.List;
 
 public class ItemChestTransporter extends Item
 {
-    @SideOnly(Side.CLIENT)
-    public IIcon handleIcon;
-
-    private final String iconName;
 
     protected ItemChestTransporter(int maxDamage, String iconName)
     {
         super();
-        this.iconName = iconName;
         setUnlocalizedName("chesttransporter_" + iconName);
         setMaxStackSize(1);
         setMaxDamage(maxDamage);
@@ -59,65 +55,59 @@ public class ItemChestTransporter extends Item
             EntityPlayer player = event.entityPlayer;
 
             World world = event.entityPlayer.worldObj;
-
-            int x = event.x;
-            int y = event.y;
-            int z = event.z;
-            int face = event.face;
+            EnumFacing face = event.face;
 
             int chestType = getTagCompound(stack).getByte("ChestType");
 
-            if (chestType == 0 && isChestAt(world, x, y, z))
+            if (chestType == 0 && isChestAt(world, event.pos))
             {
-                grabChest(stack, world, x, y, z);
+                grabChest(stack, world, event.pos);
             } else if (chestType != 0)
             {
-                placeChest(stack, player, world, x, y, z, face);
+                placeChest(stack, player, world, event.pos, face);
             }
         }
     }
 
-    private void grabChest(ItemStack stack, World world, int x, int y, int z)
+    private void grabChest(ItemStack stack, World world, BlockPos pos)
     {
-        TileEntity tile = world.getTileEntity(x, y, z);
+        TileEntity tile = world.getTileEntity(pos);
         IInventory chest = (IInventory) tile;
         if (chest != null)
         {
-            Block chestBlock = world.getBlock(x, y, z);
-            int metadata = world.getBlockMetadata(x, y, z);
+            IBlockState iblockstate = world.getBlockState(pos);
+            Block chestBlock = iblockstate.getBlock();
+            int metadata = chestBlock.getMetaFromState(iblockstate);
             int newChestType = getChestType(chestBlock, metadata);
             if (newChestType == 0)
                 return;
             getTagCompound(stack).setByte("ChestType", (byte) newChestType);
             moveItemsIntoStack(chest, stack);
             ChestRegistry.getChest(chestBlock, metadata).preRemoveChest(stack, tile);
-            world.setBlockToAir(x, y, z);
-            world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, chestBlock.stepSound.getBreakSound(), (chestBlock.stepSound.getVolume() + 1.0F) / 2.0F, chestBlock.stepSound.getPitch() * 0.5F);
+            world.setBlockToAir(pos);
+            world.playSoundEffect(pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, chestBlock.stepSound.getBreakSound(), (chestBlock.stepSound.getVolume() + 1.0F) / 2.0F, chestBlock.stepSound.getFrequency() * 0.5F);
         }
     }
 
-    private void placeChest(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int face)
+    private void placeChest(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing face)
     {
         int chestType = getTagCompound(stack).getByte("ChestType");
         if (!ChestRegistry.dvToChest.containsKey(chestType))
             return;
 
-        int[] chestCoords = getChestCoords(world, x, y, z, face);
+        BlockPos chestPos = getChestCoords(world, pos, face);
 
         ItemStack chestStack = getStackFromDamage(chestType);
-        if (!chestStack.tryPlaceItemIntoWorld(player, world, x, y, z, face, 0.0f, 0.0f, 0.0f))
+        if (!chestStack.onItemUse(player, world, pos, face, 0.0f, 0.0f, 0.0f))
             return;
 
-        if (chestCoords != null)
+        if (chestPos != null)
         {
-            int x1 = chestCoords[0];
-            int y1 = chestCoords[1];
-            int z1 = chestCoords[2];
+            IBlockState iblockstate = world.getBlockState(chestPos);
+            Block block = iblockstate.getBlock();
+            int meta = block.getMetaFromState(iblockstate);
 
-            Block block = world.getBlock(x1, y1, z1);
-            int meta = world.getBlockMetadata(x1, y1, z1);
-
-            TileEntity tile = world.getTileEntity(x1, y1, z1);
+            TileEntity tile = world.getTileEntity(chestPos);
             IInventory chest = (IInventory) tile;
             moveItemsIntoChest(stack, chest);
             getTagCompound(stack).setByte("ChestType", (byte) 0);
@@ -133,47 +123,20 @@ public class ItemChestTransporter extends Item
         }
     }
 
-    private int[] getChestCoords(World world, int x, int y, int z, int facing)
+    private BlockPos getChestCoords(World world, BlockPos pos, EnumFacing facing)
     {
-        Block block = world.getBlock(x, y, z);
+        IBlockState iblockstate = world.getBlockState(pos);
+        Block block = iblockstate.getBlock();
 
-        if (block == Blocks.snow_layer && (world.getBlockMetadata(x, y, z) & 7) < 1)
+        if (block == Blocks.snow_layer && (Integer) iblockstate.getValue(BlockSnow.LAYERS) < 1)
         {
             // do nothing
-        } else if (block != Blocks.vine && block != Blocks.tallgrass && block != Blocks.deadbush && (block == null || !block.isReplaceable(world, x, y, z)))
+        } else if (!block.isReplaceable(world, pos))
         {
-            if (facing == 0)
-            {
-                --y;
-            }
-
-            if (facing == 1)
-            {
-                ++y;
-            }
-
-            if (facing == 2)
-            {
-                --z;
-            }
-
-            if (facing == 3)
-            {
-                ++z;
-            }
-
-            if (facing == 4)
-            {
-                --x;
-            }
-
-            if (facing == 5)
-            {
-                ++x;
-            }
+            pos = pos.offset(facing);
         }
 
-        return new int[]{x, y, z};
+        return pos;
     }
 
     @Override
@@ -230,7 +193,7 @@ public class ItemChestTransporter extends Item
             }
             moveItemsIntoChest(stack, (IInventory) newMinecart);
             getTagCompound(stack).setByte("ChestType", (byte) 0);
-            minecart.worldObj.playSoundEffect((float) minecart.posX + 0.5F, (float) minecart.posY + 0.5F, (float) minecart.posZ + 0.5F, Blocks.chest.stepSound.getBreakSound(), (Blocks.chest.stepSound.getVolume() + 1.0F) / 2.0F, Blocks.chest.stepSound.getPitch() * 0.8F);
+            minecart.worldObj.playSoundEffect((float) minecart.posX + 0.5F, (float) minecart.posY + 0.5F, (float) minecart.posZ + 0.5F, Blocks.chest.stepSound.getBreakSound(), (Blocks.chest.stepSound.getVolume() + 1.0F) / 2.0F, Blocks.chest.stepSound.getFrequency() * 0.8F);
             if (!player.capabilities.isCreativeMode)
             {
                 stack.damageItem(1, player);
@@ -244,7 +207,7 @@ public class ItemChestTransporter extends Item
             // grab chest from minecart
             moveItemsIntoStack((IInventory) minecart, stack);
             getTagCompound(stack).setByte("ChestType", (byte) ChestRegistry.getChestType(minecart));
-            minecart.worldObj.playSoundEffect((float) minecart.posX + 0.5F, (float) minecart.posY + 0.5F, (float) minecart.posZ + 0.5F, Blocks.chest.stepSound.getBreakSound(), (Blocks.chest.stepSound.getVolume() + 1.0F) / 2.0F, Blocks.chest.stepSound.getPitch() * 0.5F);
+            minecart.worldObj.playSoundEffect((float) minecart.posX + 0.5F, (float) minecart.posY + 0.5F, (float) minecart.posZ + 0.5F, Blocks.chest.stepSound.getBreakSound(), (Blocks.chest.stepSound.getVolume() + 1.0F) / 2.0F, Blocks.chest.stepSound.getFrequency() * 0.5F);
             if (!player.worldObj.isRemote)
             {
                 EntityMinecartEmpty newMinecart = new EntityMinecartEmpty(minecart.worldObj);
@@ -270,41 +233,13 @@ public class ItemChestTransporter extends Item
     }
 
     @Override
-    public IIcon getIconFromDamage(int i)
-    {
-        return handleIcon;
-    }
-
-    @Override
-    public IIcon getIconIndex(ItemStack stack)
-    {
-        int chestType = getTagCompound(stack).getByte("ChestType");
-        if (chestType == 0) return handleIcon;
-        return ChestRegistry.dvToChest.get(chestType).getIcon(stack);
-    }
-
-    @Override
-    public IIcon getIcon(ItemStack stack, int pass)
-    {
-        if (pass == 0)
-            return handleIcon;
-        return getIconIndex(stack);
-    }
-
-    @Override
-    public boolean requiresMultipleRenderPasses()
-    {
-        return true;
-    }
-
-    @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean flag)
     {
         int chestType = getTagCompound(stack).getByte("ChestType");
         if (chestType != 0)
         {
             int numItems = 0;
-            NBTTagList nbtList = stack.stackTagCompound.getTagList("Items", 10);
+            NBTTagList nbtList = stack.getTagCompound().getTagList("Items", 10);
 
             for (int i = 0; i < nbtList.tagCount(); ++i)
             {
@@ -333,10 +268,12 @@ public class ItemChestTransporter extends Item
         }
     }
 
-    private boolean isChestAt(World world, int x, int y, int z)
+    private boolean isChestAt(World world, BlockPos pos)
     {
-        Block block = world.getBlock(x, y, z);
-        int meta = world.getBlockMetadata(x, y, z);
+        IBlockState iblockstate = world.getBlockState(pos);
+        Block block = iblockstate.getBlock();
+
+        int meta = block.getMetaFromState(iblockstate);
         return ChestRegistry.isChest(block, meta);
     }
 
@@ -353,7 +290,7 @@ public class ItemChestTransporter extends Item
 
     private void moveItemsIntoStack(IInventory chest, ItemStack stack)
     {
-        if (stack.stackTagCompound == null)
+        if (stack.getTagCompound() == null)
         {
             stack.setTagCompound(new NBTTagCompound());
         }
@@ -370,14 +307,14 @@ public class ItemChestTransporter extends Item
                 nbtList.appendTag(nbtTabCompound2);
             }
         }
-        stack.stackTagCompound.setTag("Items", nbtList);
+        stack.getTagCompound().setTag("Items", nbtList);
     }
 
     private void moveItemsIntoChest(ItemStack stack, IInventory chest)
     {
         if (!stack.hasTagCompound()) return;
 
-        NBTTagList nbtList = stack.stackTagCompound.getTagList("Items", 10);
+        NBTTagList nbtList = stack.getTagCompound().getTagList("Items", 10);
 
         for (int i = 0; i < nbtList.tagCount(); ++i)
         {
@@ -398,21 +335,10 @@ public class ItemChestTransporter extends Item
             }
         }
 
-        stack.stackTagCompound.removeTag("Items");
+        stack.getTagCompound().removeTag("Items");
     }
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void registerIcons(IIconRegister iconRegister)
-    {
-        handleIcon = iconRegister.registerIcon("chesttransporter:ct_" + iconName);
-        for (TransportableChest chest : ChestRegistry.chests)
-        {
-            chest.registerIcon(iconRegister);
-        }
-    }
-
-    private NBTTagCompound getTagCompound(ItemStack stack)
+    public static NBTTagCompound getTagCompound(ItemStack stack)
     {
         if (stack.getTagCompound() == null)
             stack.setTagCompound(new NBTTagCompound());
