@@ -87,9 +87,9 @@ public class BakedModelCH implements ISmartItemModel, IFlexibleBakedModel, IPers
     }
 
     @Override
-    public TextureAtlasSprite getTexture()
+    public TextureAtlasSprite getParticleTexture()
     {
-        return handle.getTexture();
+        return handle.getParticleTexture();
     }
 
     @Override
@@ -100,8 +100,8 @@ public class BakedModelCH implements ISmartItemModel, IFlexibleBakedModel, IPers
 
 
     @Override
-    public Pair<IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType)
+    public Pair<IFlexibleBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType)
     {
-        return Pair.of((IBakedModel) this, ((IPerspectiveAwareModel) handle).handlePerspective(cameraTransformType).getRight());
+        return Pair.of((IFlexibleBakedModel) this, ((IPerspectiveAwareModel) handle).handlePerspective(cameraTransformType).getRight());
     }
 }

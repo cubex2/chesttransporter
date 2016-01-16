@@ -1,14 +1,13 @@
 package cubex2.mods.chesttransporter;
 
-import cubex2.mods.chesttransporter.client.ClientEventHandler;
 import cubex2.mods.chesttransporter.client.ModelLoaderCT;
 import cubex2.mods.chesttransporter.client.ModelRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
-import net.minecraftforge.common.MinecraftForge;
 
 public class ClientProxy extends CommonProxy
 {
@@ -16,7 +15,6 @@ public class ClientProxy extends CommonProxy
     public void preInit()
     {
         ModelLoaderRegistry.registerLoader(new ModelLoaderCT());
-        MinecraftForge.EVENT_BUS.register(new ClientEventHandler());
     }
 
     @Override
@@ -25,8 +23,8 @@ public class ClientProxy extends CommonProxy
         ModelResourceLocation l;
 
         Item item = ChestTransporter.chestTransporter;
-        l = new ModelResourceLocation("chesttransporter:smart_handle_wood", "inventory");
-        ModelBakery.addVariantName(item, "chesttransporter:smart_handle_wood");
+        l = new ModelResourceLocation("chesttransporter:smart_wood", "inventory");
+        ModelBakery.addVariantName(item, "chesttransporter:smart_wood");
         Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, l);
 
         item = ChestTransporter.chestTransporterIron;
@@ -48,6 +46,6 @@ public class ClientProxy extends CommonProxy
     @Override
     public void addModelLocation(String name)
     {
-        ModelRegistry.getInstance().modelLocations.put(name, new ModelResourceLocation("chesttransporter:item/" + name, "inventory"));
+        ModelRegistry.getInstance().modelLocations.put(name, new ResourceLocation("chesttransporter:item/" + name));
     }
 }

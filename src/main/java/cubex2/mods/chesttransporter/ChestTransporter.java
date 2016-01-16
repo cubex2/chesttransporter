@@ -5,6 +5,7 @@ import net.minecraft.entity.item.EntityMinecartChest;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -15,7 +16,7 @@ import net.minecraftforge.fml.common.registry.GameData;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.1.0")
+@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.2.0")
 public class ChestTransporter
 {
     @Mod.Instance("ChestTransporter")
@@ -67,7 +68,7 @@ public class ChestTransporter
 
         if (Loader.isModLoaded("IronChest"))
         {
-            Block block = GameData.getBlockRegistry().getObject("IronChest:BlockIronChest");
+            Block block = GameData.getBlockRegistry().getObject(new ResourceLocation("IronChest:BlockIronChest"));
             if (block != null && block != Blocks.air)
             {
                 String[] names = new String[]{"iron", "gold", "diamond", "copper", "tin", "crystal", "obsidian"};
@@ -80,7 +81,7 @@ public class ChestTransporter
 
         if (Loader.isModLoaded("MultiPageChest"))
         {
-            Block block = GameData.getBlockRegistry().getObject("MultiPageChest:multipagechest");
+            Block block = GameData.getBlockRegistry().getObject(new ResourceLocation("MultiPageChest:multipagechest"));
             if (block != null && block != Blocks.air)
             {
                 ChestRegistry.register(new TransportableChest(block, -1, 10, "multipagechest"));
@@ -115,7 +116,7 @@ public class ChestTransporter
             String[] names = new String[]{"quadruple", "sextuple", "triple", "double", "quintuple"};
             for (int i = 0; i < names.length; i++)
             {
-                Block block = GameData.getBlockRegistry().getObject("compactchests:" + names[i] + "Chest");
+                Block block = GameData.getBlockRegistry().getObject(new ResourceLocation("compactchests:" + names[i] + "Chest"));
                 if (block != null && block != Blocks.air)
                 {
                     ChestRegistry.register(new TransportableChest(block, -1, 14 + i, "cc_" + names[i]));
@@ -127,7 +128,7 @@ public class ChestTransporter
             String[] names = new String[]{"quadruple", "sextuple", "triple", "double", "quintuple"};
             for (int i = 0; i < names.length; i++)
             {
-                Block block = GameData.getBlockRegistry().getObject("compactstorage:" + names[i] + "Chest");
+                Block block = GameData.getBlockRegistry().getObject(new ResourceLocation("compactstorage:" + names[i] + "Chest"));
                 if (block != null && block != Blocks.air)
                 {
                     ChestRegistry.register(new TransportableChest(block, -1, 14 + i, "cc_" + names[i]));

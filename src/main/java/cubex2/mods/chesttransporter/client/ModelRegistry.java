@@ -27,13 +27,13 @@ public class ModelRegistry
     {
     }
 
-    public Map<String, ModelResourceLocation> modelLocations = Maps.newHashMap();
+    public Map<String, ResourceLocation> modelLocations = Maps.newHashMap();
 
     public Map<String, IBakedModel> bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) throws IOException
     {
         Map<String, IBakedModel> ret = Maps.newHashMap();
 
-        for (Map.Entry<String, ModelResourceLocation> entry : modelLocations.entrySet())
+        for (Map.Entry<String, ResourceLocation> entry : modelLocations.entrySet())
         {
             IModel model = ModelLoaderRegistry.getModel(entry.getValue());
             ret.put(entry.getKey(), model.bake(state, format, bakedTextureGetter));
