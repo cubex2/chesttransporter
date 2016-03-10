@@ -1,15 +1,19 @@
 package cubex2.mods.chesttransporter;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
 
 public class TransportableChest
 {
     protected final Block chestBlock;
     protected final int chestMeta;
     protected final int transporterDV;
-    private final String iconName;
+    protected final String iconName;
 
     public TransportableChest(Block chestBlock, int chestMeta, int transporterDV, String iconName)
     {
@@ -18,6 +22,11 @@ public class TransportableChest
         this.transporterDV = transporterDV;
         this.iconName = iconName;
         addModelLocations();
+    }
+
+    public boolean copyTileEntity()
+    {
+        return false;
     }
 
     public Block getChestBlock()
@@ -47,9 +56,14 @@ public class TransportableChest
         // do nothing
     }
 
-    public void preDestroyTransporter(ItemStack transporter, TileEntity chestTE)
+    public void preDestroyTransporter(EntityLivingBase living, ItemStack transporter, TileEntity chestTE)
     {
         // do nothing
+    }
+
+    public void modifyTileCompound(EntityLivingBase living, NBTTagCompound nbt)
+    {
+
     }
 
     public String getModelName(ItemStack stack)

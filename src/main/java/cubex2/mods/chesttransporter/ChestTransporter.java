@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.registry.GameData;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.2.0")
+@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.2.1")
 public class ChestTransporter
 {
     @Mod.Instance("ChestTransporter")
@@ -52,7 +52,7 @@ public class ChestTransporter
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(chestTransporter), "S S", "SSS", " S ", 'S', Items.stick));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(chestTransporterIron), "S S", "SSS", " M ", 'S', Items.stick, 'M', Items.iron_ingot));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(chestTransporterGold), "S S", "SSS", " M ", 'S', Items.stick, 'M', Items.gold_ingot));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(chestTransporterDiamond), "S S", "SSS", " M ", 'S',Items.stick, 'M', Items.diamond));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(chestTransporterDiamond), "S S", "SSS", " M ", 'S', Items.stick, 'M', Items.diamond));
 
         proxy.registerModels();
     }
@@ -122,8 +122,7 @@ public class ChestTransporter
                     ChestRegistry.register(new TransportableChest(block, -1, 14 + i, "cc_" + names[i]));
                 }
             }
-        }
-        else if (Loader.isModLoaded("compactstorage"))
+        } else if (Loader.isModLoaded("compactstorage"))
         {
             String[] names = new String[]{"quadruple", "sextuple", "triple", "double", "quintuple"};
             for (int i = 0; i < names.length; i++)
@@ -133,6 +132,25 @@ public class ChestTransporter
                 {
                     ChestRegistry.register(new TransportableChest(block, -1, 14 + i, "cc_" + names[i]));
                 }
+            }
+        }
+
+        if (Loader.isModLoaded("StorageDrawers"))
+        {
+            Block block = GameData.getBlockRegistry().getObject(new ResourceLocation("storagedrawers:basicDrawers"));
+            if (block != null && block != Blocks.air)
+            {
+                String[] names = new String[]{"full1", "full2", "full4", "half2", "half4"};
+                for (int i = 0; i < names.length; i++)
+                {
+                    ChestRegistry.register(new BasicDrawer(block, i, 19 + i, "basic_drawer_" + names[i]));
+                }
+            }
+
+            block = GameData.getBlockRegistry().getObject(new ResourceLocation("storagedrawers:compDrawers"));
+            if (block != null && block != Blocks.air)
+            {
+                ChestRegistry.register(new CompDrawer(block, 0, 23, "comp_drawer"));
             }
         }
 

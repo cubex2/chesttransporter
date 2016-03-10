@@ -1,6 +1,7 @@
 package cubex2.mods.chesttransporter;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -50,7 +51,7 @@ public class FzBarrel extends TransportableChest
     }
 
     @Override
-    public void preDestroyTransporter(ItemStack transporter, TileEntity chestTE)
+    public void preDestroyTransporter(EntityLivingBase living, ItemStack transporter, TileEntity chestTE)
     {
         try
         {
