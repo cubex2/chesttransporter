@@ -5,18 +5,16 @@ import net.minecraft.entity.item.EntityMinecartChest;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.registry.GameData;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.2.1")
+@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.3.0")
 public class ChestTransporter
 {
     @Mod.Instance("ChestTransporter")
@@ -44,10 +42,15 @@ public class ChestTransporter
         chestTransporterGold = new ItemChestTransporter(19, "gold");
         chestTransporterDiamond = new ItemChestTransporter(79, "diamond");
 
-        GameRegistry.registerItem(chestTransporter, "chesttransporter");
-        GameRegistry.registerItem(chestTransporterIron, "chesttransporter_iron");
-        GameRegistry.registerItem(chestTransporterGold, "chesttransporter_gold");
-        GameRegistry.registerItem(chestTransporterDiamond, "chesttransporter_diamond");
+        chestTransporter.setRegistryName("chesttransporter","chesttransporter");
+        chestTransporterIron.setRegistryName("chesttransporter","chesttransporter_iron");
+        chestTransporterGold.setRegistryName("chesttransporter","chesttransporter_gold");
+        chestTransporterDiamond.setRegistryName("chesttransporter","chesttransporter_diamond");
+
+        GameRegistry.register(chestTransporter);
+        GameRegistry.register(chestTransporterIron);
+        GameRegistry.register(chestTransporterGold);
+        GameRegistry.register(chestTransporterDiamond);
 
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(chestTransporter), "S S", "SSS", " S ", 'S', Items.stick));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(chestTransporterIron), "S S", "SSS", " M ", 'S', Items.stick, 'M', Items.iron_ingot));
@@ -68,7 +71,7 @@ public class ChestTransporter
 
         if (Loader.isModLoaded("IronChest"))
         {
-            Block block = GameData.getBlockRegistry().getObject(new ResourceLocation("IronChest:BlockIronChest"));
+            Block block = Block.getBlockFromName("IronChest:BlockIronChest");
             if (block != null && block != Blocks.air)
             {
                 String[] names = new String[]{"iron", "gold", "diamond", "copper", "tin", "crystal", "obsidian"};
@@ -81,7 +84,7 @@ public class ChestTransporter
 
         if (Loader.isModLoaded("MultiPageChest"))
         {
-            Block block = GameData.getBlockRegistry().getObject(new ResourceLocation("MultiPageChest:multipagechest"));
+            Block block = Block.getBlockFromName("MultiPageChest:multipagechest");
             if (block != null && block != Blocks.air)
             {
                 ChestRegistry.register(new TransportableChest(block, -1, 10, "multipagechest"));
@@ -111,33 +114,18 @@ public class ChestTransporter
             }
         }*/
 
-        if (Loader.isModLoaded("compactchests"))
+        if (Loader.isModLoaded("compactstorage"))
         {
-            String[] names = new String[]{"quadruple", "sextuple", "triple", "double", "quintuple"};
-            for (int i = 0; i < names.length; i++)
+            Block block = Block.getBlockFromName("compactstorage:compactChest");
+            if (block != null && block != Blocks.air)
             {
-                Block block = GameData.getBlockRegistry().getObject(new ResourceLocation("compactchests:" + names[i] + "Chest"));
-                if (block != null && block != Blocks.air)
-                {
-                    ChestRegistry.register(new TransportableChest(block, -1, 14 + i, "cc_" + names[i]));
-                }
-            }
-        } else if (Loader.isModLoaded("compactstorage"))
-        {
-            String[] names = new String[]{"quadruple", "sextuple", "triple", "double", "quintuple"};
-            for (int i = 0; i < names.length; i++)
-            {
-                Block block = GameData.getBlockRegistry().getObject(new ResourceLocation("compactstorage:" + names[i] + "Chest"));
-                if (block != null && block != Blocks.air)
-                {
-                    ChestRegistry.register(new TransportableChest(block, -1, 14 + i, "cc_" + names[i]));
-                }
+                ChestRegistry.register(new CompactChest(block, -1, 14, "compact_chest"));
             }
         }
 
         if (Loader.isModLoaded("StorageDrawers"))
         {
-            Block block = GameData.getBlockRegistry().getObject(new ResourceLocation("storagedrawers:basicDrawers"));
+            Block block = Block.getBlockFromName("storagedrawers:basicDrawers");
             if (block != null && block != Blocks.air)
             {
                 String[] names = new String[]{"full1", "full2", "full4", "half2", "half4"};
@@ -147,7 +135,7 @@ public class ChestTransporter
                 }
             }
 
-            block = GameData.getBlockRegistry().getObject(new ResourceLocation("storagedrawers:compDrawers"));
+            block = Block.getBlockFromName("storagedrawers:compDrawers");
             if (block != null && block != Blocks.air)
             {
                 ChestRegistry.register(new CompDrawer(block, 0, 23, "comp_drawer"));

@@ -3,10 +3,14 @@ package cubex2.mods.chesttransporter.client;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.MultipartBakedModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.*;
+import net.minecraftforge.common.model.IModelState;
+import net.minecraftforge.common.model.TRSRTransformation;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -47,15 +51,15 @@ public class ModelCT implements IModel
     }
 
     @Override
-    public IFlexibleBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter)
+    public IBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter)
     {
         try
         {
             IModel sub = ModelLoaderRegistry.getModel(handle);
-            IFlexibleBakedModel baked = sub.bake(state, format, bakedTextureGetter);
+            IBakedModel baked = sub.bake(state, format, bakedTextureGetter);
 
             return new BakedModelCH(baked, ModelRegistry.getInstance().bake(state, format, bakedTextureGetter));
-        } catch (IOException e)
+        } catch (Exception e)
         {
             e.printStackTrace();
         }

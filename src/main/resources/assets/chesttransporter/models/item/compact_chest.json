@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "chesttransporter:items/ct_gold"
+    "layer0": "chesttransporter:items/compact_chest"
   }
 }

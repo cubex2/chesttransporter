@@ -2,6 +2,7 @@ package cubex2.mods.chesttransporter;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSnow;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -9,6 +10,7 @@ import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.item.EntityMinecartEmpty;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -16,16 +18,16 @@ import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagByte;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.List;
@@ -44,31 +46,28 @@ public class ItemChestTransporter extends Item
     }
 
     @SubscribeEvent
-    public void onPlayerInteract(PlayerInteractEvent event)
+    public void onPlayerInteract(PlayerInteractEvent.RightClickBlock event)
     {
-        if (event.action == Action.RIGHT_CLICK_BLOCK)
+        ItemStack stack = event.getItemStack();
+        if (stack == null || stack.getItem() != this)
+            return;
+        EntityPlayer player = event.getEntityPlayer();
+
+        World world = event.getEntityPlayer().worldObj;
+        EnumFacing face = event.getFace();
+
+        int chestType = getTagCompound(stack).getByte("ChestType");
+
+        if (chestType == 0 && isChestAt(world, event.getPos()))
         {
-            ItemStack stack = event.entityPlayer.getCurrentEquippedItem();
-            if (stack == null || stack.getItem() != this)
-                return;
-            EntityPlayer player = event.entityPlayer;
-
-            World world = event.entityPlayer.worldObj;
-            EnumFacing face = event.face;
-
-            int chestType = getTagCompound(stack).getByte("ChestType");
-
-            if (chestType == 0 && isChestAt(world, event.pos))
-            {
-                grabChest(stack, world, event.pos);
-            } else if (chestType != 0)
-            {
-                placeChest(stack, player, world, event.pos, face);
-            }
+            grabChest(stack, player, world, event.getPos());
+        } else if (chestType != 0)
+        {
+            placeChest(stack, player, event.getHand(), world, event.getPos(), face);
         }
     }
 
-    private void grabChest(ItemStack stack, World world, BlockPos pos)
+    private void grabChest(ItemStack stack, EntityPlayer player, World world, BlockPos pos)
     {
         TileEntity tile = world.getTileEntity(pos);
         IInventory chest = (IInventory) tile;
@@ -99,11 +98,12 @@ public class ItemChestTransporter extends Item
             tChest.preRemoveChest(stack, tile);
 
             world.setBlockToAir(pos);
-            world.playSoundEffect(pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, chestBlock.stepSound.getBreakSound(), (chestBlock.stepSound.getVolume() + 1.0F) / 2.0F, chestBlock.stepSound.getFrequency() * 0.5F);
+            SoundType soundType = chestBlock.getSoundType();
+            world.playSound(player, pos, soundType.getPlaceSound(), SoundCategory.BLOCKS, (soundType.getVolume() + 1.0F) / 2.0F, soundType.getPitch() * 0.8F);
         }
     }
 
-    private void placeChest(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing face)
+    private void placeChest(ItemStack stack, EntityPlayer player, EnumHand hand, World world, BlockPos pos, EnumFacing face)
     {
         int chestType = getTagCompound(stack).getByte("ChestType");
         if (!ChestRegistry.dvToChest.containsKey(chestType))
@@ -112,7 +112,7 @@ public class ItemChestTransporter extends Item
         BlockPos chestPos = getChestCoords(world, pos, face);
 
         ItemStack chestStack = getStackFromDamage(chestType);
-        if (!chestStack.onItemUse(player, world, pos, face, 0.0f, 0.0f, 0.0f))
+        if (chestStack.onItemUse(player, world, pos, hand, face, 0.0f, 0.0f, 0.0f) != EnumActionResult.SUCCESS)
             return;
 
         if (chestPos != null)
@@ -130,7 +130,7 @@ public class ItemChestTransporter extends Item
             {
                 NBTTagCompound nbt = getTagCompound(stack).getCompoundTag("ChestTile");
                 tChest.modifyTileCompound(player, nbt);
-                world.setTileEntity(chestPos, TileEntity.createAndLoadEntity(nbt));
+                world.setTileEntity(chestPos, TileEntity.createTileEntity(world.getMinecraftServer(), nbt));
             } else
             {
                 moveItemsIntoChest(stack, chest);
@@ -174,41 +174,41 @@ public class ItemChestTransporter extends Item
             EntityPlayer player = (EntityPlayer) entity;
             if (player.capabilities.isCreativeMode)
                 return;
-            if (player.getActivePotionEffect(Potion.moveSlowdown) == null || player.getActivePotionEffect(Potion.moveSlowdown).getDuration() < 20)
+            if (player.getActivePotionEffect(MobEffects.moveSlowdown) == null || player.getActivePotionEffect(MobEffects.moveSlowdown).getDuration() < 20)
             {
-                player.addPotionEffect(new PotionEffect(Potion.moveSlowdown.getId(), 20 * 3, 2));
+                player.addPotionEffect(new PotionEffect(MobEffects.moveSlowdown, 20 * 3, 2));
             }
-            if (player.getActivePotionEffect(Potion.digSlowdown) == null || player.getActivePotionEffect(Potion.digSlowdown).getDuration() < 20)
+            if (player.getActivePotionEffect(MobEffects.digSlowdown) == null || player.getActivePotionEffect(MobEffects.digSlowdown).getDuration() < 20)
             {
-                player.addPotionEffect(new PotionEffect(Potion.digSlowdown.getId(), 20 * 3, 3));
+                player.addPotionEffect(new PotionEffect(MobEffects.digSlowdown, 20 * 3, 3));
             }
-            if (player.getActivePotionEffect(Potion.jump) == null || player.getActivePotionEffect(Potion.jump).getDuration() < 20)
+            if (player.getActivePotionEffect(MobEffects.jump) == null || player.getActivePotionEffect(MobEffects.jump).getDuration() < 20)
             {
-                player.addPotionEffect(new PotionEffect(Potion.jump.getId(), 20 * 3, -2));
+                player.addPotionEffect(new PotionEffect(MobEffects.jump, 20 * 3, -2));
             }
-            if (player.getActivePotionEffect(Potion.hunger) == null || player.getActivePotionEffect(Potion.hunger).getDuration() < 20)
+            if (player.getActivePotionEffect(MobEffects.hunger) == null || player.getActivePotionEffect(MobEffects.hunger).getDuration() < 20)
             {
-                player.addPotionEffect(new PotionEffect(Potion.hunger.getId(), 20 * 3, 0));
+                player.addPotionEffect(new PotionEffect(MobEffects.hunger, 20 * 3, 0));
             }
         }
 
     }
 
     @SubscribeEvent
-    public void entityInteract(EntityInteractEvent event)
+    public void entityInteract(PlayerInteractEvent.EntityInteract event)
     {
-        if (!(event.target instanceof EntityMinecart))
+        if (!(event.getTarget() instanceof EntityMinecart))
             return;
 
-        ItemStack stack = event.entityPlayer.getCurrentEquippedItem();
-        EntityMinecart minecart = (EntityMinecart) event.target;
+        ItemStack stack = event.getItemStack();
+        EntityMinecart minecart = (EntityMinecart) event.getTarget();
         if (stack == null || stack.getItem() != this || minecart == null)
             return;
 
         int chestType = getTagCompound(stack).getByte("ChestType");
-        EntityPlayer player = event.entityPlayer;
+        EntityPlayer player = event.getEntityPlayer();
 
-        if (minecart instanceof EntityMinecartEmpty && minecart.riddenByEntity == null && ChestRegistry.isMinecartChest(chestType))
+        if (minecart instanceof EntityMinecartEmpty && !minecart.isBeingRidden() && ChestRegistry.isMinecartChest(chestType))
         {
             // put chest into minecart
             EntityMinecart newMinecart = ChestRegistry.createMinecart(minecart.worldObj, chestType);
@@ -218,7 +218,8 @@ public class ItemChestTransporter extends Item
             }
             moveItemsIntoChest(stack, (IInventory) newMinecart);
             getTagCompound(stack).setByte("ChestType", (byte) 0);
-            minecart.worldObj.playSoundEffect((float) minecart.posX + 0.5F, (float) minecart.posY + 0.5F, (float) minecart.posZ + 0.5F, Blocks.chest.stepSound.getBreakSound(), (Blocks.chest.stepSound.getVolume() + 1.0F) / 2.0F, Blocks.chest.stepSound.getFrequency() * 0.8F);
+            SoundType soundType = Blocks.chest.getSoundType();
+            minecart.worldObj.playSound(player, minecart.getPosition(), soundType.getPlaceSound(), SoundCategory.BLOCKS, (soundType.getVolume() + 1.0F) / 2.0F, soundType.getPitch() * 0.8F);
             if (!player.capabilities.isCreativeMode)
             {
                 stack.damageItem(1, player);
@@ -232,7 +233,8 @@ public class ItemChestTransporter extends Item
             // grab chest from minecart
             moveItemsIntoStack((IInventory) minecart, stack);
             getTagCompound(stack).setByte("ChestType", (byte) ChestRegistry.getChestType(minecart));
-            minecart.worldObj.playSoundEffect((float) minecart.posX + 0.5F, (float) minecart.posY + 0.5F, (float) minecart.posZ + 0.5F, Blocks.chest.stepSound.getBreakSound(), (Blocks.chest.stepSound.getVolume() + 1.0F) / 2.0F, Blocks.chest.stepSound.getFrequency() * 0.5F);
+            SoundType soundType = Blocks.chest.getSoundType();
+            minecart.worldObj.playSound(player, minecart.getPosition(), soundType.getBreakSound(), SoundCategory.BLOCKS, (soundType.getVolume() + 1.0F) / 2.0F, soundType.getPitch() * 0.8F);
             if (!player.worldObj.isRemote)
             {
                 EntityMinecartEmpty newMinecart = new EntityMinecartEmpty(minecart.worldObj);

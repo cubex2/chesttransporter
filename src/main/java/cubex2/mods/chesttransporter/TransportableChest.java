@@ -5,8 +5,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
 
 public class TransportableChest
 {
@@ -63,7 +61,7 @@ public class TransportableChest
 
     public void modifyTileCompound(EntityLivingBase living, NBTTagCompound nbt)
     {
-
+        // do nothing
     }
 
     public String getModelName(ItemStack stack)

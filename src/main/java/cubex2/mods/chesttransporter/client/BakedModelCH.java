@@ -3,17 +3,14 @@ package cubex2.mods.chesttransporter.client;
 import com.google.common.collect.ImmutableList;
 import cubex2.mods.chesttransporter.ChestRegistry;
 import cubex2.mods.chesttransporter.ItemChestTransporter;
-import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.model.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.vertex.VertexFormat;
-import net.minecraft.client.resources.model.IBakedModel;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import net.minecraftforge.client.model.IFlexibleBakedModel;
+import net.minecraft.world.World;
 import net.minecraftforge.client.model.IPerspectiveAwareModel;
-import net.minecraftforge.client.model.ISmartItemModel;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.vecmath.Matrix4f;
@@ -21,51 +18,33 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class BakedModelCH implements ISmartItemModel, IFlexibleBakedModel, IPerspectiveAwareModel
+public class BakedModelCH implements IPerspectiveAwareModel
 {
     public static final ModelResourceLocation location = new ModelResourceLocation("chesttransporter:smart_wood", "inventory");
     private final Map<String, IBakedModel> chestModels;
     private IBakedModel handle;
 
-    private IBakedModel toUse;
+    private OverrideList overrides;
+
+    private IBakedModel toUse = null;
 
     public BakedModelCH(IBakedModel handle, Map<String, IBakedModel> chestModels)
     {
         this.handle = handle;
         this.chestModels = chestModels;
+        overrides = new OverrideList(this);
     }
 
     @Override
-    public IBakedModel handleItemState(ItemStack stack)
-    {
-        int chestType = ItemChestTransporter.getTagCompound(stack).getByte("ChestType");
-        if (chestType == 0) toUse = null;
-        else toUse = chestModels.get(ChestRegistry.dvToChest.get(chestType).getModelName(stack));
-        return this;
-    }
-
-    @Override
-    public List<BakedQuad> getFaceQuads(EnumFacing side)
-    {
-        return ImmutableList.of();
-    }
-
-    @Override
-    public List<BakedQuad> getGeneralQuads()
+    public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand)
     {
         List<BakedQuad> quads = new ArrayList<BakedQuad>();
-        quads.addAll(handle.getGeneralQuads());
+        quads.addAll(handle.getQuads(state, side, rand));
         if (toUse != null)
         {
-            quads.addAll(toUse.getGeneralQuads());
+            quads.addAll(toUse.getQuads(state, side, rand));
         }
         return quads;
-    }
-
-    @Override
-    public VertexFormat getFormat()
-    {
-        return ((IFlexibleBakedModel) handle).getFormat();
     }
 
     @Override
@@ -98,10 +77,47 @@ public class BakedModelCH implements ISmartItemModel, IFlexibleBakedModel, IPers
         return handle.getItemCameraTransforms();
     }
 
+    @Override
+    public ItemOverrideList getOverrides()
+    {
+        return overrides;
+    }
+
+    public IBakedModel handleItemState(IBakedModel originalModel, ItemStack stack, World world, EntityLivingBase entity)
+    {
+        int chestType = ItemChestTransporter.getTagCompound(stack).getByte("ChestType");
+        if (chestType == 0) toUse = null;
+        else
+        {
+            String modelName = ChestRegistry.dvToChest.get(chestType).getModelName(stack);
+            toUse = chestModels.get(modelName);
+        }
+        return this;
+    }
 
     @Override
-    public Pair<IFlexibleBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType)
+    public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType)
     {
-        return Pair.of((IFlexibleBakedModel) this, ((IPerspectiveAwareModel) handle).handlePerspective(cameraTransformType).getRight());
+        return Pair.of((IBakedModel) this, ((IPerspectiveAwareModel) handle).handlePerspective(cameraTransformType).getRight());
+    }
+
+    private static class OverrideList extends ItemOverrideList
+    {
+        private final BakedModelCH model;
+
+        public OverrideList(BakedModelCH model)
+        {
+            super(ImmutableList.<ItemOverride>of());
+            this.model = model;
+        }
+
+        @Override
+        public IBakedModel handleItemState(IBakedModel originalModel, ItemStack stack, World world, EntityLivingBase entity)
+        {
+            if (stack.getItem() == null || !(stack.getItem() instanceof ItemChestTransporter))
+                return super.handleItemState(originalModel, stack, world, entity);
+
+            return model.handleItemState(originalModel, stack, world, entity);
+        }
     }
 }

@@ -33,6 +33,8 @@ public class BasicDrawer extends TransportableChest
         {
             NBTTagCompound nbt = stack.getTagCompound().getCompoundTag("ChestTile");
             String mat = nbt.getString("Mat");
+            if (mat == null || mat.length() == 0)
+                mat = "oak";
             return iconName + "_" + mat;
         }
         return iconName + "_oak";
