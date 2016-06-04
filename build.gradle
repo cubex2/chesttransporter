@@ -8,7 +8,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
@@ -20,14 +20,14 @@ plugins {
 }
 */
 
-version = "2.3.0"
+version = "1.9.4-2.4.0"
 group = "cubex2.chesttransporter" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "ChestTransporter"
 
 minecraft {
-    version = "1.9-12.16.0.1859-1.9"
+    version = "1.9.4-12.17.0.1937"
     runDir = "run"
-    mappings = "snapshot_20160404"
+    mappings = "snapshot_20160518"
     makeObfSourceJar = false
 }
 

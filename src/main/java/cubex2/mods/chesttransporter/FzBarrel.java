@@ -127,13 +127,13 @@ public class FzBarrel extends TransportableChest
         NBTTagCompound logNbt = stack.getTagCompound().getCompoundTag("WoodLog");
         ItemStack log = ItemStack.loadItemStackFromNBT(logNbt);
 
-        if (log.getItem() == Item.getItemFromBlock(Blocks.log))
+        if (log.getItem() == Item.getItemFromBlock(Blocks.LOG))
         {
             return "barrel_" + names[log.getItemDamage()];
-        } else if (log.getItem() == Item.getItemFromBlock(Blocks.log2))
+        } else if (log.getItem() == Item.getItemFromBlock(Blocks.LOG2))
         {
             return "barrel_" + names[log.getItemDamage() + 4];
-        } else if (log.getItem() == Item.getItemFromBlock(Blocks.bedrock))
+        } else if (log.getItem() == Item.getItemFromBlock(Blocks.BEDROCK))
         {
             return "barrel_creative";
         }

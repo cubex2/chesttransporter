@@ -18,6 +18,7 @@ import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagByte;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
@@ -41,7 +42,7 @@ public class ItemChestTransporter extends Item
         setUnlocalizedName("chesttransporter_" + iconName);
         setMaxStackSize(1);
         setMaxDamage(maxDamage);
-        setCreativeTab(CreativeTabs.tabTools);
+        setCreativeTab(CreativeTabs.TOOLS);
         MinecraftForge.EVENT_BUS.register(this);
     }
 
@@ -70,8 +71,7 @@ public class ItemChestTransporter extends Item
     private void grabChest(ItemStack stack, EntityPlayer player, World world, BlockPos pos)
     {
         TileEntity tile = world.getTileEntity(pos);
-        IInventory chest = (IInventory) tile;
-        if (chest != null)
+        if (tile != null)
         {
             IBlockState iblockstate = world.getBlockState(pos);
             Block chestBlock = iblockstate.getBlock();
@@ -92,6 +92,7 @@ public class ItemChestTransporter extends Item
                 world.removeTileEntity(pos);
             } else
             {
+                IInventory chest = (IInventory) tile;
                 moveItemsIntoStack(chest, stack);
             }
 
@@ -125,14 +126,14 @@ public class ItemChestTransporter extends Item
             if (tChest == null) return;
 
             TileEntity tile = world.getTileEntity(chestPos);
-            IInventory chest = (IInventory) tile;
             if (tChest.copyTileEntity())
             {
                 NBTTagCompound nbt = getTagCompound(stack).getCompoundTag("ChestTile");
                 tChest.modifyTileCompound(player, nbt);
-                world.setTileEntity(chestPos, TileEntity.createTileEntity(world.getMinecraftServer(), nbt));
+                world.setTileEntity(chestPos, TileEntity.create(nbt));
             } else
             {
+                IInventory chest = (IInventory) tile;
                 moveItemsIntoChest(stack, chest);
             }
             getTagCompound(stack).setByte("ChestType", (byte) 0);
@@ -153,7 +154,7 @@ public class ItemChestTransporter extends Item
         IBlockState iblockstate = world.getBlockState(pos);
         Block block = iblockstate.getBlock();
 
-        if (block == Blocks.snow_layer && iblockstate.getValue(BlockSnow.LAYERS) < 1)
+        if (block == Blocks.SNOW_LAYER && iblockstate.getValue(BlockSnow.LAYERS) < 1)
         {
             // do nothing
         } else if (!block.isReplaceable(world, pos))
@@ -174,24 +175,20 @@ public class ItemChestTransporter extends Item
             EntityPlayer player = (EntityPlayer) entity;
             if (player.capabilities.isCreativeMode)
                 return;
-            if (player.getActivePotionEffect(MobEffects.moveSlowdown) == null || player.getActivePotionEffect(MobEffects.moveSlowdown).getDuration() < 20)
-            {
-                player.addPotionEffect(new PotionEffect(MobEffects.moveSlowdown, 20 * 3, 2));
-            }
-            if (player.getActivePotionEffect(MobEffects.digSlowdown) == null || player.getActivePotionEffect(MobEffects.digSlowdown).getDuration() < 20)
-            {
-                player.addPotionEffect(new PotionEffect(MobEffects.digSlowdown, 20 * 3, 3));
-            }
-            if (player.getActivePotionEffect(MobEffects.jump) == null || player.getActivePotionEffect(MobEffects.jump).getDuration() < 20)
-            {
-                player.addPotionEffect(new PotionEffect(MobEffects.jump, 20 * 3, -2));
-            }
-            if (player.getActivePotionEffect(MobEffects.hunger) == null || player.getActivePotionEffect(MobEffects.hunger).getDuration() < 20)
-            {
-                player.addPotionEffect(new PotionEffect(MobEffects.hunger, 20 * 3, 0));
-            }
+            addEffect(player, MobEffects.SLOWNESS, 2);
+            addEffect(player, MobEffects.MINING_FATIGUE, 3);
+            addEffect(player, MobEffects.JUMP_BOOST, -2);
+            addEffect(player, MobEffects.HUNGER, 0);
         }
 
+    }
+
+    private void addEffect(EntityPlayer player, Potion potion, int amplifier)
+    {
+        if (player.getActivePotionEffect(potion) == null || player.getActivePotionEffect(potion).getDuration() < 20)
+        {
+            player.addPotionEffect(new PotionEffect(potion, 20 * 3, amplifier));
+        }
     }
 
     @SubscribeEvent
@@ -218,7 +215,7 @@ public class ItemChestTransporter extends Item
             }
             moveItemsIntoChest(stack, (IInventory) newMinecart);
             getTagCompound(stack).setByte("ChestType", (byte) 0);
-            SoundType soundType = Blocks.chest.getSoundType();
+            SoundType soundType = Blocks.CHEST.getSoundType();
             minecart.worldObj.playSound(player, minecart.getPosition(), soundType.getPlaceSound(), SoundCategory.BLOCKS, (soundType.getVolume() + 1.0F) / 2.0F, soundType.getPitch() * 0.8F);
             if (!player.capabilities.isCreativeMode)
             {
@@ -233,7 +230,7 @@ public class ItemChestTransporter extends Item
             // grab chest from minecart
             moveItemsIntoStack((IInventory) minecart, stack);
             getTagCompound(stack).setByte("ChestType", (byte) ChestRegistry.getChestType(minecart));
-            SoundType soundType = Blocks.chest.getSoundType();
+            SoundType soundType = Blocks.CHEST.getSoundType();
             minecart.worldObj.playSound(player, minecart.getPosition(), soundType.getBreakSound(), SoundCategory.BLOCKS, (soundType.getVolume() + 1.0F) / 2.0F, soundType.getPitch() * 0.8F);
             if (!player.worldObj.isRemote)
             {

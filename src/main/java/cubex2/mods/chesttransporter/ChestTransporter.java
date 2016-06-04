@@ -5,6 +5,7 @@ import net.minecraft.entity.item.EntityMinecartChest;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -14,7 +15,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.3.0")
+@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.4.0")
 public class ChestTransporter
 {
     @Mod.Instance("ChestTransporter")
@@ -28,10 +29,22 @@ public class ChestTransporter
     public static ItemChestTransporter chestTransporterGold;
     public static ItemChestTransporter chestTransporterDiamond;
 
+    private static boolean pickupSpawners = true;
+
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
         proxy.preInit();
+
+        Configuration config = new Configuration(event.getSuggestedConfigurationFile());
+        try
+        {
+            config.load();
+            pickupSpawners = config.getBoolean("pickupSpawners", Configuration.CATEGORY_GENERAL, true, "Set this to false to prevent picking up of mob spawners");
+        } finally
+        {
+            config.save();
+        }
     }
 
     @Mod.EventHandler
@@ -42,20 +55,20 @@ public class ChestTransporter
         chestTransporterGold = new ItemChestTransporter(19, "gold");
         chestTransporterDiamond = new ItemChestTransporter(79, "diamond");
 
-        chestTransporter.setRegistryName("chesttransporter","chesttransporter");
-        chestTransporterIron.setRegistryName("chesttransporter","chesttransporter_iron");
-        chestTransporterGold.setRegistryName("chesttransporter","chesttransporter_gold");
-        chestTransporterDiamond.setRegistryName("chesttransporter","chesttransporter_diamond");
+        chestTransporter.setRegistryName("chesttransporter", "chesttransporter");
+        chestTransporterIron.setRegistryName("chesttransporter", "chesttransporter_iron");
+        chestTransporterGold.setRegistryName("chesttransporter", "chesttransporter_gold");
+        chestTransporterDiamond.setRegistryName("chesttransporter", "chesttransporter_diamond");
 
         GameRegistry.register(chestTransporter);
         GameRegistry.register(chestTransporterIron);
         GameRegistry.register(chestTransporterGold);
         GameRegistry.register(chestTransporterDiamond);
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(chestTransporter), "S S", "SSS", " S ", 'S', Items.stick));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(chestTransporterIron), "S S", "SSS", " M ", 'S', Items.stick, 'M', Items.iron_ingot));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(chestTransporterGold), "S S", "SSS", " M ", 'S', Items.stick, 'M', Items.gold_ingot));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(chestTransporterDiamond), "S S", "SSS", " M ", 'S', Items.stick, 'M', Items.diamond));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(chestTransporter), "S S", "SSS", " S ", 'S', Items.STICK));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(chestTransporterIron), "S S", "SSS", " M ", 'S', Items.STICK, 'M', Items.IRON_INGOT));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(chestTransporterGold), "S S", "SSS", " M ", 'S', Items.STICK, 'M', Items.GOLD_INGOT));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(chestTransporterDiamond), "S S", "SSS", " M ", 'S', Items.STICK, 'M', Items.DIAMOND));
 
         proxy.registerModels();
     }
@@ -63,16 +76,16 @@ public class ChestTransporter
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent evt)
     {
-        TransportableChest chest = new TransportableChest(Blocks.chest, -1, 1, "vanilla");
+        TransportableChest chest = new TransportableChest(Blocks.CHEST, -1, 1, "vanilla");
         ChestRegistry.register(chest);
         ChestRegistry.registerMinecart(EntityMinecartChest.class, chest);
 
-        ChestRegistry.register(new TransportableChest(Blocks.trapped_chest, -1, 2, "vanilla_trapped"));
+        ChestRegistry.register(new TransportableChest(Blocks.TRAPPED_CHEST, -1, 2, "vanilla_trapped"));
 
         if (Loader.isModLoaded("IronChest"))
         {
             Block block = Block.getBlockFromName("IronChest:BlockIronChest");
-            if (block != null && block != Blocks.air)
+            if (block != null && block != Blocks.AIR)
             {
                 String[] names = new String[]{"iron", "gold", "diamond", "copper", "tin", "crystal", "obsidian"};
                 for (int i = 0; i < 7; i++)
@@ -85,7 +98,7 @@ public class ChestTransporter
         if (Loader.isModLoaded("MultiPageChest"))
         {
             Block block = Block.getBlockFromName("MultiPageChest:multipagechest");
-            if (block != null && block != Blocks.air)
+            if (block != null && block != Blocks.AIR)
             {
                 ChestRegistry.register(new TransportableChest(block, -1, 10, "multipagechest"));
             }
@@ -117,7 +130,7 @@ public class ChestTransporter
         if (Loader.isModLoaded("compactstorage"))
         {
             Block block = Block.getBlockFromName("compactstorage:compactChest");
-            if (block != null && block != Blocks.air)
+            if (block != null && block != Blocks.AIR)
             {
                 ChestRegistry.register(new CompactChest(block, -1, 14, "compact_chest"));
             }
@@ -126,7 +139,7 @@ public class ChestTransporter
         if (Loader.isModLoaded("StorageDrawers"))
         {
             Block block = Block.getBlockFromName("storagedrawers:basicDrawers");
-            if (block != null && block != Blocks.air)
+            if (block != null && block != Blocks.AIR)
             {
                 String[] names = new String[]{"full1", "full2", "full4", "half2", "half4"};
                 for (int i = 0; i < names.length; i++)
@@ -136,10 +149,15 @@ public class ChestTransporter
             }
 
             block = Block.getBlockFromName("storagedrawers:compDrawers");
-            if (block != null && block != Blocks.air)
+            if (block != null && block != Blocks.AIR)
             {
                 ChestRegistry.register(new CompDrawer(block, 0, 23, "comp_drawer"));
             }
+        }
+
+        if (pickupSpawners)
+        {
+            ChestRegistry.register(new Spawner(Blocks.MOB_SPAWNER, -1, 24, "spawner"));
         }
 
         if (Loader.isModLoaded("ironchestminecarts") && Loader.isModLoaded("IronChest"))
