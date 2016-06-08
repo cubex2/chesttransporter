@@ -1,7 +1,7 @@
 package cubex2.mods.chesttransporter.client;
 
 import com.google.common.collect.ImmutableList;
-import cubex2.mods.chesttransporter.ChestRegistry;
+import cubex2.mods.chesttransporter.chests.ChestRegistry;
 import cubex2.mods.chesttransporter.ItemChestTransporter;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.*;

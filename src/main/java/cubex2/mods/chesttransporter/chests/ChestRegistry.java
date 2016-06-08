@@ -1,8 +1,9 @@
-package cubex2.mods.chesttransporter;
+package cubex2.mods.chesttransporter.chests;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import cubex2.mods.chesttransporter.chests.TransportableChest;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.world.World;

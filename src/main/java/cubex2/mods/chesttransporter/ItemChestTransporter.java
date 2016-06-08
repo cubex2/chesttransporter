@@ -1,5 +1,7 @@
 package cubex2.mods.chesttransporter;
 
+import cubex2.mods.chesttransporter.chests.ChestRegistry;
+import cubex2.mods.chesttransporter.chests.TransportableChest;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSnow;
 import net.minecraft.block.SoundType;

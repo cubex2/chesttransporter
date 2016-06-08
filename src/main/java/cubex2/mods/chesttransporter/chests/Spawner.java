@@ -1,4 +1,4 @@
-package cubex2.mods.chesttransporter;
+package cubex2.mods.chesttransporter.chests;
 
 import net.minecraft.block.Block;
 

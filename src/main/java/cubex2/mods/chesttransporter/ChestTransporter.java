@@ -1,5 +1,6 @@
 package cubex2.mods.chesttransporter;
 
+import cubex2.mods.chesttransporter.chests.*;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityMinecartChest;
 import net.minecraft.init.Blocks;
