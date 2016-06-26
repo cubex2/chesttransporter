@@ -132,7 +132,7 @@ public class ItemChestTransporter extends Item
             {
                 NBTTagCompound nbt = getTagCompound(stack).getCompoundTag("ChestTile");
                 tChest.modifyTileCompound(player, nbt);
-                world.setTileEntity(chestPos, TileEntity.create(nbt));
+                world.setTileEntity(chestPos, TileEntity.func_190200_a(world, nbt));
             } else
             {
                 IInventory chest = (IInventory) tile;
