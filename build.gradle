@@ -20,12 +20,12 @@ plugins {
 }
 */
 
-version = "1.10-2.5.0"
+version = "1.10.2-2.5.1"
 group = "cubex2.chesttransporter" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "ChestTransporter"
 
 minecraft {
-    version = "1.10-12.18.0.1996-1.10.0"
+    version = "1.10.2-12.18.1.2045"
     runDir = "run"
     mappings = "snapshot_20160518"
     makeObfSourceJar = false

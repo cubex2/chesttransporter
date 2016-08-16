@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.5.0")
+@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.5.1")
 public class ChestTransporter
 {
     @Mod.Instance("ChestTransporter")
@@ -83,9 +83,9 @@ public class ChestTransporter
 
         ChestRegistry.register(new TransportableChest(Blocks.TRAPPED_CHEST, -1, 2, "vanilla_trapped"));
 
-        if (Loader.isModLoaded("IronChest"))
+        if (Loader.isModLoaded("ironchest"))
         {
-            Block block = Block.getBlockFromName("IronChest:BlockIronChest");
+            Block block = Block.getBlockFromName("ironchest:BlockIronChest");
             if (block != null && block != Blocks.AIR)
             {
                 String[] names = new String[]{"iron", "gold", "diamond", "copper", "tin", "crystal", "obsidian"};
@@ -161,7 +161,7 @@ public class ChestTransporter
             ChestRegistry.register(new Spawner(Blocks.MOB_SPAWNER, -1, 24, "spawner"));
         }
 
-        if (Loader.isModLoaded("ironchestminecarts") && Loader.isModLoaded("IronChest"))
+        if (Loader.isModLoaded("ironchestminecarts") && Loader.isModLoaded("ironchest"))
         {
             String[] classNames = new String[]{
                     "ganymedes01.ironchestminecarts.minecarts.types.EntityMinecartIronChest",
@@ -184,7 +184,7 @@ public class ChestTransporter
             }
         }
 
-        if (Loader.isModLoaded("extracarts") && Loader.isModLoaded("IronChest"))
+        if (Loader.isModLoaded("extracarts") && Loader.isModLoaded("ironchest"))
         {
             String[] classNames = new String[]{
                     "com.dta.extracarts.mods.ironchest.entities.EntityIronChestCart",
