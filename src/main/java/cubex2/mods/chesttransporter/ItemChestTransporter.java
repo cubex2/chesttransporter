@@ -114,7 +114,7 @@ public class ItemChestTransporter extends Item
 
         BlockPos chestPos = getChestCoords(world, pos, face);
 
-        ItemStack chestStack = getStackFromDamage(chestType);
+        ItemStack chestStack = createChestStack(stack, chestType);
         if (chestStack.onItemUse(player, world, pos, hand, face, 0.0f, 0.0f, 0.0f) != EnumActionResult.SUCCESS)
             return;
 
@@ -309,9 +309,9 @@ public class ItemChestTransporter extends Item
         return chest != null ? chest.getTransporterDV() : 0;
     }
 
-    private ItemStack getStackFromDamage(int damage)
+    private ItemStack createChestStack(ItemStack transporter, int damage)
     {
-        return ChestRegistry.dvToChest.containsKey(damage) ? ChestRegistry.dvToChest.get(damage).createChestStack() : null;
+        return ChestRegistry.dvToChest.containsKey(damage) ? ChestRegistry.dvToChest.get(damage).createChestStack(transporter) : null;
     }
 
     static void moveItemsIntoStack(IInventory chest, ItemStack stack)

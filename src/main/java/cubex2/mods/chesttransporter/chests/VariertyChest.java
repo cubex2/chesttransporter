@@ -21,7 +21,7 @@ public class VariertyChest extends TransportableChest
     }
 
     @Override
-    public ItemStack createChestStack()
+    public ItemStack createChestStack(ItemStack transporter)
     {
         return new ItemStack(Item.getItemFromBlock(getChestBlock()), 1, 0);
     }

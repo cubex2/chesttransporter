@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.5.1")
+@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.5.2")
 public class ChestTransporter
 {
     @Mod.Instance("ChestTransporter")
@@ -88,7 +88,7 @@ public class ChestTransporter
             Block block = Block.getBlockFromName("ironchest:BlockIronChest");
             if (block != null && block != Blocks.AIR)
             {
-                String[] names = new String[]{"iron", "gold", "diamond", "copper", "tin", "crystal", "obsidian"};
+                String[] names = new String[] {"iron", "gold", "diamond", "copper", "tin", "crystal", "obsidian"};
                 for (int i = 0; i < 7; i++)
                 {
                     ChestRegistry.register(new TransportableChest(block, i, 3 + i, names[i]));
@@ -142,7 +142,7 @@ public class ChestTransporter
             Block block = Block.getBlockFromName("storagedrawers:basicDrawers");
             if (block != null && block != Blocks.AIR)
             {
-                String[] names = new String[]{"full1", "full2", "full4", "half2", "half4"};
+                String[] names = new String[] {"full1", "full2", "full4", "half2", "half4"};
                 for (int i = 0; i < names.length; i++)
                 {
                     ChestRegistry.register(new BasicDrawer(block, i, 19 + i, "basic_drawer_" + names[i]));
@@ -161,9 +161,24 @@ public class ChestTransporter
             ChestRegistry.register(new Spawner(Blocks.MOB_SPAWNER, -1, 24, "spawner"));
         }
 
+        if (Loader.isModLoaded("Quark"))
+        {
+            Block block = Block.getBlockFromName("quark:custom_chest");
+            if (block != null && block != Blocks.AIR)
+            {
+                ChestRegistry.register(new QuarkChest(block, 25, "quark_chest"));
+            }
+
+            block = Block.getBlockFromName("quark:custom_chest_trap");
+            if (block != null && block != Blocks.AIR)
+            {
+                ChestRegistry.register(new QuarkChest(block, 26, "quark_chest"));
+            }
+        }
+
         if (Loader.isModLoaded("ironchestminecarts") && Loader.isModLoaded("ironchest"))
         {
-            String[] classNames = new String[]{
+            String[] classNames = new String[] {
                     "ganymedes01.ironchestminecarts.minecarts.types.EntityMinecartIronChest",
                     "ganymedes01.ironchestminecarts.minecarts.types.EntityMinecartGoldChest",
                     "ganymedes01.ironchestminecarts.minecarts.types.EntityMinecartDiamondChest",
@@ -186,7 +201,7 @@ public class ChestTransporter
 
         if (Loader.isModLoaded("extracarts") && Loader.isModLoaded("ironchest"))
         {
-            String[] classNames = new String[]{
+            String[] classNames = new String[] {
                     "com.dta.extracarts.mods.ironchest.entities.EntityIronChestCart",
                     "com.dta.extracarts.mods.ironchest.entities.EntityGoldChestCart",
                     "com.dta.extracarts.mods.ironchest.entities.EntityDiamondChestCart",

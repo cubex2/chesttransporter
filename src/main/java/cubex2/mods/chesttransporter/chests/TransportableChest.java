@@ -43,7 +43,7 @@ public class TransportableChest
         return transporterDV;
     }
 
-    public ItemStack createChestStack()
+    public ItemStack createChestStack(ItemStack transporter)
     {
         if (getChestMetadata() == -1)
             return new ItemStack(getChestBlock());

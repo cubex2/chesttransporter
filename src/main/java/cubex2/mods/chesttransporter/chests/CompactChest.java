@@ -38,9 +38,9 @@ public class CompactChest extends TransportableChest
     }
 
     @Override
-    public ItemStack createChestStack()
+    public ItemStack createChestStack(ItemStack transporter)
     {
-        ItemStack stack = super.createChestStack();
+        ItemStack stack = super.createChestStack(transporter);
         NBTTagCompound nbt = new NBTTagCompound();
         nbt.setIntArray("size", new int[2]);
         stack.setTagCompound(nbt);
