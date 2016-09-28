@@ -83,7 +83,7 @@ public class ItemChestTransporter extends Item
                 return;
 
             TransportableChest tChest = ChestRegistry.getChest(chestBlock, metadata);
-            if (tChest == null) return;
+            if (tChest == null || !tChest.isUsableWith(stack)) return;
 
             getTagCompound(stack).setByte("ChestType", (byte) newChestType);
             if (tChest.copyTileEntity())
@@ -125,7 +125,7 @@ public class ItemChestTransporter extends Item
             int meta = block.getMetaFromState(iblockstate);
 
             TransportableChest tChest = ChestRegistry.getChest(block, meta);
-            if (tChest == null) return;
+            if (tChest == null || !tChest.isUsableWith(stack)) return;
 
             TileEntity tile = world.getTileEntity(chestPos);
             if (tChest.copyTileEntity())

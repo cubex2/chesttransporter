@@ -31,6 +31,10 @@ public class ChestTransporter
     public static ItemChestTransporter chestTransporterDiamond;
 
     private static boolean pickupSpawners = true;
+    public static boolean spawnerWithWood = true;
+    public static boolean spawnerWithIron = true;
+    public static boolean spawnerWithGold = true;
+    public static boolean spawnerWithDiamond = true;
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)
@@ -42,6 +46,10 @@ public class ChestTransporter
         {
             config.load();
             pickupSpawners = config.getBoolean("pickupSpawners", Configuration.CATEGORY_GENERAL, true, "Set this to false to prevent picking up of mob spawners");
+            spawnerWithWood = config.getBoolean("spawnerWithWood", Configuration.CATEGORY_GENERAL,true, "Set this to false to prevent the wooden transporter to pick up mob spawners");
+            spawnerWithIron = config.getBoolean("spawnerWithIron", Configuration.CATEGORY_GENERAL,true, "Set this to false to prevent the iron transporter to pick up mob spawners");
+            spawnerWithGold = config.getBoolean("spawnerWithGold", Configuration.CATEGORY_GENERAL,true, "Set this to false to prevent the golden transporter to pick up mob spawners");
+            spawnerWithDiamond = config.getBoolean("spawnerWithDiamond", Configuration.CATEGORY_GENERAL,true, "Set this to false to prevent the diamond transporter to pick up mob spawners");
         } finally
         {
             config.save();
