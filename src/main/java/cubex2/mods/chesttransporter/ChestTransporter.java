@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.5.2")
+@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.5.3")
 public class ChestTransporter
 {
     @Mod.Instance("ChestTransporter")
@@ -46,10 +46,10 @@ public class ChestTransporter
         {
             config.load();
             pickupSpawners = config.getBoolean("pickupSpawners", Configuration.CATEGORY_GENERAL, true, "Set this to false to prevent picking up of mob spawners");
-            spawnerWithWood = config.getBoolean("spawnerWithWood", Configuration.CATEGORY_GENERAL,true, "Set this to false to prevent the wooden transporter to pick up mob spawners");
-            spawnerWithIron = config.getBoolean("spawnerWithIron", Configuration.CATEGORY_GENERAL,true, "Set this to false to prevent the iron transporter to pick up mob spawners");
-            spawnerWithGold = config.getBoolean("spawnerWithGold", Configuration.CATEGORY_GENERAL,true, "Set this to false to prevent the golden transporter to pick up mob spawners");
-            spawnerWithDiamond = config.getBoolean("spawnerWithDiamond", Configuration.CATEGORY_GENERAL,true, "Set this to false to prevent the diamond transporter to pick up mob spawners");
+            spawnerWithWood = config.getBoolean("spawnerWithWood", Configuration.CATEGORY_GENERAL, true, "Set this to false to prevent the wooden transporter to pick up mob spawners");
+            spawnerWithIron = config.getBoolean("spawnerWithIron", Configuration.CATEGORY_GENERAL, true, "Set this to false to prevent the iron transporter to pick up mob spawners");
+            spawnerWithGold = config.getBoolean("spawnerWithGold", Configuration.CATEGORY_GENERAL, true, "Set this to false to prevent the golden transporter to pick up mob spawners");
+            spawnerWithDiamond = config.getBoolean("spawnerWithDiamond", Configuration.CATEGORY_GENERAL, true, "Set this to false to prevent the diamond transporter to pick up mob spawners");
         } finally
         {
             config.save();
@@ -153,7 +153,10 @@ public class ChestTransporter
                 String[] names = new String[] {"full1", "full2", "full4", "half2", "half4"};
                 for (int i = 0; i < names.length; i++)
                 {
-                    ChestRegistry.register(new BasicDrawer(block, i, 19 + i, "basic_drawer_" + names[i]));
+                    int dv = 19 + i;
+                    if (dv == 23)
+                        dv = 27;
+                    ChestRegistry.register(new BasicDrawer(block, i, dv, "basic_drawer_" + names[i]));
                 }
             }
 
@@ -183,6 +186,8 @@ public class ChestTransporter
                 ChestRegistry.register(new QuarkChest(block, 26, "quark_chest"));
             }
         }
+
+        // 27 is already used
 
         if (Loader.isModLoaded("ironchestminecarts") && Loader.isModLoaded("ironchest"))
         {
