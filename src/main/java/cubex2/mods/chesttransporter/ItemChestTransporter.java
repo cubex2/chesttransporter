@@ -73,9 +73,6 @@ public class ItemChestTransporter extends Item
             } else if (chestType != 0)
             {
                 placeChest(stack, player, world, x, y, z, face);
-            } else
-            {
-                world.setBlock(x, y, z, Blocks.mob_spawner);
             }
         }
     }

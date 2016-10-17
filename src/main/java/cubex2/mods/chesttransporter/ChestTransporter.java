@@ -16,7 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.0.4")
+@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.0.5")
 public class ChestTransporter
 {
     @Instance("ChestTransporter")
