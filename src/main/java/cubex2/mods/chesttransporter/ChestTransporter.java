@@ -13,9 +13,10 @@ import net.minecraft.entity.item.EntityMinecartChest;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.0.3")
+@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.0.4")
 public class ChestTransporter
 {
     @Instance("ChestTransporter")
@@ -26,9 +27,29 @@ public class ChestTransporter
     public static ItemChestTransporter chestTransporterGold;
     public static ItemChestTransporter chestTransporterDiamond;
 
+    private static boolean pickupSpawners = true;
+    public static boolean spawnerWithWood = true;
+    public static boolean spawnerWithIron = true;
+    public static boolean spawnerWithGold = true;
+    public static boolean spawnerWithDiamond = true;
+
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
+        Configuration config = new Configuration(event.getSuggestedConfigurationFile());
+        try
+        {
+            config.load();
+            pickupSpawners = config.getBoolean("pickupSpawners", Configuration.CATEGORY_GENERAL, true, "Set this to false to prevent picking up of mob spawners");
+            spawnerWithWood = config.getBoolean("spawnerWithWood", Configuration.CATEGORY_GENERAL, true, "Set this to false to prevent the wooden transporter to pick up mob spawners");
+            spawnerWithIron = config.getBoolean("spawnerWithIron", Configuration.CATEGORY_GENERAL, true, "Set this to false to prevent the iron transporter to pick up mob spawners");
+            spawnerWithGold = config.getBoolean("spawnerWithGold", Configuration.CATEGORY_GENERAL, true, "Set this to false to prevent the golden transporter to pick up mob spawners");
+            spawnerWithDiamond = config.getBoolean("spawnerWithDiamond", Configuration.CATEGORY_GENERAL, true, "Set this to false to prevent the diamond transporter to pick up mob spawners");
+        } finally
+        {
+            config.save();
+        }
+
         chestTransporter = new ItemChestTransporter(1, "wood");
         chestTransporterIron = new ItemChestTransporter(9, "iron");
         chestTransporterGold = new ItemChestTransporter(19, "gold");
@@ -122,6 +143,11 @@ public class ChestTransporter
                     ChestRegistry.register(new TransportableChest(block, -1, 14 + i, "cc_" + names[i]));
                 }
             }
+        }
+
+        if (pickupSpawners)
+        {
+            ChestRegistry.register(new Spawner(Blocks.mob_spawner, -1, 24, "spawner"));
         }
 
         if (Loader.isModLoaded("ironchestminecarts") && Loader.isModLoaded("IronChest"))

@@ -17,13 +17,13 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "2.0.3"
+version = "2.0.4"
 group= "cubex2.chesttransporter" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "ChestTransporter"
 
 minecraft {
-    version = "1.7.10-10.13.2.1291"
-    assetDir = "eclipse/assets"
+    version = "1.7.10-10.13.4.1614-1.7.10"
+    runDir = "run"
 }
 processResources
 {

@@ -22,6 +22,21 @@ public class TransportableChest
         this.iconName = iconName;
     }
 
+    /**
+     * Can the transporter stack use this chest
+     *
+     * @return True if it can be picked up, false if not
+     */
+    public boolean isUsableWith(ItemStack stack)
+    {
+        return true;
+    }
+
+    public boolean copyTileEntity()
+    {
+        return false;
+    }
+
     public Block getChestBlock()
     {
         return chestBlock;

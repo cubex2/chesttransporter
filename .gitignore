@@ -2,3 +2,8 @@
 build
 eclipse
 out
+run
+
+*.iml
+*.ipr
+*.iws

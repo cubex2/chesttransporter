@@ -73,6 +73,9 @@ public class ItemChestTransporter extends Item
             } else if (chestType != 0)
             {
                 placeChest(stack, player, world, x, y, z, face);
+            } else
+            {
+                world.setBlock(x, y, z, Blocks.mob_spawner);
             }
         }
     }
@@ -80,17 +83,32 @@ public class ItemChestTransporter extends Item
     private void grabChest(ItemStack stack, World world, int x, int y, int z)
     {
         TileEntity tile = world.getTileEntity(x, y, z);
-        IInventory chest = (IInventory) tile;
-        if (chest != null)
+        if (tile != null)
         {
             Block chestBlock = world.getBlock(x, y, z);
             int metadata = world.getBlockMetadata(x, y, z);
             int newChestType = getChestType(chestBlock, metadata);
             if (newChestType == 0)
                 return;
+
+            TransportableChest tChest = ChestRegistry.getChest(chestBlock, metadata);
+            if (tChest == null || !tChest.isUsableWith(stack)) return;
+
             getTagCompound(stack).setByte("ChestType", (byte) newChestType);
-            moveItemsIntoStack(chest, stack);
-            ChestRegistry.getChest(chestBlock, metadata).preRemoveChest(stack, tile);
+            if (tChest.copyTileEntity())
+            {
+                NBTTagCompound nbt = new NBTTagCompound();
+                tile.writeToNBT(nbt);
+                getTagCompound(stack).setTag("ChestTile", nbt);
+                world.removeTileEntity(x, y, z);
+            } else
+            {
+                IInventory chest = (IInventory) tile;
+                moveItemsIntoStack(chest, stack);
+            }
+
+            tChest.preRemoveChest(stack, tile);
+
             world.setBlockToAir(x, y, z);
             world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, chestBlock.stepSound.getBreakSound(), (chestBlock.stepSound.getVolume() + 1.0F) / 2.0F, chestBlock.stepSound.getPitch() * 0.5F);
         }
@@ -117,12 +135,22 @@ public class ItemChestTransporter extends Item
             Block block = world.getBlock(x1, y1, z1);
             int meta = world.getBlockMetadata(x1, y1, z1);
 
+            TransportableChest tChest = ChestRegistry.getChest(block, meta);
+            if (tChest == null || !tChest.isUsableWith(stack)) return;
+
             TileEntity tile = world.getTileEntity(x1, y1, z1);
-            IInventory chest = (IInventory) tile;
-            moveItemsIntoChest(stack, chest);
+            if (tChest.copyTileEntity())
+            {
+                NBTTagCompound nbt = getTagCompound(stack).getCompoundTag("ChestTile");
+                world.setTileEntity(x, y, z, TileEntity.createAndLoadEntity(nbt));
+            } else
+            {
+                IInventory chest = (IInventory) tile;
+                moveItemsIntoChest(stack, chest);
+            }
             getTagCompound(stack).setByte("ChestType", (byte) 0);
 
-            ChestRegistry.getChest(block, meta).preDestroyTransporter(stack, tile);
+            tChest.preDestroyTransporter(stack, tile);
 
             if (!player.capabilities.isCreativeMode)
             {
@@ -173,7 +201,7 @@ public class ItemChestTransporter extends Item
             }
         }
 
-        return new int[]{x, y, z};
+        return new int[] {x, y, z};
     }
 
     @Override
