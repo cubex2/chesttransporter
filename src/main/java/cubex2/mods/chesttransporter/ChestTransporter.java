@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.5.3")
+@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.5.4")
 public class ChestTransporter
 {
     @Mod.Instance("ChestTransporter")
