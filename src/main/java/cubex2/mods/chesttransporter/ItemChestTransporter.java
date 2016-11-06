@@ -51,6 +51,9 @@ public class ItemChestTransporter extends Item
     @SubscribeEvent
     public void onPlayerInteract(PlayerInteractEvent event)
     {
+        if (event.isCanceled())
+            return;
+
         if (event.action == Action.RIGHT_CLICK_BLOCK)
         {
             ItemStack stack = event.entityPlayer.getCurrentEquippedItem();
@@ -234,6 +237,9 @@ public class ItemChestTransporter extends Item
     @SubscribeEvent
     public void entityInteract(EntityInteractEvent event)
     {
+        if (event.isCanceled())
+            return;
+
         if (!(event.target instanceof EntityMinecart))
             return;
 
