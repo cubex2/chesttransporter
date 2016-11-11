@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.5.4")
+@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.5.5")
 public class ChestTransporter
 {
     @Mod.Instance("ChestTransporter")
@@ -188,6 +188,22 @@ public class ChestTransporter
         }
 
         // 27 is already used
+
+        if (Loader.isModLoaded("fluidity"))
+        {
+            Block block = Block.getBlockFromName("fluidity:fluidity_iron_chest");
+            if (block != null && block != Blocks.AIR)
+            {
+                String[] names = new String[] {"bronze", "invar", "electrum", "tin", "brass", "lead",
+                        "steel", "nickel", "cold_iron", "adamantine", "aquarium", "mithril", "star_steel",
+                        "cupronickel", "platinum"};
+
+                for (int i = 0; i < names.length; i++)
+                {
+                    ChestRegistry.register(new TransportableChest(block, i, 28 + i, "fluidity_" + names[i]));
+                }
+            }
+        }
 
         if (Loader.isModLoaded("ironchestminecarts") && Loader.isModLoaded("ironchest"))
         {

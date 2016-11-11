@@ -62,6 +62,9 @@ public class ItemChestTransporter extends Item
         World world = event.getEntityPlayer().worldObj;
         EnumFacing face = event.getFace();
 
+        IBlockState state = world.getBlockState(event.getPos());
+        System.out.println(state.getBlock().getUnlocalizedName() + "@"+ state.getBlock().getMetaFromState(state));
+
         int chestType = getTagCompound(stack).getByte("ChestType");
 
         if (chestType == 0 && isChestAt(world, event.getPos()))
