@@ -1,6 +1,8 @@
 package cubex2.mods.chesttransporter.chests;
 
 import cubex2.mods.chesttransporter.ChestTransporter;
+import cubex2.mods.chesttransporter.ItemChestTransporter;
+import cubex2.mods.chesttransporter.TransporterType;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -17,17 +19,11 @@ public class Spawner extends TransportableChest
     {
         Item item = stack.getItem();
 
-        if (item == ChestTransporter.chestTransporter)
-            return ChestTransporter.spawnerWithWood;
-
-        if (item == ChestTransporter.chestTransporterIron)
-            return ChestTransporter.spawnerWithIron;
-
-        if (item == ChestTransporter.chestTransporterGold)
-            return ChestTransporter.spawnerWithGold;
-
-        if (item == ChestTransporter.chestTransporterDiamond)
-            return ChestTransporter.spawnerWithDiamond;
+        if (item instanceof ItemChestTransporter)
+        {
+            TransporterType type = ((ItemChestTransporter) item).type;
+            return ChestTransporter.canUseSpawner.containsKey(type) ? ChestTransporter.canUseSpawner.get(type) : false;
+        }
 
         return false;
     }

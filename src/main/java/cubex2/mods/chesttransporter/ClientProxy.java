@@ -22,25 +22,13 @@ public class ClientProxy extends CommonProxy
     {
         ModelResourceLocation l;
 
-        Item item = ChestTransporter.chestTransporter;
-        l = new ModelResourceLocation("chesttransporter:smart_wood", "inventory");
-        ModelBakery.registerItemVariants(item, new ResourceLocation("chesttransporter:smart_wood"));
-        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, l);
-
-        item = ChestTransporter.chestTransporterIron;
-        l = new ModelResourceLocation("chesttransporter:smart_iron", "inventory");
-        ModelBakery.registerItemVariants(item, new ResourceLocation("chesttransporter:smart_iron"));
-        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, l);
-
-        item = ChestTransporter.chestTransporterGold;
-        l = new ModelResourceLocation("chesttransporter:smart_gold", "inventory");
-        ModelBakery.registerItemVariants(item, new ResourceLocation("chesttransporter:smart_gold"));
-        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, l);
-
-        item = ChestTransporter.chestTransporterDiamond;
-        l = new ModelResourceLocation("chesttransporter:smart_diamond", "inventory");
-        ModelBakery.registerItemVariants(item, new ResourceLocation("chesttransporter:smart_diamond"));
-        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, l);
+        for (TransporterType type : TransporterType.values())
+        {
+            Item item = ChestTransporter.items.get(type);
+            l = new ModelResourceLocation("chesttransporter:smart_" + type.iconName, "inventory");
+            ModelBakery.registerItemVariants(item, new ResourceLocation("chesttransporter:smart_" + type.iconName));
+            Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, l);
+        }
     }
 
     @Override

@@ -1,5 +1,6 @@
 package cubex2.mods.chesttransporter.client;
 
+import cubex2.mods.chesttransporter.TransporterType;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ICustomModelLoader;
@@ -21,7 +22,7 @@ public class ModelLoaderCT implements ICustomModelLoader
     public IModel loadModel(ResourceLocation l) throws IOException
     {
         String type = l.getResourcePath().substring(l.getResourcePath().lastIndexOf('_') + 1);
-        return new ModelCT(ArrayUtils.indexOf(new String[]{"wood", "iron", "gold", "diamond"}, type));
+        return new ModelCT(TransporterType.valueOf(type.toUpperCase()));
     }
 
     @Override

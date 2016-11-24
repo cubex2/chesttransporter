@@ -1,10 +1,10 @@
 package cubex2.mods.chesttransporter;
 
+import com.google.common.collect.Maps;
 import cubex2.mods.chesttransporter.chests.*;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityMinecartChest;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Loader;
@@ -16,7 +16,9 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.5.5")
+import java.util.EnumMap;
+
+@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.5.6")
 public class ChestTransporter
 {
     @Mod.Instance("ChestTransporter")
@@ -25,16 +27,10 @@ public class ChestTransporter
     @SidedProxy(clientSide = "cubex2.mods.chesttransporter.ClientProxy", serverSide = "cubex2.mods.chesttransporter.CommonProxy")
     public static CommonProxy proxy;
 
-    public static ItemChestTransporter chestTransporter;
-    public static ItemChestTransporter chestTransporterIron;
-    public static ItemChestTransporter chestTransporterGold;
-    public static ItemChestTransporter chestTransporterDiamond;
-
     private static boolean pickupSpawners = true;
-    public static boolean spawnerWithWood = true;
-    public static boolean spawnerWithIron = true;
-    public static boolean spawnerWithGold = true;
-    public static boolean spawnerWithDiamond = true;
+
+    public static final EnumMap<TransporterType, ItemChestTransporter> items = Maps.newEnumMap(TransporterType.class);
+    public static final EnumMap<TransporterType, Boolean> canUseSpawner = Maps.newEnumMap(TransporterType.class);
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)
@@ -46,10 +42,11 @@ public class ChestTransporter
         {
             config.load();
             pickupSpawners = config.getBoolean("pickupSpawners", Configuration.CATEGORY_GENERAL, true, "Set this to false to prevent picking up of mob spawners");
-            spawnerWithWood = config.getBoolean("spawnerWithWood", Configuration.CATEGORY_GENERAL, true, "Set this to false to prevent the wooden transporter to pick up mob spawners");
-            spawnerWithIron = config.getBoolean("spawnerWithIron", Configuration.CATEGORY_GENERAL, true, "Set this to false to prevent the iron transporter to pick up mob spawners");
-            spawnerWithGold = config.getBoolean("spawnerWithGold", Configuration.CATEGORY_GENERAL, true, "Set this to false to prevent the golden transporter to pick up mob spawners");
-            spawnerWithDiamond = config.getBoolean("spawnerWithDiamond", Configuration.CATEGORY_GENERAL, true, "Set this to false to prevent the diamond transporter to pick up mob spawners");
+
+            for (TransporterType type : TransporterType.values())
+            {
+                canUseSpawner.put(type, config.getBoolean(type.spawnerConfigName(), Configuration.CATEGORY_GENERAL, true, "Set this to false to prevent the " + type.name().toLowerCase() + " transporter to pick up mob spawners"));
+            }
         } finally
         {
             config.save();
@@ -59,25 +56,15 @@ public class ChestTransporter
     @Mod.EventHandler
     public void init(FMLInitializationEvent event)
     {
-        chestTransporter = new ItemChestTransporter(1, "wood");
-        chestTransporterIron = new ItemChestTransporter(9, "iron");
-        chestTransporterGold = new ItemChestTransporter(19, "gold");
-        chestTransporterDiamond = new ItemChestTransporter(79, "diamond");
+        for (TransporterType type : TransporterType.values())
+        {
+            ItemChestTransporter item = new ItemChestTransporter(type);
+            items.put(type, item);
+            item.setRegistryName("chesttransporter", "chesttransporter" + type.nameSuffix);
+            GameRegistry.register(item);
 
-        chestTransporter.setRegistryName("chesttransporter", "chesttransporter");
-        chestTransporterIron.setRegistryName("chesttransporter", "chesttransporter_iron");
-        chestTransporterGold.setRegistryName("chesttransporter", "chesttransporter_gold");
-        chestTransporterDiamond.setRegistryName("chesttransporter", "chesttransporter_diamond");
-
-        GameRegistry.register(chestTransporter);
-        GameRegistry.register(chestTransporterIron);
-        GameRegistry.register(chestTransporterGold);
-        GameRegistry.register(chestTransporterDiamond);
-
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(chestTransporter), "S S", "SSS", " S ", 'S', Items.STICK));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(chestTransporterIron), "S S", "SSS", " M ", 'S', Items.STICK, 'M', Items.IRON_INGOT));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(chestTransporterGold), "S S", "SSS", " M ", 'S', Items.STICK, 'M', Items.GOLD_INGOT));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(chestTransporterDiamond), "S S", "SSS", " M ", 'S', Items.STICK, 'M', Items.DIAMOND));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(item), "S S", "SSS", " M ", 'S', "stickWood", 'M', type.recipeMaterial));
+        }
 
         proxy.registerModels();
     }

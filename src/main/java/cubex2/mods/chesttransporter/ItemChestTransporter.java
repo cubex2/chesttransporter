@@ -37,13 +37,16 @@ import java.util.List;
 
 public class ItemChestTransporter extends Item
 {
+    public final TransporterType type;
 
-    protected ItemChestTransporter(int maxDamage, String iconName)
+    protected ItemChestTransporter(TransporterType type)
     {
         super();
-        setUnlocalizedName("chesttransporter_" + iconName);
+        this.type = type;
+
+        setUnlocalizedName("chesttransporter_" + type.iconName);
         setMaxStackSize(1);
-        setMaxDamage(maxDamage);
+        setMaxDamage(type.maxDamage);
         setCreativeTab(CreativeTabs.TOOLS);
         MinecraftForge.EVENT_BUS.register(this);
     }
@@ -63,7 +66,7 @@ public class ItemChestTransporter extends Item
         EnumFacing face = event.getFace();
 
         IBlockState state = world.getBlockState(event.getPos());
-        System.out.println(state.getBlock().getUnlocalizedName() + "@"+ state.getBlock().getMetaFromState(state));
+        System.out.println(state.getBlock().getUnlocalizedName() + "@" + state.getBlock().getMetaFromState(state));
 
         int chestType = getTagCompound(stack).getByte("ChestType");
 
@@ -151,7 +154,7 @@ public class ItemChestTransporter extends Item
             if (!player.capabilities.isCreativeMode)
             {
                 stack.damageItem(1, player);
-                if (this == ChestTransporter.chestTransporter)
+                if (type.maxDamage == 1)
                     stack.damageItem(1, player);
             }
         }
@@ -231,7 +234,7 @@ public class ItemChestTransporter extends Item
             if (!player.capabilities.isCreativeMode)
             {
                 stack.damageItem(1, player);
-                if (this == ChestTransporter.chestTransporter)
+                if (type.maxDamage == 1)
                     stack.damageItem(1, player);
             }
 
