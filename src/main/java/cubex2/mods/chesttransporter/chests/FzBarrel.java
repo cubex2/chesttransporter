@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 public class FzBarrel extends TransportableChest
 {
-    private static final String[] names = new String[]{"oak", "spruce", "birch", "jungle", "acacia", "dark_oak", "creative"};
+    private static final String[] names = new String[] {"oak", "spruce", "birch", "jungle", "acacia", "dark_oak", "creative"};
     //private final IIcon[] icons = new IIcon[7];
 
     public FzBarrel(Block chestBlock, int chestMeta, int transporterDV)
@@ -38,14 +38,15 @@ public class FzBarrel extends TransportableChest
             Object type = ObfuscationReflectionHelper.getPrivateValue(clazz, chestTE, "type");
 
             NBTTagCompound logNbt = new NBTTagCompound();
-            ((ItemStack) log).writeToNBT(logNbt);
+            ((ItemStack)log).writeToNBT(logNbt);
             NBTTagCompound slabNbt = new NBTTagCompound();
-            ((ItemStack) slab).writeToNBT(slabNbt);
+            ((ItemStack)slab).writeToNBT(slabNbt);
 
             transporter.getTagCompound().setTag("WoodLog", logNbt);
             transporter.getTagCompound().setTag("WoodSlab", slabNbt);
             transporter.getTagCompound().setString("BarrelType", type.toString());
-        } catch (ClassNotFoundException e)
+        }
+        catch (ClassNotFoundException e)
         {
             e.printStackTrace();
         }
@@ -63,13 +64,14 @@ public class FzBarrel extends TransportableChest
             NBTTagCompound slabNbt = transporter.getTagCompound().getCompoundTag("WoodSlab");
             String typeName = transporter.getTagCompound().getString("BarrelType");
 
-            ItemStack log = ItemStack.loadItemStackFromNBT(logNbt);
-            ItemStack slab = ItemStack.loadItemStackFromNBT(slabNbt);
+            ItemStack log = new ItemStack(logNbt);
+            ItemStack slab = new ItemStack(slabNbt);
             Object type = null;
             try
             {
                 type = typeClazz.getDeclaredMethod("valueOf", String.class).invoke(null, typeName);
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 e.printStackTrace();
             }
@@ -77,7 +79,8 @@ public class FzBarrel extends TransportableChest
             ObfuscationReflectionHelper.setPrivateValue(clazz, chestTE, log, "woodLog");
             ObfuscationReflectionHelper.setPrivateValue(clazz, chestTE, slab, "woodSlab");
             ObfuscationReflectionHelper.setPrivateValue(clazz, chestTE, type, "type");
-        } catch (ClassNotFoundException e)
+        }
+        catch (ClassNotFoundException e)
         {
             e.printStackTrace();
         }
@@ -126,15 +129,17 @@ public class FzBarrel extends TransportableChest
     public String getModelName(ItemStack stack)
     {
         NBTTagCompound logNbt = stack.getTagCompound().getCompoundTag("WoodLog");
-        ItemStack log = ItemStack.loadItemStackFromNBT(logNbt);
+        ItemStack log = new ItemStack(logNbt);
 
         if (log.getItem() == Item.getItemFromBlock(Blocks.LOG))
         {
             return "barrel_" + names[log.getItemDamage()];
-        } else if (log.getItem() == Item.getItemFromBlock(Blocks.LOG2))
+        }
+        else if (log.getItem() == Item.getItemFromBlock(Blocks.LOG2))
         {
             return "barrel_" + names[log.getItemDamage() + 4];
-        } else if (log.getItem() == Item.getItemFromBlock(Blocks.BEDROCK))
+        }
+        else if (log.getItem() == Item.getItemFromBlock(Blocks.BEDROCK))
         {
             return "barrel_creative";
         }

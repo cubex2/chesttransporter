@@ -1,7 +1,14 @@
 package cubex2.mods.chesttransporter;
 
 import com.google.common.collect.Maps;
-import cubex2.mods.chesttransporter.chests.*;
+import cubex2.mods.chesttransporter.chests.BasicDrawer;
+import cubex2.mods.chesttransporter.chests.ChestRegistry;
+import cubex2.mods.chesttransporter.chests.CompDrawer;
+import cubex2.mods.chesttransporter.chests.CompactChest;
+import cubex2.mods.chesttransporter.chests.QuarkChest;
+import cubex2.mods.chesttransporter.chests.Spawner;
+import cubex2.mods.chesttransporter.chests.TransportableChest;
+import java.util.EnumMap;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityMinecartChest;
 import net.minecraft.init.Blocks;
@@ -16,14 +23,9 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-import java.util.EnumMap;
-
-@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.5.6")
+@Mod(modid = "chesttransporter", name = "Chest Transporter", version = "2.6.0")
 public class ChestTransporter
 {
-    @Mod.Instance("ChestTransporter")
-    public static ChestTransporter instance;
-
     @SidedProxy(clientSide = "cubex2.mods.chesttransporter.ClientProxy", serverSide = "cubex2.mods.chesttransporter.CommonProxy")
     public static CommonProxy proxy;
 
@@ -47,7 +49,8 @@ public class ChestTransporter
             {
                 canUseSpawner.put(type, config.getBoolean(type.spawnerConfigName(), Configuration.CATEGORY_GENERAL, true, "Set this to false to prevent the " + type.name().toLowerCase() + " transporter to pick up mob spawners"));
             }
-        } finally
+        }
+        finally
         {
             config.save();
         }
@@ -80,7 +83,7 @@ public class ChestTransporter
 
         if (Loader.isModLoaded("ironchest"))
         {
-            Block block = Block.getBlockFromName("ironchest:BlockIronChest");
+            Block block = Block.getBlockFromName("ironchest:iron_chest");
             if (block != null && block != Blocks.AIR)
             {
                 String[] names = new String[] {"iron", "gold", "diamond", "copper", "tin", "crystal", "obsidian"};
@@ -91,9 +94,9 @@ public class ChestTransporter
             }
         }
 
-        if (Loader.isModLoaded("MultiPageChest"))
+        if (Loader.isModLoaded("multipagechest"))
         {
-            Block block = Block.getBlockFromName("MultiPageChest:multipagechest");
+            Block block = Block.getBlockFromName("multipagechest:multipagechest");
             if (block != null && block != Blocks.AIR)
             {
                 ChestRegistry.register(new TransportableChest(block, -1, 10, "multipagechest"));
@@ -132,7 +135,7 @@ public class ChestTransporter
             }
         }
 
-        if (Loader.isModLoaded("StorageDrawers"))
+        if (Loader.isModLoaded("storagedrawers"))
         {
             Block block = Block.getBlockFromName("storagedrawers:basicDrawers");
             if (block != null && block != Blocks.AIR)
@@ -159,7 +162,7 @@ public class ChestTransporter
             ChestRegistry.register(new Spawner(Blocks.MOB_SPAWNER, -1, 24, "spawner"));
         }
 
-        if (Loader.isModLoaded("Quark"))
+        if (Loader.isModLoaded("quark"))
         {
             Block block = Block.getBlockFromName("quark:custom_chest");
             if (block != null && block != Blocks.AIR)
@@ -207,33 +210,10 @@ public class ChestTransporter
             {
                 for (int i = 0; i < 7; i++)
                 {
-                    ChestRegistry.registerMinecart((Class<? extends EntityMinecartChest>) Class.forName(classNames[i]), ChestRegistry.dvToChest.get(3 + i));
+                    ChestRegistry.registerMinecart((Class<? extends EntityMinecartChest>)Class.forName(classNames[i]), ChestRegistry.dvToChest.get(3 + i));
                 }
-            } catch (Exception e)
-            {
-                e.printStackTrace();
             }
-        }
-
-        if (Loader.isModLoaded("extracarts") && Loader.isModLoaded("ironchest"))
-        {
-            String[] classNames = new String[] {
-                    "com.dta.extracarts.mods.ironchest.entities.EntityIronChestCart",
-                    "com.dta.extracarts.mods.ironchest.entities.EntityGoldChestCart",
-                    "com.dta.extracarts.mods.ironchest.entities.EntityDiamondChestCart",
-                    "com.dta.extracarts.mods.ironchest.entities.EntityCopperChestCart",
-                    "com.dta.extracarts.mods.ironchest.entities.EntitySilverChestCart",
-                    "com.dta.extracarts.mods.ironchest.entities.EntityCrystalChestCart",
-                    "com.dta.extracarts.mods.ironchest.entities.EntityObsidianChestCart"
-            };
-
-            try
-            {
-                for (int i = 0; i < 7; i++)
-                {
-                    ChestRegistry.registerMinecart((Class<? extends EntityMinecartChest>) Class.forName(classNames[i]), ChestRegistry.dvToChest.get(3 + i));
-                }
-            } catch (Exception e)
+            catch (Exception e)
             {
                 e.printStackTrace();
             }
