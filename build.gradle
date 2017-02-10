@@ -10,14 +10,14 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the nessasary things for Forge to be setup.
 
-version = "1.11-2.6.0"
+version = "1.11.2-2.7.0"
 group = "cubex2.chesttransporter" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "ChestTransporter"
 
 minecraft {
-    version = "1.11-13.19.0.2161"
+    version = "1.11.2-13.20.0.2222"
     runDir = "run"
-    mappings = "snapshot_20161127"
+    mappings = "snapshot_20161220"
     makeObfSourceJar = false
 }
 

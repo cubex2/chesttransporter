@@ -2,8 +2,6 @@ package cubex2.mods.chesttransporter;
 
 import cubex2.mods.chesttransporter.chests.ChestRegistry;
 import cubex2.mods.chesttransporter.chests.TransportableChest;
-import java.util.List;
-import javax.annotation.ParametersAreNonnullByDefault;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSnow;
@@ -33,8 +31,12 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.minecart.MinecartInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.List;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
@@ -76,8 +78,7 @@ public class ItemChestTransporter extends Item
         if (chestType == 0 && isChestAt(world, event.getPos()))
         {
             grabChest(stack, player, world, event.getPos());
-        }
-        else if (chestType != 0)
+        } else if (chestType != 0)
         {
             placeChest(stack, player, event.getHand(), world, event.getPos(), face);
         }
@@ -98,17 +99,16 @@ public class ItemChestTransporter extends Item
             TransportableChest tChest = ChestRegistry.getChest(chestBlock, metadata);
             if (tChest == null || !tChest.isUsableWith(stack)) return;
 
-            getTagCompound(stack).setByte("ChestType", (byte)newChestType);
+            getTagCompound(stack).setByte("ChestType", (byte) newChestType);
             if (tChest.copyTileEntity())
             {
                 NBTTagCompound nbt = new NBTTagCompound();
                 tile.writeToNBT(nbt);
                 getTagCompound(stack).setTag("ChestTile", nbt);
                 world.removeTileEntity(pos);
-            }
-            else
+            } else
             {
-                IInventory chest = (IInventory)tile;
+                IInventory chest = (IInventory) tile;
                 moveItemsIntoStack(chest, stack);
             }
 
@@ -154,13 +154,12 @@ public class ItemChestTransporter extends Item
             NBTTagCompound nbt = getTagCompound(stack).getCompoundTag("ChestTile");
             tChest.modifyTileCompound(player, nbt);
             world.setTileEntity(chestPos, TileEntity.create(world, nbt));
-        }
-        else
+        } else
         {
-            IInventory chest = (IInventory)tile;
+            IInventory chest = (IInventory) tile;
             moveItemsIntoChest(stack, chest);
         }
-        getTagCompound(stack).setByte("ChestType", (byte)0);
+        getTagCompound(stack).setByte("ChestType", (byte) 0);
 
         tChest.preDestroyTransporter(player, stack, tile);
 
@@ -195,7 +194,7 @@ public class ItemChestTransporter extends Item
 
         if (chestType != 0 && entity instanceof EntityPlayer)
         {
-            EntityPlayer player = (EntityPlayer)entity;
+            EntityPlayer player = (EntityPlayer) entity;
             if (player.capabilities.isCreativeMode)
                 return;
             addEffect(player, MobEffects.SLOWNESS, 2);
@@ -216,21 +215,18 @@ public class ItemChestTransporter extends Item
 
     @SuppressWarnings("unused")
     @SubscribeEvent
-    public void entityInteract(PlayerInteractEvent.EntityInteract event)
+    public void entityInteract(MinecartInteractEvent event)
     {
         if (event.isCanceled())
             return;
 
-        if (!(event.getTarget() instanceof EntityMinecart))
-            return;
-
-        ItemStack stack = event.getItemStack();
-        EntityMinecart minecart = (EntityMinecart)event.getTarget();
+        ItemStack stack = event.getItem();
+        EntityMinecart minecart = event.getMinecart();
         if (stack.isEmpty() || stack.getItem() != this || minecart == null)
             return;
 
         int chestType = getTagCompound(stack).getByte("ChestType");
-        EntityPlayer player = event.getEntityPlayer();
+        EntityPlayer player = event.getPlayer();
 
         if (minecart instanceof EntityMinecartEmpty && !minecart.isBeingRidden() && ChestRegistry.isMinecartChest(chestType))
         {
@@ -242,8 +238,8 @@ public class ItemChestTransporter extends Item
             {
                 replaceMinecart(minecart, newMinecart);
             }
-            moveItemsIntoChest(stack, (IInventory)newMinecart);
-            getTagCompound(stack).setByte("ChestType", (byte)0);
+            moveItemsIntoChest(stack, (IInventory) newMinecart);
+            getTagCompound(stack).setByte("ChestType", (byte) 0);
             SoundType soundType = Blocks.CHEST.getSoundType();
             minecart.world.playSound(player, minecart.getPosition(), soundType.getPlaceSound(), SoundCategory.BLOCKS, (soundType.getVolume() + 1.0F) / 2.0F, soundType.getPitch() * 0.8F);
             if (!player.capabilities.isCreativeMode)
@@ -254,12 +250,11 @@ public class ItemChestTransporter extends Item
             }
 
             event.setCanceled(true);
-        }
-        else if (ChestRegistry.isSupportedMinecart(minecart) && chestType == 0)
+        } else if (ChestRegistry.isSupportedMinecart(minecart) && chestType == 0)
         {
             // grab chest from minecart
-            moveItemsIntoStack((IInventory)minecart, stack);
-            getTagCompound(stack).setByte("ChestType", (byte)ChestRegistry.getChestType(minecart));
+            moveItemsIntoStack((IInventory) minecart, stack);
+            getTagCompound(stack).setByte("ChestType", (byte) ChestRegistry.getChestType(minecart));
             SoundType soundType = Blocks.CHEST.getSoundType();
             minecart.world.playSound(player, minecart.getPosition(), soundType.getBreakSound(), SoundCategory.BLOCKS, (soundType.getVolume() + 1.0F) / 2.0F, soundType.getPitch() * 0.8F);
             if (!player.world.isRemote)
@@ -303,8 +298,7 @@ public class ItemChestTransporter extends Item
                 if (nbt instanceof NBTTagByte)
                 {
                     j = nbtTagCompound.getByte("Slot") & 255;
-                }
-                else
+                } else
                 {
                     j = nbtTagCompound.getShort("Slot");
                 }
@@ -353,7 +347,7 @@ public class ItemChestTransporter extends Item
             if (!chest.getStackInSlot(i).isEmpty())
             {
                 NBTTagCompound nbtTabCompound2 = new NBTTagCompound();
-                nbtTabCompound2.setShort("Slot", (short)i);
+                nbtTabCompound2.setShort("Slot", (short) i);
                 chest.getStackInSlot(i).copy().writeToNBT(nbtTabCompound2);
                 chest.setInventorySlotContents(i, ItemStack.EMPTY);
                 nbtList.appendTag(nbtTabCompound2);
@@ -377,8 +371,7 @@ public class ItemChestTransporter extends Item
             if (nbt instanceof NBTTagByte)
             {
                 j = nbtTagCompound.getByte("Slot") & 255;
-            }
-            else
+            } else
             {
                 j = nbtTagCompound.getShort("Slot");
             }
