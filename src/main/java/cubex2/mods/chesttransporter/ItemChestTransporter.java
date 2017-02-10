@@ -30,6 +30,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.minecart.MinecartInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -203,21 +204,18 @@ public class ItemChestTransporter extends Item
     }
 
     @SubscribeEvent
-    public void entityInteract(PlayerInteractEvent.EntityInteract event)
+    public void entityInteract(MinecartInteractEvent event)
     {
         if (event.isCanceled())
             return;
 
-        if (!(event.getTarget() instanceof EntityMinecart))
-            return;
-
-        ItemStack stack = event.getItemStack();
-        EntityMinecart minecart = (EntityMinecart) event.getTarget();
+        ItemStack stack = event.getItem();
+        EntityMinecart minecart = event.getMinecart();
         if (stack == null || stack.getItem() != this || minecart == null)
             return;
 
         int chestType = getTagCompound(stack).getByte("ChestType");
-        EntityPlayer player = event.getEntityPlayer();
+        EntityPlayer player = event.getPlayer();
 
         if (minecart instanceof EntityMinecartEmpty && !minecart.isBeingRidden() && ChestRegistry.isMinecartChest(chestType))
         {
@@ -259,7 +257,10 @@ public class ItemChestTransporter extends Item
     private void replaceMinecart(EntityMinecart old, EntityMinecart now)
     {
         now.setPosition(old.posX, old.posY, old.posZ);
-        now.setAngles(old.rotationPitch, old.rotationYaw);
+        now.rotationPitch = old.rotationPitch;
+        now.prevRotationPitch = old.prevRotationPitch;
+        now.rotationYaw = old.rotationYaw;
+        now.prevRotationYaw = old.prevRotationYaw;
         old.worldObj.spawnEntityInWorld(now);
         old.setDead();
     }

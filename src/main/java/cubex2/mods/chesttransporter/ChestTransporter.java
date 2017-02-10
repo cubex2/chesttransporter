@@ -18,7 +18,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import java.util.EnumMap;
 
-@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.5.6")
+@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.5.7")
 public class ChestTransporter
 {
     @Mod.Instance("ChestTransporter")
