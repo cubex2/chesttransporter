@@ -303,7 +303,16 @@ public class ItemChestTransporter extends Item
                 }
             }
 
-            list.add("Contains " + numItems + " items");
+            if (numItems > 0)
+            {
+                list.add("Contains " + numItems + " items");
+            }
+
+            TransportableChest chest = ChestRegistry.dvToChest.get(chestType);
+            if (chest != null)
+            {
+                chest.addInformation(stack, player, list, flag);
+            }
         }
     }
 
