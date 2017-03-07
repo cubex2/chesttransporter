@@ -67,7 +67,7 @@ public class ItemChestTransporter extends Item
         EnumFacing face = event.getFace();
 
         IBlockState state = world.getBlockState(event.getPos());
-        System.out.println(state.getBlock().getUnlocalizedName() + "@" + state.getBlock().getMetaFromState(state));
+        //System.out.println(state.getBlock().getUnlocalizedName() + "@" + state.getBlock().getMetaFromState(state));
 
         int chestType = getTagCompound(stack).getByte("ChestType");
 
@@ -94,6 +94,7 @@ public class ItemChestTransporter extends Item
 
             TransportableChest tChest = ChestRegistry.getChest(chestBlock, metadata);
             if (tChest == null || !tChest.isUsableWith(stack)) return;
+            if (!tChest.canGrab(tile)) return;
 
             getTagCompound(stack).setByte("ChestType", (byte) newChestType);
             if (tChest.copyTileEntity())

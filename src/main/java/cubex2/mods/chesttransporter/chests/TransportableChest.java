@@ -92,4 +92,9 @@ public class TransportableChest
     {
         // do nothing
     }
+
+    public boolean canGrab(TileEntity chestTE)
+    {
+        return true;
+    }
 }

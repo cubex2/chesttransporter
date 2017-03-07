@@ -18,7 +18,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import java.util.EnumMap;
 
-@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.5.8")
+@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.5.9")
 public class ChestTransporter
 {
     @Mod.Instance("ChestTransporter")
@@ -188,6 +188,28 @@ public class ChestTransporter
                 for (int i = 0; i < names.length; i++)
                 {
                     ChestRegistry.register(new TransportableChest(block, i, 28 + i, "fluidity_" + names[i]));
+                }
+            }
+        }
+
+        if (Loader.isModLoaded("BiblioCraft"))
+        {
+            Block block = Block.getBlockFromName("BiblioCraft:FramedChest");
+            if (block != null && block != Blocks.AIR)
+            {
+                String[] names = new String[] {
+                        "oak", "spruce", "birch", "jungle", "acacia", "dark_oak", "framed"
+                };
+
+                for (int i = 0; i < names.length; i++)
+                {
+                    TransportableChest chest1;
+                    if (i == names.length - 1)
+                        chest1 = new BiblioFramedChest(block, i, 43 + i, "biblio_chest_" + names[i]);
+                    else
+                        chest1 = new TransportableChest(block, i, 43 + i, "biblio_chest_" + names[i]);
+
+                    ChestRegistry.register(chest1);
                 }
             }
         }
