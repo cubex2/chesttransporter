@@ -73,8 +73,6 @@ public class ItemChestTransporter extends Item
 
         IBlockState state = world.getBlockState(event.getPos());
 
-        System.out.println(state.getBlock().getRegistryName());
-
         int chestType = getTagCompound(stack).getByte("ChestType");
 
         if (chestType == 0 && isChestAt(world, event.getPos()))
