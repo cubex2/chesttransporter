@@ -198,17 +198,17 @@ public class ChestTransporter
 
             if (small != null && small != Blocks.AIR)
             {
-                ChestRegistry.register(new StorageCrate(small,0,43, "crate_small"));
+                ChestRegistry.register(new StorageCrate(small, 0, 50, "crate_small"));
             }
 
             if (medium != null && medium != Blocks.AIR)
             {
-                ChestRegistry.register(new StorageCrate(medium,0,44, "crate_medium"));
+                ChestRegistry.register(new StorageCrate(medium, 0, 51, "crate_medium"));
             }
 
             if (large != null && large != Blocks.AIR)
             {
-                ChestRegistry.register(new StorageCrate(large,0,45, "crate_large"));
+                ChestRegistry.register(new StorageCrate(large, 0, 52, "crate_large"));
             }
         }
 
