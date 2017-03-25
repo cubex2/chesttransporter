@@ -1,18 +1,12 @@
 package cubex2.mods.chesttransporter;
 
 import com.google.common.collect.Maps;
-import cubex2.mods.chesttransporter.chests.BasicDrawer;
-import cubex2.mods.chesttransporter.chests.ChestRegistry;
-import cubex2.mods.chesttransporter.chests.CompDrawer;
-import cubex2.mods.chesttransporter.chests.CompactChest;
-import cubex2.mods.chesttransporter.chests.QuarkChest;
-import cubex2.mods.chesttransporter.chests.Spawner;
-import cubex2.mods.chesttransporter.chests.TransportableChest;
-import java.util.EnumMap;
+import cubex2.mods.chesttransporter.chests.*;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityMinecartChest;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
@@ -23,7 +17,9 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-@Mod(modid = "chesttransporter", name = "Chest Transporter", version = "2.7.1")
+import java.util.EnumMap;
+
+@Mod(modid = "chesttransporter", name = "Chest Transporter", version = "2.7.2")
 public class ChestTransporter
 {
     @SidedProxy(clientSide = "cubex2.mods.chesttransporter.ClientProxy", serverSide = "cubex2.mods.chesttransporter.CommonProxy")
@@ -49,8 +45,7 @@ public class ChestTransporter
             {
                 canUseSpawner.put(type, config.getBoolean(type.spawnerConfigName(), Configuration.CATEGORY_GENERAL, true, "Set this to false to prevent the " + type.name().toLowerCase() + " transporter to pick up mob spawners"));
             }
-        }
-        finally
+        } finally
         {
             config.save();
         }
@@ -195,6 +190,28 @@ public class ChestTransporter
             }
         }
 
+        if (Loader.isModLoaded("actuallyadditions"))
+        {
+            Block small = Block.REGISTRY.getObject(new ResourceLocation("actuallyadditions:block_giant_chest"));
+            Block medium = Block.REGISTRY.getObject(new ResourceLocation("actuallyadditions:block_giant_chest_medium"));
+            Block large = Block.REGISTRY.getObject(new ResourceLocation("actuallyadditions:block_giant_chest_large"));
+
+            if (small != null && small != Blocks.AIR)
+            {
+                ChestRegistry.register(new StorageCrate(small,0,43, "crate_small"));
+            }
+
+            if (medium != null && medium != Blocks.AIR)
+            {
+                ChestRegistry.register(new StorageCrate(medium,0,44, "crate_medium"));
+            }
+
+            if (large != null && large != Blocks.AIR)
+            {
+                ChestRegistry.register(new StorageCrate(large,0,45, "crate_large"));
+            }
+        }
+
         if (Loader.isModLoaded("ironchestminecarts") && Loader.isModLoaded("ironchest"))
         {
             String[] classNames = new String[] {
@@ -210,10 +227,9 @@ public class ChestTransporter
             {
                 for (int i = 0; i < 7; i++)
                 {
-                    ChestRegistry.registerMinecart((Class<? extends EntityMinecartChest>)Class.forName(classNames[i]), ChestRegistry.dvToChest.get(3 + i));
+                    ChestRegistry.registerMinecart((Class<? extends EntityMinecartChest>) Class.forName(classNames[i]), ChestRegistry.dvToChest.get(3 + i));
                 }
-            }
-            catch (Exception e)
+            } catch (Exception e)
             {
                 e.printStackTrace();
             }
