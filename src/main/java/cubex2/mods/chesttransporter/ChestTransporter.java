@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityMinecartChest;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
@@ -18,7 +19,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import java.util.EnumMap;
 
-@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.5.9")
+@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.5.10")
 public class ChestTransporter
 {
     @Mod.Instance("ChestTransporter")
@@ -211,6 +212,28 @@ public class ChestTransporter
 
                     ChestRegistry.register(chest1);
                 }
+            }
+        }
+
+        if (Loader.isModLoaded("actuallyadditions"))
+        {
+            Block small = Block.REGISTRY.getObject(new ResourceLocation("actuallyadditions:blockGiantChest"));
+            Block medium = Block.REGISTRY.getObject(new ResourceLocation("actuallyadditions:blockGiantChestMedium"));
+            Block large = Block.REGISTRY.getObject(new ResourceLocation("actuallyadditions:blockGiantChestLarge"));
+
+            if (small != null && small != Blocks.AIR)
+            {
+                ChestRegistry.register(new StorageCrate(small,0,50, "crate_small"));
+            }
+
+            if (medium != null && medium != Blocks.AIR)
+            {
+                ChestRegistry.register(new StorageCrate(medium,0,51, "crate_medium"));
+            }
+
+            if (large != null && large != Blocks.AIR)
+            {
+                ChestRegistry.register(new StorageCrate(large,0,52, "crate_large"));
             }
         }
 
