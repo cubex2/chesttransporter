@@ -5,6 +5,8 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import cubex2.mods.chesttransporter.TransporterType;
+import cubex2.mods.chesttransporter.api.TransportableChest;
+import cubex2.mods.chesttransporter.chests.ChestRegistry;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
@@ -40,7 +42,11 @@ public class ModelCT implements IModel
 
         deps = Lists.newArrayList();
         deps.add(handle);
-        deps.addAll(ModelRegistry.getInstance().modelLocations.values());
+
+        for (TransportableChest chest : ChestRegistry.getChests())
+        {
+            deps.addAll(chest.getChestModels());
+        }
     }
 
     @Override

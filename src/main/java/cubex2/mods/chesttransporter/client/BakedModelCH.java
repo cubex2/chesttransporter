@@ -1,14 +1,15 @@
 package cubex2.mods.chesttransporter.client;
 
 import com.google.common.collect.ImmutableList;
-import cubex2.mods.chesttransporter.chests.ChestRegistry;
 import cubex2.mods.chesttransporter.ItemChestTransporter;
+import cubex2.mods.chesttransporter.api.TransportableChest;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import org.apache.commons.lang3.tuple.Pair;
@@ -17,18 +18,19 @@ import javax.vecmath.Matrix4f;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class BakedModelCH implements IPerspectiveAwareModel
 {
     public static final ModelResourceLocation location = new ModelResourceLocation("chesttransporter:smart_wood", "inventory");
-    private final Map<String, IBakedModel> chestModels;
+    private final Map<ResourceLocation, IBakedModel> chestModels;
     private IBakedModel handle;
 
     private OverrideList overrides;
 
     private IBakedModel toUse = null;
 
-    public BakedModelCH(IBakedModel handle, Map<String, IBakedModel> chestModels)
+    public BakedModelCH(IBakedModel handle, Map<ResourceLocation, IBakedModel> chestModels)
     {
         this.handle = handle;
         this.chestModels = chestModels;
@@ -85,12 +87,14 @@ public class BakedModelCH implements IPerspectiveAwareModel
 
     public IBakedModel handleItemState(IBakedModel originalModel, ItemStack stack, World world, EntityLivingBase entity)
     {
-        int chestType = ItemChestTransporter.getTagCompound(stack).getByte("ChestType");
-        if (chestType == 0) toUse = null;
+        Optional<TransportableChest> chest = ItemChestTransporter.getChest(stack);
+        if (!chest.isPresent())
+        {
+             toUse = null;
+        }
         else
         {
-            String modelName = ChestRegistry.dvToChest.get(chestType).getModelName(stack);
-            toUse = chestModels.get(modelName);
+            toUse = chestModels.get(chest.get().getChestModel(stack));
         }
         return this;
     }

@@ -2,11 +2,11 @@ package cubex2.mods.chesttransporter.chests;
 
 import net.minecraft.block.Block;
 
-public class StorageCrate extends TransportableChest
+public class StorageCrate extends TransportableChestImpl
 {
-    public StorageCrate(Block chestBlock, int chestMeta, int transporterDV, String iconName)
+    public StorageCrate(Block chestBlock, int chestMeta, int transporterDV, String name)
     {
-        super(chestBlock, chestMeta, transporterDV, iconName);
+        super(chestBlock, chestMeta, transporterDV, name);
     }
 
     @Override

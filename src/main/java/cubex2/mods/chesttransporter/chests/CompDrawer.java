@@ -1,14 +1,17 @@
 package cubex2.mods.chesttransporter.chests;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
-public class CompDrawer extends TransportableChest
+public class CompDrawer extends TransportableChestImpl
 {
-    public CompDrawer(Block chestBlock, int chestMeta, int transporterDV, String iconName)
+    public CompDrawer(Block chestBlock, int chestMeta, int transporterDV, String name)
     {
-        super(chestBlock, chestMeta, transporterDV, iconName);
+        super(chestBlock, chestMeta, transporterDV, name);
     }
 
     @Override
@@ -18,8 +21,10 @@ public class CompDrawer extends TransportableChest
     }
 
     @Override
-    public void modifyTileCompound(EntityLivingBase living, NBTTagCompound nbt)
+    public NBTTagCompound modifyTileCompound(NBTTagCompound nbt, World world, BlockPos pos, EntityPlayer player, ItemStack transporter)
     {
-        nbt.setByte("Dir", (byte) living.getHorizontalFacing().getOpposite().ordinal());
+        nbt.setByte("Dir", (byte) player.getHorizontalFacing().getOpposite().ordinal());
+
+        return nbt;
     }
 }

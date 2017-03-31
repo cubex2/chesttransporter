@@ -1,7 +1,6 @@
 package cubex2.mods.chesttransporter;
 
 import cubex2.mods.chesttransporter.client.ModelLoaderCT;
-import cubex2.mods.chesttransporter.client.ModelRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -29,11 +28,5 @@ public class ClientProxy extends CommonProxy
             ModelBakery.registerItemVariants(item, new ResourceLocation("chesttransporter:smart_" + type.iconName));
             Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, l);
         }
-    }
-
-    @Override
-    public void addModelLocation(String name)
-    {
-        ModelRegistry.getInstance().modelLocations.put(name, new ResourceLocation("chesttransporter:item/" + name));
     }
 }

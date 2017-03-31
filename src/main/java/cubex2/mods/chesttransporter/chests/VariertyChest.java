@@ -1,17 +1,23 @@
 package cubex2.mods.chesttransporter.chests;
 
-import cubex2.mods.chesttransporter.ChestTransporter;
+import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
+import java.util.Collection;
+import java.util.List;
 
-public class VariertyChest extends TransportableChest
+
+public class VariertyChest extends TransportableChestImpl
 {
-    private static final String[] chestTypes = new String[]{"spruce", "birch", "jungle", "acacia", "darkoak", "original"};
+    private static final String[] chestTypes = new String[] {"spruce", "birch", "jungle", "acacia", "darkoak", "original"};
     private final boolean isGlow;
 
     public VariertyChest(Block chestBlock, int chestMeta, int transporterDV, boolean isGlow)
@@ -27,10 +33,12 @@ public class VariertyChest extends TransportableChest
     }
 
     @Override
-    public void preRemoveChest(ItemStack transporter, TileEntity chestTE)
+    public void preRemoveChest(World world, BlockPos pos, EntityPlayer player, ItemStack transporter)
     {
         try
         {
+            TileEntity chestTE = world.getTileEntity(pos);
+
             Class clazz = Class.forName("de.sanandrew.mods.varietychests.tileentity.TileEntityCustomChest");
             Class clazz1 = Class.forName("de.sanandrew.mods.varietychests.util.ChestType");
 
@@ -48,10 +56,11 @@ public class VariertyChest extends TransportableChest
     }
 
     @Override
-    public void preDestroyTransporter(EntityLivingBase living, ItemStack transporter, TileEntity chestTE)
+    public void onChestPlaced(World world, BlockPos pos, EntityPlayer player, ItemStack transporter)
     {
         try
         {
+            TileEntity chestTE = world.getTileEntity(pos);
             Class clazz = Class.forName("de.sanandrew.mods.varietychests.tileentity.TileEntityCustomChest");
 
             String chestType = transporter.getTagCompound().getString("VCChestType");
@@ -64,51 +73,25 @@ public class VariertyChest extends TransportableChest
     }
 
     @Override
-    public String getModelName(ItemStack stack)
+    public ResourceLocation getChestModel(ItemStack stack)
     {
         String chestType = stack.getTagCompound().getString("VCChestType");
         String postfix = isGlow ? "_glow" : "";
-        return "vc_" + chestType + postfix;
+        return locationFromName("vc_" + chestType + postfix);
     }
 
     @Override
-    public void addModelLocations()
+    public Collection<ResourceLocation> getChestModels()
     {
+        List<ResourceLocation> models = Lists.newArrayList();
+
         String postfix = isGlow ? "_glow" : "";
 
         for (String chestType : chestTypes)
         {
-            ChestTransporter.proxy.addModelLocation("vc_" + chestType + postfix);
+            models.add(locationFromName("vc_" + chestType + postfix));
         }
+
+        return models;
     }
-
-    /*@Override
-    public IIcon getIcon(ItemStack stack)
-    {
-        String chestType = stack.getTagCompound().getString("VCChestType");
-        if (chestType.equals("spruce"))
-            return icons[0];
-        if (chestType.equals("birch"))
-            return icons[1];
-        if (chestType.equals("jungle"))
-            return icons[2];
-        if (chestType.equals("acacia"))
-            return icons[3];
-        if (chestType.equals("darkoak"))
-            return icons[4];
-        if (chestType.equals("original"))
-            return icons[5];
-
-        return icons[0];
-    }
-
-    @Override
-    public void registerIcon(IIconRegister iconRegister)
-    {
-        String[] chestTypes = new String[]{"spruce", "birch", "jungle", "acacia", "darkoak", "original"};
-        for (int i = 0; i < icons.length; i++)
-        {
-            icons[i] = iconRegister.registerIcon("chesttransporter:vc_" + chestTypes[i] + (isGlow ? "_glow" : ""));
-        }
-    }*/
 }

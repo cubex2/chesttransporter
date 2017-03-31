@@ -1,12 +1,14 @@
 package cubex2.mods.chesttransporter;
 
 import com.google.common.collect.Maps;
+import cubex2.mods.chesttransporter.api.TransportableChest;
 import cubex2.mods.chesttransporter.chests.*;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityMinecartChest;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
@@ -19,7 +21,9 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import java.util.EnumMap;
 
-@Mod(modid = "ChestTransporter", name = "Chest Transporter", version = "2.5.10")
+import static cubex2.mods.chesttransporter.ChestTransporter.ID;
+
+@Mod(modid = ID, name = "Chest Transporter", version = "2.5.11")
 public class ChestTransporter
 {
     @Mod.Instance("ChestTransporter")
@@ -32,10 +36,18 @@ public class ChestTransporter
 
     public static final EnumMap<TransporterType, ItemChestTransporter> items = Maps.newEnumMap(TransporterType.class);
     public static final EnumMap<TransporterType, Boolean> canUseSpawner = Maps.newEnumMap(TransporterType.class);
+    public static final String ID = "ChestTransporter";
+
+    public ChestTransporter()
+    {
+        MinecraftForge.EVENT_BUS.register(this);
+    }
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
+        ChestRegistry.init();
+
         proxy.preInit();
 
         Configuration config = new Configuration(event.getSuggestedConfigurationFile());
@@ -73,11 +85,11 @@ public class ChestTransporter
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent evt)
     {
-        TransportableChest chest = new TransportableChest(Blocks.CHEST, -1, 1, "vanilla");
+        TransportableChest chest = new TransportableChestImpl(Blocks.CHEST, -1, 1, "vanilla");
         ChestRegistry.register(chest);
         ChestRegistry.registerMinecart(EntityMinecartChest.class, chest);
 
-        ChestRegistry.register(new TransportableChest(Blocks.TRAPPED_CHEST, -1, 2, "vanilla_trapped"));
+        ChestRegistry.register(new TransportableChestImpl(Blocks.TRAPPED_CHEST, -1, 2, "vanilla_trapped"));
 
         if (Loader.isModLoaded("ironchest"))
         {
@@ -87,7 +99,7 @@ public class ChestTransporter
                 String[] names = new String[] {"iron", "gold", "diamond", "copper", "tin", "crystal", "obsidian"};
                 for (int i = 0; i < 7; i++)
                 {
-                    ChestRegistry.register(new TransportableChest(block, i, 3 + i, names[i]));
+                    ChestRegistry.register(new TransportableChestImpl(block, i, 3 + i, names[i]));
                 }
             }
         }
@@ -97,7 +109,7 @@ public class ChestTransporter
             Block block = Block.getBlockFromName("MultiPageChest:multipagechest");
             if (block != null && block != Blocks.AIR)
             {
-                ChestRegistry.register(new TransportableChest(block, -1, 10, "multipagechest"));
+                ChestRegistry.register(new TransportableChestImpl(block, -1, 10, "multipagechest"));
             }
         }
 
@@ -171,7 +183,7 @@ public class ChestTransporter
             block = Block.getBlockFromName("quark:custom_chest_trap");
             if (block != null && block != Blocks.AIR)
             {
-                ChestRegistry.register(new QuarkChest(block, 26, "quark_chest"));
+                ChestRegistry.register(new QuarkChest(block, 26, "quark_chest_trap"));
             }
         }
 
@@ -188,7 +200,7 @@ public class ChestTransporter
 
                 for (int i = 0; i < names.length; i++)
                 {
-                    ChestRegistry.register(new TransportableChest(block, i, 28 + i, "fluidity_" + names[i]));
+                    ChestRegistry.register(new TransportableChestImpl(block, i, 28 + i, "fluidity_" + names[i]));
                 }
             }
         }
@@ -208,7 +220,7 @@ public class ChestTransporter
                     if (i == names.length - 1)
                         chest1 = new BiblioFramedChest(block, i, 43 + i, "biblio_chest_" + names[i]);
                     else
-                        chest1 = new TransportableChest(block, i, 43 + i, "biblio_chest_" + names[i]);
+                        chest1 = new TransportableChestImpl(block, i, 43 + i, "biblio_chest_" + names[i]);
 
                     ChestRegistry.register(chest1);
                 }
@@ -223,17 +235,17 @@ public class ChestTransporter
 
             if (small != null && small != Blocks.AIR)
             {
-                ChestRegistry.register(new StorageCrate(small,0,50, "crate_small"));
+                ChestRegistry.register(new StorageCrate(small, 0, 50, "crate_small"));
             }
 
             if (medium != null && medium != Blocks.AIR)
             {
-                ChestRegistry.register(new StorageCrate(medium,0,51, "crate_medium"));
+                ChestRegistry.register(new StorageCrate(medium, 0, 51, "crate_medium"));
             }
 
             if (large != null && large != Blocks.AIR)
             {
-                ChestRegistry.register(new StorageCrate(large,0,52, "crate_large"));
+                ChestRegistry.register(new StorageCrate(large, 0, 52, "crate_large"));
             }
         }
 
@@ -252,7 +264,7 @@ public class ChestTransporter
             {
                 for (int i = 0; i < 7; i++)
                 {
-                    ChestRegistry.registerMinecart((Class<? extends EntityMinecartChest>) Class.forName(classNames[i]), ChestRegistry.dvToChest.get(3 + i));
+                    ChestRegistry.registerMinecart((Class<? extends EntityMinecartChest>) Class.forName(classNames[i]), ChestRegistry.getChestFromType(3 + i).get());
                 }
             } catch (Exception e)
             {
@@ -276,7 +288,7 @@ public class ChestTransporter
             {
                 for (int i = 0; i < 7; i++)
                 {
-                    ChestRegistry.registerMinecart((Class<? extends EntityMinecartChest>) Class.forName(classNames[i]), ChestRegistry.dvToChest.get(3 + i));
+                    ChestRegistry.registerMinecart((Class<? extends EntityMinecartChest>) Class.forName(classNames[i]), ChestRegistry.getChestFromType(3 + i).get());
                 }
             } catch (Exception e)
             {

@@ -1,18 +1,24 @@
 package cubex2.mods.chesttransporter.chests;
 
-import cubex2.mods.chesttransporter.ChestTransporter;
+import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
-public class FzBarrel extends TransportableChest
+import java.util.Collection;
+import java.util.List;
+
+public class FzBarrel extends TransportableChestImpl
 {
-    private static final String[] names = new String[]{"oak", "spruce", "birch", "jungle", "acacia", "dark_oak", "creative"};
+    private static final String[] names = new String[] {"oak", "spruce", "birch", "jungle", "acacia", "dark_oak", "creative"};
     //private final IIcon[] icons = new IIcon[7];
 
     public FzBarrel(Block chestBlock, int chestMeta, int transporterDV)
@@ -27,10 +33,11 @@ public class FzBarrel extends TransportableChest
     }
 
     @Override
-    public void preRemoveChest(ItemStack transporter, TileEntity chestTE)
+    public void preRemoveChest(World world, BlockPos pos, EntityPlayer player, ItemStack transporter)
     {
         try
         {
+            TileEntity chestTE = world.getTileEntity(pos);
             Class clazz = Class.forName("factorization.weird.TileEntityDayBarrel");
 
             Object log = ObfuscationReflectionHelper.getPrivateValue(clazz, chestTE, "woodLog");
@@ -52,10 +59,11 @@ public class FzBarrel extends TransportableChest
     }
 
     @Override
-    public void preDestroyTransporter(EntityLivingBase living, ItemStack transporter, TileEntity chestTE)
+    public void onChestPlaced(World world, BlockPos pos, EntityPlayer player, ItemStack transporter)
     {
         try
         {
+            TileEntity chestTE = world.getTileEntity(pos);
             Class clazz = Class.forName("factorization.weird.TileEntityDayBarrel");
             Class typeClazz = Class.forName("factorization.weird.TileEntityDayBarrel$Type");
 
@@ -83,70 +91,35 @@ public class FzBarrel extends TransportableChest
         }
     }
 
-    /*@Override
-    public IIcon getIcon(ItemStack stack)
-    {
-        NBTTagCompound logNbt = stack.getTagCompound().getCompoundTag("WoodLog");
-        ItemStack log = ItemStack.loadItemStackFromNBT(logNbt);
-
-        if (log.getItem() == Item.getItemFromBlock(Blocks.log))
-        {
-            if (log.getItemDamage() == 0)
-                return icons[0];
-            if (log.getItemDamage() == 1)
-                return icons[1];
-            if (log.getItemDamage() == 2)
-                return icons[2];
-            if (log.getItemDamage() == 3)
-                return icons[3];
-        } else if (log.getItem() == Item.getItemFromBlock(Blocks.log2))
-        {
-            if (log.getItemDamage() == 0)
-                return icons[4];
-            if (log.getItemDamage() == 1)
-                return icons[5];
-        } else if (log.getItem() == Item.getItemFromBlock(Blocks.bedrock))
-        {
-            return icons[6];
-        }
-        return icons[0];
-    }
-
     @Override
-    public void registerIcon(IIconRegister iconRegister)
-    {
-        String[] names = new String[]{"oak", "spruce", "birch", "jungle", "acacia", "dark_oak", "creative"};
-        for (int i = 0; i < icons.length; i++)
-        {
-            icons[i] = iconRegister.registerIcon("chesttransporter:barrel_" + names[i]);
-        }
-    }*/
-
-    @Override
-    public String getModelName(ItemStack stack)
+    public ResourceLocation getChestModel(ItemStack stack)
     {
         NBTTagCompound logNbt = stack.getTagCompound().getCompoundTag("WoodLog");
         ItemStack log = ItemStack.loadItemStackFromNBT(logNbt);
 
         if (log.getItem() == Item.getItemFromBlock(Blocks.LOG))
         {
-            return "barrel_" + names[log.getItemDamage()];
+            return locationFromName("barrel_" + names[log.getItemDamage()]);
         } else if (log.getItem() == Item.getItemFromBlock(Blocks.LOG2))
         {
-            return "barrel_" + names[log.getItemDamage() + 4];
+            return locationFromName("barrel_" + names[log.getItemDamage() + 4]);
         } else if (log.getItem() == Item.getItemFromBlock(Blocks.BEDROCK))
         {
-            return "barrel_creative";
+            return locationFromName("barrel_creative");
         }
-        return "barrel_oak";
+        return locationFromName("barrel_oak");
     }
 
     @Override
-    public void addModelLocations()
+    public Collection<ResourceLocation> getChestModels()
     {
+        List<ResourceLocation> models = Lists.newArrayList();
+
         for (String name : names)
         {
-            ChestTransporter.proxy.addModelLocation("barrel_" + name);
+            models.add(locationFromName("barrel_" + name));
         }
+
+        return models;
     }
 }

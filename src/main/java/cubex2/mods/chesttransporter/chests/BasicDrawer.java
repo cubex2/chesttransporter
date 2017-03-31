@@ -1,18 +1,24 @@
 package cubex2.mods.chesttransporter.chests;
 
-import cubex2.mods.chesttransporter.ChestTransporter;
+import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
-public class BasicDrawer extends TransportableChest
+import java.util.Collection;
+import java.util.List;
+
+public class BasicDrawer extends TransportableChestImpl
 {
-    private static final String[] variants = new String[]{"oak", "spruce", "birch", "jungle", "acacia", "dark_oak"};
+    private static final String[] variants = new String[] {"oak", "spruce", "birch", "jungle", "acacia", "dark_oak"};
 
-    public BasicDrawer(Block chestBlock, int chestMeta, int transporterDV, String iconName)
+    public BasicDrawer(Block chestBlock, int chestMeta, int transporterDV, String name)
     {
-        super(chestBlock, chestMeta, transporterDV, iconName);
+        super(chestBlock, chestMeta, transporterDV, name);
     }
 
     @Override
@@ -21,14 +27,28 @@ public class BasicDrawer extends TransportableChest
         return true;
     }
 
-    @Override
-    public void modifyTileCompound(EntityLivingBase living, NBTTagCompound nbt)
+    public NBTTagCompound modifyTileCompound(NBTTagCompound nbt, World world, BlockPos pos, EntityPlayer player, ItemStack transporter)
     {
-        nbt.setByte("Dir", (byte) living.getHorizontalFacing().getOpposite().ordinal());
+        nbt.setByte("Dir", (byte) player.getHorizontalFacing().getOpposite().ordinal());
+
+        return nbt;
     }
 
     @Override
-    public String getModelName(ItemStack stack)
+    public Collection<ResourceLocation> getChestModels()
+    {
+        List<ResourceLocation> models = Lists.newArrayList();
+
+        for (String variant : variants)
+        {
+            models.add(locationFromName(name + "_" + variant));
+        }
+
+        return models;
+    }
+
+    @Override
+    public ResourceLocation getChestModel(ItemStack stack)
     {
         if (stack.hasTagCompound() && stack.getTagCompound().hasKey("ChestTile"))
         {
@@ -36,17 +56,10 @@ public class BasicDrawer extends TransportableChest
             String mat = nbt.getString("Mat");
             if (mat == null || mat.length() == 0)
                 mat = "oak";
-            return iconName + "_" + mat;
+            return locationFromName(name + "_" + mat);
         }
-        return iconName + "_oak";
+        return locationFromName(name + "_oak");
     }
 
-    @Override
-    public void addModelLocations()
-    {
-        for (String variant : variants)
-        {
-            ChestTransporter.proxy.addModelLocation(iconName + "_" + variant);
-        }
-    }
+
 }
