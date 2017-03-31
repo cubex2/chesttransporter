@@ -3,14 +3,17 @@ package cubex2.mods.chesttransporter.chests;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import java.util.Collection;
 import java.util.List;
 
-public class BasicDrawer extends TransportableChest
+public class BasicDrawer extends TransportableChestImpl
 {
     private static final String[] variants = new String[] {"oak", "spruce", "birch", "jungle", "acacia", "dark_oak"};
 
@@ -25,10 +28,11 @@ public class BasicDrawer extends TransportableChest
         return true;
     }
 
-    @Override
-    public void modifyTileCompound(EntityLivingBase living, NBTTagCompound nbt)
+    public NBTTagCompound modifyTileCompound(NBTTagCompound nbt, World world, BlockPos pos, EntityPlayer player, ItemStack transporter)
     {
-        nbt.setByte("Dir", (byte) living.getHorizontalFacing().getOpposite().ordinal());
+        nbt.setByte("Dir", (byte) player.getHorizontalFacing().getOpposite().ordinal());
+
+        return nbt;
     }
 
     @Override

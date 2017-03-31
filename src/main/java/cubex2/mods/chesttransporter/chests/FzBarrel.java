@@ -2,19 +2,21 @@ package cubex2.mods.chesttransporter.chests;
 
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 import java.util.Collection;
 import java.util.List;
 
-public class FzBarrel extends TransportableChest
+public class FzBarrel extends TransportableChestImpl
 {
     private static final String[] names = new String[] {"oak", "spruce", "birch", "jungle", "acacia", "dark_oak", "creative"};
     //private final IIcon[] icons = new IIcon[7];
@@ -31,10 +33,11 @@ public class FzBarrel extends TransportableChest
     }
 
     @Override
-    public void preRemoveChest(ItemStack transporter, TileEntity chestTE)
+    public void preRemoveChest(World world, BlockPos pos, EntityPlayer player, ItemStack transporter)
     {
         try
         {
+            TileEntity chestTE = world.getTileEntity(pos);
             Class clazz = Class.forName("factorization.weird.TileEntityDayBarrel");
 
             Object log = ObfuscationReflectionHelper.getPrivateValue(clazz, chestTE, "woodLog");
@@ -56,10 +59,11 @@ public class FzBarrel extends TransportableChest
     }
 
     @Override
-    public void preDestroyTransporter(EntityLivingBase living, ItemStack transporter, TileEntity chestTE)
+    public void onChestPlaced(World world, BlockPos pos, EntityPlayer player, ItemStack transporter)
     {
         try
         {
+            TileEntity chestTE = world.getTileEntity(pos);
             Class clazz = Class.forName("factorization.weird.TileEntityDayBarrel");
             Class typeClazz = Class.forName("factorization.weird.TileEntityDayBarrel$Type");
 

@@ -2,8 +2,8 @@ package cubex2.mods.chesttransporter.client;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Maps;
+import cubex2.mods.chesttransporter.api.TransportableChest;
 import cubex2.mods.chesttransporter.chests.ChestRegistry;
-import cubex2.mods.chesttransporter.chests.TransportableChest;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
@@ -31,7 +31,7 @@ public class ModelRegistry
     {
         Map<ResourceLocation, IBakedModel> ret = Maps.newHashMap();
 
-        for (TransportableChest chest : ChestRegistry.chests)
+        for (TransportableChest chest : ChestRegistry.getChests())
         {
             for (ResourceLocation location : chest.getChestModels())
             {

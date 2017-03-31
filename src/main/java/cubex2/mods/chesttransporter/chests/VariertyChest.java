@@ -2,18 +2,20 @@ package cubex2.mods.chesttransporter.chests;
 
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 import java.util.Collection;
 import java.util.List;
 
 
-public class VariertyChest extends TransportableChest
+public class VariertyChest extends TransportableChestImpl
 {
     private static final String[] chestTypes = new String[] {"spruce", "birch", "jungle", "acacia", "darkoak", "original"};
     private final boolean isGlow;
@@ -31,10 +33,12 @@ public class VariertyChest extends TransportableChest
     }
 
     @Override
-    public void preRemoveChest(ItemStack transporter, TileEntity chestTE)
+    public void preRemoveChest(World world, BlockPos pos, EntityPlayer player, ItemStack transporter)
     {
         try
         {
+            TileEntity chestTE = world.getTileEntity(pos);
+
             Class clazz = Class.forName("de.sanandrew.mods.varietychests.tileentity.TileEntityCustomChest");
             Class clazz1 = Class.forName("de.sanandrew.mods.varietychests.util.ChestType");
 
@@ -52,10 +56,11 @@ public class VariertyChest extends TransportableChest
     }
 
     @Override
-    public void preDestroyTransporter(EntityLivingBase living, ItemStack transporter, TileEntity chestTE)
+    public void onChestPlaced(World world, BlockPos pos, EntityPlayer player, ItemStack transporter)
     {
         try
         {
+            TileEntity chestTE = world.getTileEntity(pos);
             Class clazz = Class.forName("de.sanandrew.mods.varietychests.tileentity.TileEntityCustomChest");
 
             String chestType = transporter.getTagCompound().getString("VCChestType");

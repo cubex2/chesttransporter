@@ -1,7 +1,7 @@
 package cubex2.mods.chesttransporter;
 
+import cubex2.mods.chesttransporter.api.TransportableChest;
 import cubex2.mods.chesttransporter.chests.ChestRegistry;
-import cubex2.mods.chesttransporter.chests.TransportableChest;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSnow;
@@ -33,6 +33,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
+import java.util.Optional;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
@@ -50,11 +51,6 @@ public class ItemChestTransporter extends Item
         setMaxDamage(type.maxDamage);
         setCreativeTab(CreativeTabs.TOOLS);
         MinecraftForge.EVENT_BUS.register(this);
-    }
-
-    private boolean hasChest(ItemStack stack)
-    {
-        return stack.hasTagCompound() && stack.getTagCompound().getByte("ChestType") != 0;
     }
 
     @SuppressWarnings("unused")
@@ -77,30 +73,25 @@ public class ItemChestTransporter extends Item
 
         if (hasChest(stack))
         {
-            placeChest(stack, player, event.getHand(), world, pos, face);
-        } else if (isChestAt(world, pos))
+            getChest(stack)
+                    .ifPresent(chest -> placeChest(chest, stack, player, event.getHand(), world, pos, face));
+        } else
         {
-            grabChest(stack, player, world, pos);
+            getChest(world, pos, world.getBlockState(pos), player, stack)
+                    .ifPresent(chest -> grabChest(chest, stack, player, world, pos));
         }
     }
 
-    private void grabChest(ItemStack stack, EntityPlayer player, World world, BlockPos pos)
+    private void grabChest(TransportableChest chest, ItemStack stack, EntityPlayer player, World world, BlockPos pos)
     {
         TileEntity tile = world.getTileEntity(pos);
         if (tile != null)
         {
             IBlockState iblockstate = world.getBlockState(pos);
             Block chestBlock = iblockstate.getBlock();
-            int metadata = chestBlock.getMetaFromState(iblockstate);
-            int newChestType = getChestType(chestBlock, metadata);
-            if (newChestType == 0)
-                return;
 
-            TransportableChest tChest = ChestRegistry.getChest(chestBlock, metadata);
-            if (tChest == null || !tChest.isUsableWith(stack)) return;
-
-            getTagCompound(stack).setByte("ChestType", (byte) newChestType);
-            if (tChest.copyTileEntity())
+            getTagCompound(stack).setString("ChestName", chest.getRegistryName().toString());
+            if (chest.copyTileEntity())
             {
                 NBTTagCompound nbt = new NBTTagCompound();
                 tile.writeToNBT(nbt);
@@ -108,11 +99,11 @@ public class ItemChestTransporter extends Item
                 world.removeTileEntity(pos);
             } else
             {
-                IInventory chest = (IInventory) tile;
-                moveItemsIntoStack(chest, stack);
+                IInventory inv = (IInventory) tile;
+                moveItemsIntoStack(inv, stack);
             }
 
-            tChest.preRemoveChest(stack, tile);
+            chest.preRemoveChest(world, pos, player, stack);
 
             world.setBlockToAir(pos);
             SoundType soundType = chestBlock.getSoundType();
@@ -120,15 +111,14 @@ public class ItemChestTransporter extends Item
         }
     }
 
-    private void placeChest(ItemStack stack, EntityPlayer player, EnumHand hand, World world, BlockPos pos, EnumFacing face)
+    private void placeChest(TransportableChest chest, ItemStack stack, EntityPlayer player, EnumHand hand, World world, BlockPos pos, EnumFacing face)
     {
-        int chestType = getTagCompound(stack).getByte("ChestType");
-        if (!ChestRegistry.dvToChest.containsKey(chestType))
-            return;
-
         BlockPos chestPos = getChestCoords(world, pos, face);
 
-        ItemStack chestStack = createChestStack(stack, chestType);
+        if (!chest.canPlaceChest(world, chestPos, player, stack))
+            return;
+
+        ItemStack chestStack = chest.createChestStack(stack);
         if (chestStack.isEmpty()) return;
 
         player.setHeldItem(hand, chestStack);
@@ -139,29 +129,24 @@ public class ItemChestTransporter extends Item
             return;
         }
 
-        IBlockState iblockstate = world.getBlockState(chestPos);
-        Block block = iblockstate.getBlock();
-        int meta = block.getMetaFromState(iblockstate);
-
-        TransportableChest tChest = ChestRegistry.getChest(block, meta);
-        if (tChest == null || !tChest.isUsableWith(stack)) return;
-
         TileEntity tile = world.getTileEntity(chestPos);
         if (tile == null) return;
 
-        if (tChest.copyTileEntity())
+        if (chest.copyTileEntity())
         {
             NBTTagCompound nbt = getTagCompound(stack).getCompoundTag("ChestTile");
-            tChest.modifyTileCompound(player, nbt);
+            nbt = chest.modifyTileCompound(nbt, world, pos, player, stack);
             world.setTileEntity(chestPos, TileEntity.create(world, nbt));
         } else
         {
-            IInventory chest = (IInventory) tile;
-            moveItemsIntoChest(stack, chest);
+            IInventory inv = (IInventory) tile;
+            moveItemsIntoChest(stack, inv);
         }
-        getTagCompound(stack).setByte("ChestType", (byte) 0);
 
-        tChest.preDestroyTransporter(player, stack, tile);
+        getTagCompound(stack).removeTag("ChestType");
+        getTagCompound(stack).removeTag("ChestName");
+
+        chest.onChestPlaced(world, pos, player, stack);
 
         damageItem(stack, player);
     }
@@ -185,9 +170,7 @@ public class ItemChestTransporter extends Item
     @Override
     public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean par5)
     {
-        int chestType = getTagCompound(stack).getByte("ChestType");
-
-        if (chestType != 0 && entity instanceof EntityPlayer)
+        if (hasChest(stack) && entity instanceof EntityPlayer)
         {
             EntityPlayer player = (EntityPlayer) entity;
             if (player.capabilities.isCreativeMode)
@@ -220,13 +203,13 @@ public class ItemChestTransporter extends Item
         if (stack.isEmpty() || stack.getItem() != this || minecart == null)
             return;
 
-        int chestType = getTagCompound(stack).getByte("ChestType");
+        Optional<TransportableChest> chest = getChest(stack);
         EntityPlayer player = event.getPlayer();
 
-        if (minecart instanceof EntityMinecartEmpty && !minecart.isBeingRidden() && ChestRegistry.isMinecartChest(chestType))
+        if (minecart instanceof EntityMinecartEmpty && !minecart.isBeingRidden() && chest.isPresent() && ChestRegistry.isMinecartChest(chest.get()))
         {
             // put chest into minecart
-            EntityMinecart newMinecart = ChestRegistry.createMinecart(minecart.world, chestType);
+            EntityMinecart newMinecart = ChestRegistry.createMinecart(minecart.world, chest.get());
             if (newMinecart == null) return;
 
             if (!player.world.isRemote)
@@ -234,17 +217,18 @@ public class ItemChestTransporter extends Item
                 replaceMinecart(minecart, newMinecart);
             }
             moveItemsIntoChest(stack, (IInventory) newMinecart);
-            getTagCompound(stack).setByte("ChestType", (byte) 0);
+            getTagCompound(stack).removeTag("ChestName");
+            getTagCompound(stack).removeTag("ChestType");
             SoundType soundType = Blocks.CHEST.getSoundType();
             minecart.world.playSound(player, minecart.getPosition(), soundType.getPlaceSound(), SoundCategory.BLOCKS, (soundType.getVolume() + 1.0F) / 2.0F, soundType.getPitch() * 0.8F);
             damageItem(stack, player);
 
             event.setCanceled(true);
-        } else if (ChestRegistry.isSupportedMinecart(minecart) && chestType == 0)
+        } else if (ChestRegistry.isSupportedMinecart(minecart) && !chest.isPresent())
         {
             // grab chest from minecart
             moveItemsIntoStack((IInventory) minecart, stack);
-            getTagCompound(stack).setByte("ChestType", (byte) ChestRegistry.getChestType(minecart));
+            getTagCompound(stack).setString("ChestName", ChestRegistry.getChestType(minecart).toString());
             SoundType soundType = Blocks.CHEST.getSoundType();
             minecart.world.playSound(player, minecart.getPosition(), soundType.getBreakSound(), SoundCategory.BLOCKS, (soundType.getVolume() + 1.0F) / 2.0F, soundType.getPitch() * 0.8F);
             if (!player.world.isRemote)
@@ -284,47 +268,55 @@ public class ItemChestTransporter extends Item
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean flag)
     {
         NBTTagCompound tagCompound = getTagCompound(stack);
-        int chestType = tagCompound.getByte("ChestType");
-        if (chestType != 0)
+        getChest(stack).ifPresent(chest ->
+                                  {
+                                      NonNullList<Pair<Integer, ItemStack>> items = Util.readItemsFromNBT(tagCompound);
+                                      int numItems = 0;
+                                      for (Pair<Integer, ItemStack> pair : items)
+                                      {
+                                          numItems += pair.getRight().getCount();
+                                      }
+
+                                      if (numItems > 0)
+                                      {
+                                          list.add("Contains " + numItems + " items");
+                                      }
+                                      list.add(chest.getRegistryName().toString());
+                                      chest.addInformation(stack, player, list, flag);
+                                  });
+    }
+
+    private static boolean hasChest(ItemStack stack)
+    {
+        if (!stack.hasTagCompound())
+            return false;
+
+        int chestType = stack.getTagCompound().getByte("ChestType");
+        if (chestType != 0) return true;
+
+        String chestName = stack.getTagCompound().getString("ChestName");
+        return ChestRegistry.getChestFromType(new ResourceLocation(chestName)).isPresent();
+    }
+
+    private static Optional<TransportableChest> getChest(World world, BlockPos pos, IBlockState state, EntityPlayer player, ItemStack transporter)
+    {
+        for (TransportableChest chest : ChestRegistry.getChests())
         {
-            NonNullList<Pair<Integer, ItemStack>> items = Util.readItemsFromNBT(tagCompound);
-            int numItems = 0;
-            for (Pair<Integer, ItemStack> pair : items)
+            if (chest.canGrabChest(world, pos, state, player, transporter))
             {
-                numItems += pair.getRight().getCount();
-            }
-
-            if (numItems > 0)
-            {
-                list.add("Contains " + numItems + " items");
-            }
-
-            TransportableChest chest = ChestRegistry.dvToChest.get(chestType);
-            if (chest != null)
-            {
-                chest.addInformation(stack, player, list, flag);
+                return Optional.of(chest);
             }
         }
+
+        return Optional.empty();
     }
 
-    private static boolean isChestAt(World world, BlockPos pos)
+    public static Optional<TransportableChest> getChest(ItemStack stack)
     {
-        IBlockState iblockstate = world.getBlockState(pos);
-        Block block = iblockstate.getBlock();
-
-        int meta = block.getMetaFromState(iblockstate);
-        return ChestRegistry.isChest(block, meta);
-    }
-
-    private static int getChestType(Block block, int metadata)
-    {
-        TransportableChest chest = ChestRegistry.getChest(block, metadata);
-        return chest != null ? chest.getTransporterDV() : 0;
-    }
-
-    private ItemStack createChestStack(ItemStack transporter, int damage)
-    {
-        return ChestRegistry.dvToChest.containsKey(damage) ? ChestRegistry.dvToChest.get(damage).createChestStack(transporter) : ItemStack.EMPTY;
+        Optional<TransportableChest> chest = ChestRegistry.getChestFromType(stack.getTagCompound().getByte("ChestType"));
+        if (chest.isPresent())
+            return chest;
+        return ChestRegistry.getChestFromType(new ResourceLocation(stack.getTagCompound().getString("ChestName")));
     }
 
     private static void moveItemsIntoStack(IInventory chest, ItemStack stack)

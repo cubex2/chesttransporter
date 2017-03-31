@@ -1,12 +1,13 @@
 package cubex2.mods.chesttransporter.chests;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
-public class CompactChest extends TransportableChest
+public class CompactChest extends TransportableChestImpl
 {
     public CompactChest(Block chestBlock, int chestMeta, int transporterDV, String iconName)
     {
@@ -14,21 +15,11 @@ public class CompactChest extends TransportableChest
     }
 
     @Override
-    public void preDestroyTransporter(EntityLivingBase living, ItemStack transporter, TileEntity chestTE)
+    public NBTTagCompound modifyTileCompound(NBTTagCompound nbt, World world, BlockPos pos, EntityPlayer player, ItemStack transporter)
     {
+        nbt.setInteger("facing", player.getHorizontalFacing().ordinal());
 
-    }
-
-    @Override
-    public void preRemoveChest(ItemStack transporter, TileEntity chestTE)
-    {
-
-    }
-
-    @Override
-    public void modifyTileCompound(EntityLivingBase living, NBTTagCompound nbt)
-    {
-        nbt.setInteger("facing", living.getHorizontalFacing().ordinal());
+        return nbt;
     }
 
     @Override

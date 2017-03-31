@@ -9,7 +9,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import java.util.Collection;
 import java.util.List;
 
-public class QuarkChest extends TransportableChest
+public class QuarkChest extends TransportableChestImpl
 {
     private static final String[] variants = new String[] {"spruce", "birch", "jungle", "acacia", "dark_oak"};
 

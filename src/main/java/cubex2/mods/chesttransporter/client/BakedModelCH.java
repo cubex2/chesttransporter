@@ -1,8 +1,9 @@
 package cubex2.mods.chesttransporter.client;
 
 import com.google.common.collect.ImmutableList;
-import cubex2.mods.chesttransporter.chests.ChestRegistry;
 import cubex2.mods.chesttransporter.ItemChestTransporter;
+import cubex2.mods.chesttransporter.api.TransportableChest;
+import cubex2.mods.chesttransporter.chests.ChestRegistry;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -18,6 +19,7 @@ import javax.vecmath.Matrix4f;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class BakedModelCH implements IPerspectiveAwareModel
 {
@@ -86,12 +88,14 @@ public class BakedModelCH implements IPerspectiveAwareModel
 
     public IBakedModel handleItemState(IBakedModel originalModel, ItemStack stack, World world, EntityLivingBase entity)
     {
-        int chestType = ItemChestTransporter.getTagCompound(stack).getByte("ChestType");
-        if (chestType == 0) toUse = null;
+        Optional<TransportableChest> chest = ItemChestTransporter.getChest(stack);
+        if (!chest.isPresent())
+        {
+             toUse = null;
+        }
         else
         {
-            ResourceLocation modelName = ChestRegistry.dvToChest.get(chestType).getChestModel(stack);
-            toUse = chestModels.get(modelName);
+            toUse = chestModels.get(chest.get().getChestModel(stack));
         }
         return this;
     }
