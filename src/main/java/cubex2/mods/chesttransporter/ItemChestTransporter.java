@@ -17,23 +17,19 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagByte;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.minecart.MinecartInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
@@ -56,6 +52,11 @@ public class ItemChestTransporter extends Item
         MinecraftForge.EVENT_BUS.register(this);
     }
 
+    private boolean hasChest(ItemStack stack)
+    {
+        return stack.hasTagCompound() && stack.getTagCompound().getByte("ChestType") != 0;
+    }
+
     @SuppressWarnings("unused")
     @SubscribeEvent
     public void onPlayerInteract(PlayerInteractEvent.RightClickBlock event)
@@ -64,23 +65,22 @@ public class ItemChestTransporter extends Item
             return;
 
         ItemStack stack = event.getItemStack();
-        if (stack.isEmpty() || stack.getItem() != this)
-            return;
         EntityPlayer player = event.getEntityPlayer();
-
         World world = event.getEntityPlayer().world;
         EnumFacing face = event.getFace();
+        BlockPos pos = event.getPos();
 
-        IBlockState state = world.getBlockState(event.getPos());
+        if (stack.isEmpty() || stack.getItem() != this)
+            return;
 
-        int chestType = getTagCompound(stack).getByte("ChestType");
+        IBlockState state = world.getBlockState(pos);
 
-        if (chestType == 0 && isChestAt(world, event.getPos()))
+        if (hasChest(stack))
         {
-            grabChest(stack, player, world, event.getPos());
-        } else if (chestType != 0)
+            placeChest(stack, player, event.getHand(), world, pos, face);
+        } else if (isChestAt(world, pos))
         {
-            placeChest(stack, player, event.getHand(), world, event.getPos(), face);
+            grabChest(stack, player, world, pos);
         }
     }
 
@@ -163,12 +163,7 @@ public class ItemChestTransporter extends Item
 
         tChest.preDestroyTransporter(player, stack, tile);
 
-        if (!player.capabilities.isCreativeMode)
-        {
-            stack.damageItem(1, player);
-            if (type.maxDamage == 1)
-                stack.damageItem(1, player);
-        }
+        damageItem(stack, player);
     }
 
     private BlockPos getChestCoords(World world, BlockPos pos, EnumFacing facing)
@@ -242,12 +237,7 @@ public class ItemChestTransporter extends Item
             getTagCompound(stack).setByte("ChestType", (byte) 0);
             SoundType soundType = Blocks.CHEST.getSoundType();
             minecart.world.playSound(player, minecart.getPosition(), soundType.getPlaceSound(), SoundCategory.BLOCKS, (soundType.getVolume() + 1.0F) / 2.0F, soundType.getPitch() * 0.8F);
-            if (!player.capabilities.isCreativeMode)
-            {
-                stack.damageItem(1, player);
-                if (type.maxDamage == 1)
-                    stack.damageItem(1, player);
-            }
+            damageItem(stack, player);
 
             event.setCanceled(true);
         } else if (ChestRegistry.isSupportedMinecart(minecart) && chestType == 0)
@@ -264,6 +254,16 @@ public class ItemChestTransporter extends Item
             }
 
             event.setCanceled(true);
+        }
+    }
+
+    private void damageItem(ItemStack stack, EntityPlayer player)
+    {
+        if (!player.capabilities.isCreativeMode)
+        {
+            stack.damageItem(1, player);
+            if (type.maxDamage == 1)
+                stack.damageItem(1, player);
         }
     }
 
@@ -287,27 +287,11 @@ public class ItemChestTransporter extends Item
         int chestType = tagCompound.getByte("ChestType");
         if (chestType != 0)
         {
+            NonNullList<Pair<Integer, ItemStack>> items = Util.readItemsFromNBT(tagCompound);
             int numItems = 0;
-            NBTTagList nbtList = tagCompound.getTagList("Items", 10);
-
-            for (int i = 0; i < nbtList.tagCount(); ++i)
+            for (Pair<Integer, ItemStack> pair : items)
             {
-                NBTTagCompound nbtTagCompound = nbtList.getCompoundTagAt(i);
-                NBTBase nbt = nbtTagCompound.getTag("Slot");
-                int j;
-                if (nbt instanceof NBTTagByte)
-                {
-                    j = nbtTagCompound.getByte("Slot") & 255;
-                } else
-                {
-                    j = nbtTagCompound.getShort("Slot");
-                }
-
-                if (j >= 0)
-                {
-                    ItemStack itemstack = new ItemStack(nbtTagCompound);
-                    numItems += itemstack.getCount();
-                }
+                numItems += pair.getRight().getCount();
             }
 
             if (numItems > 0)
@@ -370,24 +354,12 @@ public class ItemChestTransporter extends Item
         if (!stack.hasTagCompound()) return;
 
         NBTTagCompound nbtTag = getTagCompound(stack);
-        NBTTagList nbtList = nbtTag.getTagList("Items", 10);
-
-        for (int i = 0; i < nbtList.tagCount(); ++i)
+        NonNullList<Pair<Integer, ItemStack>> items = Util.readItemsFromNBT(nbtTag);
+        for (Pair<Integer, ItemStack> pair : items)
         {
-            NBTTagCompound nbtTagCompound = nbtList.getCompoundTagAt(i);
-            NBTBase nbt = nbtTagCompound.getTag("Slot");
-            int j;
-            if (nbt instanceof NBTTagByte)
+            if (pair.getLeft() < chest.getSizeInventory())
             {
-                j = nbtTagCompound.getByte("Slot") & 255;
-            } else
-            {
-                j = nbtTagCompound.getShort("Slot");
-            }
-
-            if (j >= 0 && j < chest.getSizeInventory())
-            {
-                chest.setInventorySlotContents(j, new ItemStack(nbtTagCompound));
+                chest.setInventorySlotContents(pair.getLeft(), pair.getRight());
             }
         }
 

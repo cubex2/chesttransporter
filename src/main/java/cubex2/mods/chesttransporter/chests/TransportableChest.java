@@ -1,13 +1,15 @@
 package cubex2.mods.chesttransporter.chests;
 
-import cubex2.mods.chesttransporter.ChestTransporter;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class TransportableChest
@@ -23,7 +25,6 @@ public class TransportableChest
         this.chestMeta = chestMeta;
         this.transporterDV = transporterDV;
         this.iconName = iconName;
-        addModelLocations();
     }
 
     /**
@@ -78,18 +79,23 @@ public class TransportableChest
         // do nothing
     }
 
-    public String getModelName(ItemStack stack)
+    public Collection<ResourceLocation> getChestModels()
     {
-        return iconName;
+        return Collections.singleton(new ResourceLocation("chesttransporter:item/" + iconName));
     }
 
-    public void addModelLocations()
+    public ResourceLocation getChestModel(ItemStack stack)
     {
-        ChestTransporter.proxy.addModelLocation(iconName);
+        return new ResourceLocation("chesttransporter:item/" + iconName);
     }
 
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean flag)
     {
         // do nothing
+    }
+
+    protected static ResourceLocation locationFromName(String iconName)
+    {
+        return new ResourceLocation("chesttransporter:item/" + iconName);
     }
 }

@@ -30,10 +30,4 @@ public class ClientProxy extends CommonProxy
             Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, l);
         }
     }
-
-    @Override
-    public void addModelLocation(String name)
-    {
-        ModelRegistry.getInstance().modelLocations.put(name, new ResourceLocation("chesttransporter:item/" + name));
-    }
 }

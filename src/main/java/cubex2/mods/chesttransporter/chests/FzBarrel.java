@@ -1,6 +1,6 @@
 package cubex2.mods.chesttransporter.chests;
 
-import cubex2.mods.chesttransporter.ChestTransporter;
+import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
@@ -8,7 +8,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+
+import java.util.Collection;
+import java.util.List;
 
 public class FzBarrel extends TransportableChest
 {
@@ -38,15 +42,14 @@ public class FzBarrel extends TransportableChest
             Object type = ObfuscationReflectionHelper.getPrivateValue(clazz, chestTE, "type");
 
             NBTTagCompound logNbt = new NBTTagCompound();
-            ((ItemStack)log).writeToNBT(logNbt);
+            ((ItemStack) log).writeToNBT(logNbt);
             NBTTagCompound slabNbt = new NBTTagCompound();
-            ((ItemStack)slab).writeToNBT(slabNbt);
+            ((ItemStack) slab).writeToNBT(slabNbt);
 
             transporter.getTagCompound().setTag("WoodLog", logNbt);
             transporter.getTagCompound().setTag("WoodSlab", slabNbt);
             transporter.getTagCompound().setString("BarrelType", type.toString());
-        }
-        catch (ClassNotFoundException e)
+        } catch (ClassNotFoundException e)
         {
             e.printStackTrace();
         }
@@ -70,8 +73,7 @@ public class FzBarrel extends TransportableChest
             try
             {
                 type = typeClazz.getDeclaredMethod("valueOf", String.class).invoke(null, typeName);
-            }
-            catch (Exception e)
+            } catch (Exception e)
             {
                 e.printStackTrace();
             }
@@ -79,79 +81,41 @@ public class FzBarrel extends TransportableChest
             ObfuscationReflectionHelper.setPrivateValue(clazz, chestTE, log, "woodLog");
             ObfuscationReflectionHelper.setPrivateValue(clazz, chestTE, slab, "woodSlab");
             ObfuscationReflectionHelper.setPrivateValue(clazz, chestTE, type, "type");
-        }
-        catch (ClassNotFoundException e)
+        } catch (ClassNotFoundException e)
         {
             e.printStackTrace();
         }
     }
 
-    /*@Override
-    public IIcon getIcon(ItemStack stack)
-    {
-        NBTTagCompound logNbt = stack.getTagCompound().getCompoundTag("WoodLog");
-        ItemStack log = ItemStack.loadItemStackFromNBT(logNbt);
-
-        if (log.getItem() == Item.getItemFromBlock(Blocks.log))
-        {
-            if (log.getItemDamage() == 0)
-                return icons[0];
-            if (log.getItemDamage() == 1)
-                return icons[1];
-            if (log.getItemDamage() == 2)
-                return icons[2];
-            if (log.getItemDamage() == 3)
-                return icons[3];
-        } else if (log.getItem() == Item.getItemFromBlock(Blocks.log2))
-        {
-            if (log.getItemDamage() == 0)
-                return icons[4];
-            if (log.getItemDamage() == 1)
-                return icons[5];
-        } else if (log.getItem() == Item.getItemFromBlock(Blocks.bedrock))
-        {
-            return icons[6];
-        }
-        return icons[0];
-    }
-
     @Override
-    public void registerIcon(IIconRegister iconRegister)
-    {
-        String[] names = new String[]{"oak", "spruce", "birch", "jungle", "acacia", "dark_oak", "creative"};
-        for (int i = 0; i < icons.length; i++)
-        {
-            icons[i] = iconRegister.registerIcon("chesttransporter:barrel_" + names[i]);
-        }
-    }*/
-
-    @Override
-    public String getModelName(ItemStack stack)
+    public ResourceLocation getChestModel(ItemStack stack)
     {
         NBTTagCompound logNbt = stack.getTagCompound().getCompoundTag("WoodLog");
         ItemStack log = new ItemStack(logNbt);
 
         if (log.getItem() == Item.getItemFromBlock(Blocks.LOG))
         {
-            return "barrel_" + names[log.getItemDamage()];
-        }
-        else if (log.getItem() == Item.getItemFromBlock(Blocks.LOG2))
+            return locationFromName("barrel_" + names[log.getItemDamage()]);
+        } else if (log.getItem() == Item.getItemFromBlock(Blocks.LOG2))
         {
-            return "barrel_" + names[log.getItemDamage() + 4];
-        }
-        else if (log.getItem() == Item.getItemFromBlock(Blocks.BEDROCK))
+            return locationFromName("barrel_" + names[log.getItemDamage() + 4]);
+        } else if (log.getItem() == Item.getItemFromBlock(Blocks.BEDROCK))
         {
-            return "barrel_creative";
+            return locationFromName("barrel_creative");
         }
-        return "barrel_oak";
+        return locationFromName("barrel_oak");
     }
 
     @Override
-    public void addModelLocations()
+    public Collection<ResourceLocation> getChestModels()
     {
+        List<ResourceLocation> models = Lists.newArrayList();
+
         for (String name : names)
         {
-            ChestTransporter.proxy.addModelLocation("barrel_" + name);
+            models.add(locationFromName("barrel_" + name));
         }
+
+        return models;
     }
 }

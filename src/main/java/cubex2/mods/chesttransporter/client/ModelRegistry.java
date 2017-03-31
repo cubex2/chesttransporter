@@ -2,6 +2,8 @@ package cubex2.mods.chesttransporter.client;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Maps;
+import cubex2.mods.chesttransporter.chests.ChestRegistry;
+import cubex2.mods.chesttransporter.chests.TransportableChest;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
@@ -25,16 +27,17 @@ public class ModelRegistry
     {
     }
 
-    public Map<String, ResourceLocation> modelLocations = Maps.newHashMap();
-
-    public Map<String, IBakedModel> bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) throws Exception
+    public Map<ResourceLocation, IBakedModel> bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) throws Exception
     {
-        Map<String, IBakedModel> ret = Maps.newHashMap();
+        Map<ResourceLocation, IBakedModel> ret = Maps.newHashMap();
 
-        for (Map.Entry<String, ResourceLocation> entry : modelLocations.entrySet())
+        for (TransportableChest chest : ChestRegistry.chests)
         {
-            IModel model = ModelLoaderRegistry.getModel(entry.getValue());
-            ret.put(entry.getKey(), model.bake(state, format, bakedTextureGetter));
+            for (ResourceLocation location : chest.getChestModels())
+            {
+                IModel model = ModelLoaderRegistry.getModel(location);
+                ret.put(location, model.bake(state, format, bakedTextureGetter));
+            }
         }
 
         return ret;

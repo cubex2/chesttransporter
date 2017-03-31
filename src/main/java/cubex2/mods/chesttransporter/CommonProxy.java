@@ -11,9 +11,4 @@ public class CommonProxy
     {
 
     }
-
-    public void addModelLocation(String name)
-    {
-
-    }
 }
