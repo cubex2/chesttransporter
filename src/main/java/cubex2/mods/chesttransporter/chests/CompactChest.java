@@ -9,9 +9,9 @@ import net.minecraft.world.World;
 
 public class CompactChest extends TransportableChestImpl
 {
-    public CompactChest(Block chestBlock, int chestMeta, int transporterDV, String iconName)
+    public CompactChest(Block chestBlock, int chestMeta, int transporterDV, String name)
     {
-        super(chestBlock, chestMeta, transporterDV, iconName);
+        super(chestBlock, chestMeta, transporterDV, name);
     }
 
     @Override

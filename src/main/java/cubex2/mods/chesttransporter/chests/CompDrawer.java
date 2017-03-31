@@ -10,9 +10,9 @@ import net.minecraft.world.World;
 
 public class CompDrawer extends TransportableChestImpl
 {
-    public CompDrawer(Block chestBlock, int chestMeta, int transporterDV, String iconName)
+    public CompDrawer(Block chestBlock, int chestMeta, int transporterDV, String name)
     {
-        super(chestBlock, chestMeta, transporterDV, iconName);
+        super(chestBlock, chestMeta, transporterDV, name);
     }
 
     @Override

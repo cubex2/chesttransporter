@@ -2,7 +2,6 @@ package cubex2.mods.chesttransporter.chests;
 
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -42,7 +41,7 @@ public class BasicDrawer extends TransportableChestImpl
 
         for (String variant : variants)
         {
-            models.add(locationFromName(iconName + "_" + variant));
+            models.add(locationFromName(name + "_" + variant));
         }
 
         return models;
@@ -57,9 +56,9 @@ public class BasicDrawer extends TransportableChestImpl
             String mat = nbt.getString("Mat");
             if (mat == null || mat.length() == 0)
                 mat = "oak";
-            return locationFromName(iconName + "_" + mat);
+            return locationFromName(name + "_" + mat);
         }
-        return locationFromName(iconName + "_oak");
+        return locationFromName(name + "_oak");
     }
 
 

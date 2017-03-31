@@ -13,9 +13,9 @@ public class QuarkChest extends TransportableChestImpl
 {
     private static final String[] variants = new String[] {"spruce", "birch", "jungle", "acacia", "dark_oak"};
 
-    public QuarkChest(Block chestBlock, int transporterDV, String iconName)
+    public QuarkChest(Block chestBlock, int transporterDV, String name)
     {
-        super(chestBlock, -1, transporterDV, iconName);
+        super(chestBlock, -1, transporterDV, name);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class QuarkChest extends TransportableChestImpl
     public ResourceLocation getChestModel(ItemStack stack)
     {
         String type = stack.getTagCompound().getCompoundTag("ChestTile").getString("type");
-        return locationFromName(iconName + "_" + type);
+        return locationFromName("quark_quest_" + type);
     }
 
     @Override

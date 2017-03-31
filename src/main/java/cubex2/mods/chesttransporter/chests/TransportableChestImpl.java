@@ -17,15 +17,15 @@ public class TransportableChestImpl extends TransportableChest
     protected final Block chestBlock;
     protected final int chestMeta;
     protected final int transporterDV;
-    protected final String iconName;
+    protected final String name;
 
-    public TransportableChestImpl(Block chestBlock, int chestMeta, int transporterDV, String iconName)
+    public TransportableChestImpl(Block chestBlock, int chestMeta, int transporterDV, String name)
     {
         this.chestBlock = chestBlock;
         this.chestMeta = chestMeta;
         this.transporterDV = transporterDV;
-        this.iconName = iconName;
-        setRegistryName(iconName);
+        this.name = name;
+        setRegistryName(name);
     }
 
     @Override
@@ -69,13 +69,13 @@ public class TransportableChestImpl extends TransportableChest
     @Override
     public Collection<ResourceLocation> getChestModels()
     {
-        return Collections.singleton(new ResourceLocation("chesttransporter:item/" + iconName));
+        return Collections.singleton(new ResourceLocation("chesttransporter:item/" + name));
     }
 
     @Override
     public ResourceLocation getChestModel(ItemStack stack)
     {
-        return new ResourceLocation("chesttransporter:item/" + iconName);
+        return new ResourceLocation("chesttransporter:item/" + name);
     }
 
     protected static ResourceLocation locationFromName(String iconName)

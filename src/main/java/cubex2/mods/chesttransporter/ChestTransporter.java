@@ -185,7 +185,7 @@ public class ChestTransporter
             block = Block.getBlockFromName("quark:custom_chest_trap");
             if (block != null && block != Blocks.AIR)
             {
-                ChestRegistry.register(new QuarkChest(block, 26, "quark_chest"));
+                ChestRegistry.register(new QuarkChest(block, 26, "quark_chest_trap"));
             }
         }
 

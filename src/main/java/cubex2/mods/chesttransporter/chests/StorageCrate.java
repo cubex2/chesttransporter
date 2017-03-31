@@ -4,9 +4,9 @@ import net.minecraft.block.Block;
 
 public class StorageCrate extends TransportableChestImpl
 {
-    public StorageCrate(Block chestBlock, int chestMeta, int transporterDV, String iconName)
+    public StorageCrate(Block chestBlock, int chestMeta, int transporterDV, String name)
     {
-        super(chestBlock, chestMeta, transporterDV, iconName);
+        super(chestBlock, chestMeta, transporterDV, name);
     }
 
     @Override

@@ -18,9 +18,9 @@ import java.util.List;
 
 public class Spawner extends TransportableChestImpl
 {
-    public Spawner(Block chestBlock, int chestMeta, int transporterDV, String iconName)
+    public Spawner(Block chestBlock, int chestMeta, int transporterDV, String name)
     {
-        super(chestBlock, chestMeta, transporterDV, iconName);
+        super(chestBlock, chestMeta, transporterDV, name);
     }
 
     @Override
