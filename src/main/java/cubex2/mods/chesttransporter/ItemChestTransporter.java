@@ -313,6 +313,8 @@ public class ItemChestTransporter extends Item
 
     public static Optional<TransportableChest> getChest(ItemStack stack)
     {
+        if (!stack.hasTagCompound())
+            return Optional.empty();
         Optional<TransportableChest> chest = ChestRegistry.getChestFromType(stack.getTagCompound().getByte("ChestType"));
         if (chest.isPresent())
             return chest;
