@@ -20,7 +20,7 @@ plugins {
 }
 */
 
-version = "1.10.2-2.5.11"
+version = "1.10.2-2.5.12"
 group = "cubex2.chesttransporter" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "ChestTransporter"
 
