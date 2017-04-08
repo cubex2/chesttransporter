@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class Spawner extends TransportableChestImpl
+public class Spawner extends TransportableChestOld
 {
     public Spawner(Block chestBlock, int chestMeta, int transporterDV, String name)
     {

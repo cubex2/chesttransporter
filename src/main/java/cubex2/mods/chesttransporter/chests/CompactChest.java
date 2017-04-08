@@ -7,7 +7,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class CompactChest extends TransportableChestImpl
+public class CompactChest extends TransportableChestOld
 {
     public CompactChest(Block chestBlock, int chestMeta, int transporterDV, String name)
     {

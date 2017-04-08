@@ -56,9 +56,9 @@ public class ChestRegistry
 
     public static void add(TransportableChest chest, int id, Map<ResourceLocation, ?> slaveset)
     {
-        if (chest instanceof TransportableChestImpl)
+        if (chest instanceof TransportableChestOld)
         {
-            dvToChest.put(((TransportableChestImpl) chest).getTransporterDV(), chest);
+            dvToChest.put(((TransportableChestOld) chest).getTransporterDV(), chest);
         }
     }
 

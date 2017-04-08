@@ -10,7 +10,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
-public class BiblioFramedChest extends TransportableChestImpl
+public class BiblioFramedChest extends TransportableChestOld
 {
     public BiblioFramedChest(Block chestBlock, int chestMeta, int transporterDV, String name)
     {
