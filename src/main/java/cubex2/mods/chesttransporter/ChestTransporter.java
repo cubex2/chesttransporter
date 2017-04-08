@@ -272,6 +272,17 @@ public class ChestTransporter
             }
         }
 
+        if (Loader.isModLoaded("CharsetStorage"))
+        {
+            Block barrel = Block.REGISTRY.getObject(new ResourceLocation("charsetstorage:barrel"));
+
+            if (barrel != null && barrel != Blocks.AIR)
+            {
+                ChestRegistry.register(new CharsetBarrel(barrel,0, "charset_barrel"));
+            }
+        }
+
+
         if (Loader.isModLoaded("ironchestminecarts") && Loader.isModLoaded("ironchest"))
         {
             String[] classNames = new String[] {
