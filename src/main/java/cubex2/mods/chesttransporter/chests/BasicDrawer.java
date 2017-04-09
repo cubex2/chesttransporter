@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 import java.util.Collection;
 import java.util.List;
 
-public class BasicDrawer extends TransportableChestImpl
+public class BasicDrawer extends TransportableChestOld
 {
     private static final String[] variants = new String[] {"oak", "spruce", "birch", "jungle", "acacia", "dark_oak"};
 

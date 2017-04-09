@@ -7,7 +7,6 @@ import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.IForgeRegistry;
-import net.minecraftforge.fml.common.registry.PersistentRegistryManager;
 import net.minecraftforge.fml.common.registry.RegistryBuilder;
 
 import java.util.Collection;
@@ -57,9 +56,9 @@ public class ChestRegistry
 
     public static void add(TransportableChest chest, int id, Map<ResourceLocation, ?> slaveset)
     {
-        if (chest instanceof TransportableChestImpl)
+        if (chest instanceof TransportableChestOld)
         {
-            dvToChest.put(((TransportableChestImpl) chest).getTransporterDV(), chest);
+            dvToChest.put(((TransportableChestOld) chest).getTransporterDV(), chest);
         }
     }
 

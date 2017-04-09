@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import java.util.Collection;
 import java.util.List;
 
-public class FzBarrel extends TransportableChestImpl
+public class FzBarrel extends TransportableChestOld
 {
     private static final String[] names = new String[] {"oak", "spruce", "birch", "jungle", "acacia", "dark_oak", "creative"};
     //private final IIcon[] icons = new IIcon[7];

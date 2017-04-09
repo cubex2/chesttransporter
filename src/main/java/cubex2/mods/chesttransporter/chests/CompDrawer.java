@@ -8,7 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class CompDrawer extends TransportableChestImpl
+public class CompDrawer extends TransportableChestOld
 {
     public CompDrawer(Block chestBlock, int chestMeta, int transporterDV, String name)
     {

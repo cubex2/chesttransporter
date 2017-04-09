@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.List;
 
 
-public class VariertyChest extends TransportableChestImpl
+public class VariertyChest extends TransportableChestOld
 {
     private static final String[] chestTypes = new String[] {"spruce", "birch", "jungle", "acacia", "darkoak", "original"};
     private final boolean isGlow;

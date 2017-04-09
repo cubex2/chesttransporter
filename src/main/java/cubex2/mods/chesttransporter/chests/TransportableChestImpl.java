@@ -16,14 +16,12 @@ public class TransportableChestImpl extends TransportableChest
 {
     protected final Block chestBlock;
     protected final int chestMeta;
-    protected final int transporterDV;
     protected final String name;
 
-    public TransportableChestImpl(Block chestBlock, int chestMeta, int transporterDV, String name)
+    public TransportableChestImpl(Block chestBlock, int chestMeta, String name)
     {
         this.chestBlock = chestBlock;
         this.chestMeta = chestMeta;
-        this.transporterDV = transporterDV;
         this.name = name;
         setRegistryName(name);
     }
@@ -51,11 +49,6 @@ public class TransportableChestImpl extends TransportableChest
     public int getChestMetadata()
     {
         return chestMeta;
-    }
-
-    public int getTransporterDV()
-    {
-        return transporterDV;
     }
 
     @Override

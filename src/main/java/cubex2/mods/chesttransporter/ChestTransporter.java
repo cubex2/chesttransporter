@@ -87,11 +87,11 @@ public class ChestTransporter
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent evt)
     {
-        TransportableChestImpl chest = new TransportableChestImpl(Blocks.CHEST, -1, 1, "vanilla");
+        TransportableChestImpl chest = new TransportableChestOld(Blocks.CHEST, -1, 1, "vanilla");
         ChestRegistry.register(chest);
         ChestRegistry.registerMinecart(EntityMinecartChest.class, chest);
 
-        ChestRegistry.register(new TransportableChestImpl(Blocks.TRAPPED_CHEST, -1, 2, "vanilla_trapped"));
+        ChestRegistry.register(new TransportableChestOld(Blocks.TRAPPED_CHEST, -1, 2, "vanilla_trapped"));
 
         if (Loader.isModLoaded("ironchest"))
         {
@@ -101,7 +101,7 @@ public class ChestTransporter
                 String[] names = new String[] {"iron", "gold", "diamond", "copper", "tin", "crystal", "obsidian"};
                 for (int i = 0; i < 7; i++)
                 {
-                    ChestRegistry.register(new TransportableChestImpl(block, i, 3 + i, names[i]));
+                    ChestRegistry.register(new TransportableChestOld(block, i, 3 + i, names[i]));
                 }
             }
         }
@@ -111,7 +111,7 @@ public class ChestTransporter
             Block block = Block.getBlockFromName("multipagechest:multipagechest");
             if (block != null && block != Blocks.AIR)
             {
-                ChestRegistry.register(new TransportableChestImpl(block, -1, 10, "multipagechest"));
+                ChestRegistry.register(new TransportableChestOld(block, -1, 10, "multipagechest"));
             }
         }
 
@@ -202,7 +202,7 @@ public class ChestTransporter
 
                 for (int i = 0; i < names.length; i++)
                 {
-                    ChestRegistry.register(new TransportableChestImpl(block, i, 28 + i, "fluidity_" + names[i]));
+                    ChestRegistry.register(new TransportableChestOld(block, i, 28 + i, "fluidity_" + names[i]));
                 }
             }
         }
