@@ -300,7 +300,7 @@ public class ItemChestTransporter extends Item
 
     private static Optional<TransportableChest> getChest(World world, BlockPos pos, IBlockState state, EntityPlayer player, ItemStack transporter)
     {
-        System.out.println(state.getBlock().getRegistryName().toString() + state.getBlock().getMetaFromState(state));
+        //System.out.println(state.getBlock().getRegistryName().toString() + state.getBlock().getMetaFromState(state));
         for (TransportableChest chest : ChestRegistry.getChests())
         {
             if (chest.canGrabChest(world, pos, state, player, transporter))
