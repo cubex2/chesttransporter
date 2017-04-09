@@ -262,6 +262,15 @@ public class ChestTransporter
             }
         }
 
+        if (Loader.isModLoaded("forestry"))
+        {
+            Block block = Block.getBlockFromName("forestry:bee_chest");
+            if (block != null && block != Blocks.AIR)
+            {
+                ChestRegistry.register(new TransportableChestImpl(block, -1, "bee_chest"));
+            }
+        }
+
         if (Loader.isModLoaded("ironchestminecarts") && Loader.isModLoaded("ironchest"))
         {
             String[] classNames = new String[] {
