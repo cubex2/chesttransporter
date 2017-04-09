@@ -229,6 +229,29 @@ public class ChestTransporter
             }
         }
 
+        if (Loader.isModLoaded("refinedrelocation"))
+        {
+            Block chestWood = Block.REGISTRY.getObject(new ResourceLocation("refinedrelocation:sorting_chest"));
+            Block chestIron = Block.REGISTRY.getObject(new ResourceLocation("refinedrelocation:sorting_iron_chest"));
+
+            if (chestWood != null && chestWood != Blocks.AIR)
+            {
+                ChestRegistry.register(new SortingChestWood(chestWood, -1, "sorting_chest"));
+            }
+
+            if (chestIron != null && chestIron != Blocks.AIR)
+            {
+                final String[] variants = new String[] {
+                        "iron", "gold", "diamond", "copper", "tin", "crystal", "obsidian", "dirt"
+                };
+
+                for (int i = 0; i < variants.length; i++)
+                {
+                    ChestRegistry.register(new SortingChestIron(chestIron, i, "sorting_iron_chest_" + variants[i]));
+                }
+            }
+        }
+
         if (Loader.isModLoaded("ironchestminecarts") && Loader.isModLoaded("ironchest"))
         {
             String[] classNames = new String[] {
