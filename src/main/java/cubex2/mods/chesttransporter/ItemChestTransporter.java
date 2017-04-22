@@ -27,7 +27,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.minecart.MinecartInteractEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -53,33 +52,33 @@ public class ItemChestTransporter extends Item
         MinecraftForge.EVENT_BUS.register(this);
     }
 
-    @SuppressWarnings("unused")
-    @SubscribeEvent
-    public void onPlayerInteract(PlayerInteractEvent.RightClickBlock event)
+    @Override
+    public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand)
     {
-        if (event.isCanceled() || event.getFace() == null)
-            return;
-
-        ItemStack stack = event.getItemStack();
-        EntityPlayer player = event.getEntityPlayer();
-        World world = event.getEntityPlayer().worldObj;
-        EnumFacing face = event.getFace();
-        BlockPos pos = event.getPos();
-
         if (stack == null || stack.getItem() != this)
-            return;
+            return EnumActionResult.PASS;
 
-        IBlockState state = world.getBlockState(pos);
+        boolean[] success = new boolean[] {false};
 
         if (hasChest(stack))
         {
             getChest(stack)
-                    .ifPresent(chest -> placeChest(chest, stack, player, event.getHand(), world, pos, face));
+                    .ifPresent(chest ->
+                               {
+                                   placeChest(chest, stack, player, hand, world, pos, side);
+                                   success[0] = true;
+                               });
         } else
         {
             getChest(world, pos, world.getBlockState(pos), player, stack)
-                    .ifPresent(chest -> grabChest(chest, stack, player, world, pos));
+                    .ifPresent(chest ->
+                               {
+                                   grabChest(chest, stack, player, world, pos);
+                                   success[0] = true;
+                               });
         }
+
+        return success[0] ? EnumActionResult.SUCCESS : EnumActionResult.PASS;
     }
 
     private void grabChest(TransportableChest chest, ItemStack stack, EntityPlayer player, World world, BlockPos pos)
