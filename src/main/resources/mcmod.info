@@ -1,6 +1,6 @@
 [
 {
-  "modid": "ChestTransporter",
+  "modid": "chesttransporter",
   "name": "Chest Transporter",
   "description": "Adds an item that allows you to transport chests.",
   "version": "${version}",
