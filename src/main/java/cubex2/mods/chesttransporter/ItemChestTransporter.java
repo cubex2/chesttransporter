@@ -7,6 +7,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockSnow;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityMinecart;
@@ -19,6 +21,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
@@ -55,6 +58,7 @@ public class ItemChestTransporter extends Item
     @Override
     public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand)
     {
+        System.out.println(world.isRemote);
         ItemStack stack = player.getHeldItem(hand);
 
         if (stack.isEmpty() || stack.getItem() != this)
@@ -78,6 +82,11 @@ public class ItemChestTransporter extends Item
                                    grabChest(chest, stack, player, world, pos);
                                    success[0] = true;
                                });
+        }
+
+        if (success[0] && world.isRemote)
+        {
+            ((EntityPlayerSP)player).connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(pos, side, hand, hitX, hitY, hitZ));
         }
 
         return success[0] ? EnumActionResult.SUCCESS : EnumActionResult.PASS;
