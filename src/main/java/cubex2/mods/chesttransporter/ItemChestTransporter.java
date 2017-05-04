@@ -82,7 +82,7 @@ public class ItemChestTransporter extends Item
 
         if (success[0] && world.isRemote)
         {
-            ((EntityPlayerSP)player).connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(pos, side, hand, hitX, hitY, hitZ));
+            ((EntityPlayerSP) player).connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(pos, side, hand, hitX, hitY, hitZ));
         }
 
         return success[0] ? EnumActionResult.SUCCESS : EnumActionResult.PASS;
@@ -181,10 +181,14 @@ public class ItemChestTransporter extends Item
             EntityPlayer player = (EntityPlayer) entity;
             if (player.capabilities.isCreativeMode)
                 return;
-            addEffect(player, MobEffects.SLOWNESS, 2);
-            addEffect(player, MobEffects.MINING_FATIGUE, 3);
-            addEffect(player, MobEffects.JUMP_BOOST, -2);
-            addEffect(player, MobEffects.HUNGER, 0);
+            if (ChestTransporter.debuffSlowness)
+                addEffect(player, MobEffects.SLOWNESS, 2);
+            if (ChestTransporter.debuffMiningFatigue)
+                addEffect(player, MobEffects.MINING_FATIGUE, 3);
+            if (ChestTransporter.debuffJump)
+                addEffect(player, MobEffects.JUMP_BOOST, -2);
+            if (ChestTransporter.debuffHunger)
+                addEffect(player, MobEffects.HUNGER, 0);
         }
     }
 
