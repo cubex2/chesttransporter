@@ -24,13 +24,17 @@ import java.util.EnumMap;
 
 import static cubex2.mods.chesttransporter.ChestTransporter.ID;
 
-@Mod(modid = ID, name = "Chest Transporter", version = "2.7.7")
+@Mod(modid = ID, name = "Chest Transporter", version = "2.7.8")
 public class ChestTransporter
 {
     @SidedProxy(clientSide = "cubex2.mods.chesttransporter.ClientProxy", serverSide = "cubex2.mods.chesttransporter.CommonProxy")
     public static CommonProxy proxy;
 
     private static boolean pickupSpawners = true;
+    public static boolean debuffSlowness = true;
+    public static boolean debuffMiningFatigue = true;
+    public static boolean debuffJump = true;
+    public static boolean debuffHunger = true;
 
     public static final EnumMap<TransporterType, ItemChestTransporter> items = Maps.newEnumMap(TransporterType.class);
     public static final EnumMap<TransporterType, Boolean> canUseSpawner = Maps.newEnumMap(TransporterType.class);
@@ -57,6 +61,10 @@ public class ChestTransporter
         {
             config.load();
             pickupSpawners = config.getBoolean("pickupSpawners", Configuration.CATEGORY_GENERAL, true, "Set this to false to prevent picking up of mob spawners");
+            debuffSlowness = config.getBoolean("debuffSlowness", Configuration.CATEGORY_GENERAL, true, "Set to false to disable the slowness debuff");
+            debuffMiningFatigue = config.getBoolean("debuffMiningFatigue", Configuration.CATEGORY_GENERAL, true, "Set to false to disable the mining fatigue debuff");
+            debuffJump = config.getBoolean("debuffJump", Configuration.CATEGORY_GENERAL, true, "Set to false to disable the jump debuff");
+            debuffHunger = config.getBoolean("debuffHunger", Configuration.CATEGORY_GENERAL, true, "Set to false to disable the hunger debuff");
 
             for (TransporterType type : TransporterType.values())
             {
