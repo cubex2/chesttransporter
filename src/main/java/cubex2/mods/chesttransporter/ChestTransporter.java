@@ -23,7 +23,7 @@ import java.util.EnumMap;
 
 import static cubex2.mods.chesttransporter.ChestTransporter.ID;
 
-@Mod(modid = ID, name = "Chest Transporter", version = "2.5.16")
+@Mod(modid = ID, name = "Chest Transporter", version = "2.5.17")
 public class ChestTransporter
 {
     @Mod.Instance("ChestTransporter")

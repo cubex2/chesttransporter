@@ -29,6 +29,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.minecart.MinecartInteractEvent;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -72,12 +73,15 @@ public class ItemChestTransporter extends Item
                                });
         } else
         {
-            getChest(world, pos, world.getBlockState(pos), player, stack)
-                    .ifPresent(chest ->
-                               {
-                                   grabChest(chest, stack, player, world, pos);
-                                   success[0] = true;
-                               });
+            if (!MinecraftForge.EVENT_BUS.post(new BlockEvent.BreakEvent(world, pos, world.getBlockState(pos), player)))
+            {
+                getChest(world, pos, world.getBlockState(pos), player, stack)
+                        .ifPresent(chest ->
+                                   {
+                                       grabChest(chest, stack, player, world, pos);
+                                       success[0] = true;
+                                   });
+            }
         }
 
         if (success[0] && world.isRemote)
