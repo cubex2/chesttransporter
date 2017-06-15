@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 
 public class ClientProxy extends CommonProxy
@@ -27,7 +28,7 @@ public class ClientProxy extends CommonProxy
             Item item = ChestTransporter.items.get(type);
             l = new ModelResourceLocation("chesttransporter:smart_" + type.iconName, "inventory");
             ModelBakery.registerItemVariants(item, new ResourceLocation("chesttransporter:smart_" + type.iconName));
-            Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, l);
+            ModelLoader.setCustomModelResourceLocation(item, 0, l);
         }
     }
 }

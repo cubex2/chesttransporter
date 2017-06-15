@@ -8,6 +8,7 @@ import net.minecraft.block.BlockSnow;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityMinecart;
@@ -33,6 +34,7 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.commons.lang3.tuple.Pair;
 
+import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 import java.util.Optional;
@@ -281,7 +283,7 @@ public class ItemChestTransporter extends Item
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean flag)
+    public void addInformation(ItemStack stack, @Nullable World world, List<String> list, ITooltipFlag advanced)
     {
         NBTTagCompound tagCompound = getTagCompound(stack);
         getChest(stack).ifPresent(chest ->
@@ -298,7 +300,7 @@ public class ItemChestTransporter extends Item
                                           list.add("Contains " + numItems + " items");
                                       }
                                       list.add(chest.getRegistryName().toString());
-                                      chest.addInformation(stack, player, list, flag);
+                                      chest.addInformation(stack, world, list, advanced);
                                   });
     }
 

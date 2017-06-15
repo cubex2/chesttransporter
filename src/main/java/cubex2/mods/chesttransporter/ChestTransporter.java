@@ -5,7 +5,6 @@ import cubex2.mods.chesttransporter.chests.*;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityMinecartChest;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
@@ -18,13 +17,12 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import java.util.EnumMap;
 
 import static cubex2.mods.chesttransporter.ChestTransporter.ID;
 
-@Mod(modid = ID, name = "Chest Transporter", version = "2.7.9")
+@Mod(modid = ID, name = "Chest Transporter", version = "2.8.0")
 public class ChestTransporter
 {
     @SidedProxy(clientSide = "cubex2.mods.chesttransporter.ClientProxy", serverSide = "cubex2.mods.chesttransporter.CommonProxy")
@@ -74,22 +72,22 @@ public class ChestTransporter
         {
             config.save();
         }
-    }
 
-    @Mod.EventHandler
-    public void init(FMLInitializationEvent event)
-    {
         for (TransporterType type : TransporterType.values())
         {
             ItemChestTransporter item = new ItemChestTransporter(type);
             items.put(type, item);
             item.setRegistryName("chesttransporter", "chesttransporter" + type.nameSuffix);
             GameRegistry.register(item);
-
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(item), "S S", "SSS", " M ", 'S', "stickWood", 'M', type.recipeMaterial));
         }
 
         proxy.registerModels();
+    }
+
+    @Mod.EventHandler
+    public void init(FMLInitializationEvent event)
+    {
+
     }
 
     @Mod.EventHandler
