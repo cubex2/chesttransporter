@@ -5,24 +5,24 @@ import cubex2.mods.chesttransporter.chests.*;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityMinecartChest;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.EnumMap;
 
 import static cubex2.mods.chesttransporter.ChestTransporter.ID;
 
-@Mod(modid = ID, name = "Chest Transporter", version = "2.8.1")
+@Mod(modid = ID, name = "Chest Transporter", version = "2.8.2")
 public class ChestTransporter
 {
     @SidedProxy(clientSide = "cubex2.mods.chesttransporter.ClientProxy", serverSide = "cubex2.mods.chesttransporter.CommonProxy")
@@ -78,16 +78,19 @@ public class ChestTransporter
             ItemChestTransporter item = new ItemChestTransporter(type);
             items.put(type, item);
             item.setRegistryName("chesttransporter", "chesttransporter" + type.nameSuffix);
-            GameRegistry.register(item);
         }
-
-        proxy.registerModels();
     }
 
-    @Mod.EventHandler
-    public void init(FMLInitializationEvent event)
+    @SubscribeEvent
+    public void registerItems(RegistryEvent.Register<Item> event)
     {
+        items.values().forEach(event.getRegistry()::register);
+    }
 
+    @SubscribeEvent
+    public void registerModels(ModelRegistryEvent event)
+    {
+        proxy.registerModels();
     }
 
     @Mod.EventHandler

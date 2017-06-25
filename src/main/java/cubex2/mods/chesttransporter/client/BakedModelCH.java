@@ -3,7 +3,6 @@ package cubex2.mods.chesttransporter.client;
 import com.google.common.collect.ImmutableList;
 import cubex2.mods.chesttransporter.ItemChestTransporter;
 import cubex2.mods.chesttransporter.api.TransportableChest;
-import cubex2.mods.chesttransporter.chests.ChestRegistry;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -12,7 +11,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.vecmath.Matrix4f;
@@ -21,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class BakedModelCH implements IPerspectiveAwareModel
+public class BakedModelCH implements IBakedModel
 {
     public static final ModelResourceLocation location = new ModelResourceLocation("chesttransporter:smart_wood", "inventory");
     private final Map<ResourceLocation, IBakedModel> chestModels;
@@ -91,9 +89,8 @@ public class BakedModelCH implements IPerspectiveAwareModel
         Optional<TransportableChest> chest = ItemChestTransporter.getChest(stack);
         if (!chest.isPresent())
         {
-             toUse = null;
-        }
-        else
+            toUse = null;
+        } else
         {
             toUse = chestModels.get(chest.get().getChestModel(stack));
         }
@@ -103,7 +100,7 @@ public class BakedModelCH implements IPerspectiveAwareModel
     @Override
     public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType)
     {
-        return Pair.of((IBakedModel) this, ((IPerspectiveAwareModel) handle).handlePerspective(cameraTransformType).getRight());
+        return Pair.of(this, handle.handlePerspective(cameraTransformType).getRight());
     }
 
     private static class OverrideList extends ItemOverrideList

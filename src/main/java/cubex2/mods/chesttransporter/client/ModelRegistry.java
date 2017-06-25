@@ -1,6 +1,5 @@
 package cubex2.mods.chesttransporter.client;
 
-import com.google.common.base.Function;
 import com.google.common.collect.Maps;
 import cubex2.mods.chesttransporter.api.TransportableChest;
 import cubex2.mods.chesttransporter.chests.ChestRegistry;
@@ -13,6 +12,7 @@ import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.model.IModelState;
 
 import java.util.Map;
+import java.util.function.Function;
 
 public class ModelRegistry
 {

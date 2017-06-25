@@ -1,13 +1,11 @@
 package cubex2.mods.chesttransporter.client;
 
-import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import cubex2.mods.chesttransporter.TransporterType;
 import cubex2.mods.chesttransporter.api.TransportableChest;
 import cubex2.mods.chesttransporter.chests.ChestRegistry;
-import cubex2.mods.chesttransporter.chests.TransportableChestImpl;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
@@ -20,6 +18,7 @@ import net.minecraftforge.common.model.TRSRTransformation;
 import java.util.Collection;
 import java.util.EnumMap;
 import java.util.List;
+import java.util.function.Function;
 
 public class ModelCT implements IModel
 {

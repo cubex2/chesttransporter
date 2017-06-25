@@ -6,8 +6,10 @@ import cubex2.mods.chesttransporter.api.TransportableChest;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.IForgeRegistry;
-import net.minecraftforge.fml.common.registry.RegistryBuilder;
+import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.IForgeRegistryInternal;
+import net.minecraftforge.registries.RegistryBuilder;
+import net.minecraftforge.registries.RegistryManager;
 
 import java.util.Collection;
 import java.util.Map;
@@ -30,7 +32,7 @@ public class ChestRegistry
                                                                  .setType(TransportableChest.class)
                                                                  .setIDRange(0, Short.MAX_VALUE)
                                                                  .add(ChestRegistry::add)
-                                                                 .add(ChestRegistry::clear)
+                                                                 .add((IForgeRegistry.ClearCallback<TransportableChest>) ChestRegistry::clear)
                                                                  .create();
     }
 
@@ -54,7 +56,7 @@ public class ChestRegistry
         chestRegistry.register(chest);
     }
 
-    public static void add(TransportableChest chest, int id, Map<ResourceLocation, ?> slaveset)
+    public static void add(IForgeRegistryInternal<TransportableChest> owner, RegistryManager stage, int id, TransportableChest chest)
     {
         if (chest instanceof TransportableChestOld)
         {
@@ -62,7 +64,7 @@ public class ChestRegistry
         }
     }
 
-    public static void clear(IForgeRegistry<TransportableChest> registry, Map<ResourceLocation, ?> slaveset)
+    public static void clear(IForgeRegistryInternal<TransportableChest> owner, RegistryManager stag)
     {
 
     }
