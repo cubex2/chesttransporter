@@ -1,6 +1,7 @@
 package cubex2.mods.chesttransporter;
 
 import com.google.common.collect.Maps;
+import cubex2.mods.chesttransporter.api.TransportableChest;
 import cubex2.mods.chesttransporter.chests.*;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityMinecartChest;
@@ -17,12 +18,13 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.registries.IForgeRegistry;
 
 import java.util.EnumMap;
 
 import static cubex2.mods.chesttransporter.ChestTransporter.ID;
 
-@Mod(modid = ID, name = "Chest Transporter", version = "2.8.2")
+@Mod(modid = ID, name = "Chest Transporter", version = "2.8.3")
 public class ChestTransporter
 {
     @SidedProxy(clientSide = "cubex2.mods.chesttransporter.ClientProxy", serverSide = "cubex2.mods.chesttransporter.CommonProxy")
@@ -93,14 +95,16 @@ public class ChestTransporter
         proxy.registerModels();
     }
 
-    @Mod.EventHandler
-    public void postInit(FMLPostInitializationEvent evt)
+    @SubscribeEvent
+    public void registerChests(RegistryEvent.Register<TransportableChest> event)
     {
+        IForgeRegistry<TransportableChest> registry = event.getRegistry();
+
         TransportableChestImpl chest = new TransportableChestOld(Blocks.CHEST, -1, 1, "vanilla");
-        ChestRegistry.register(chest);
+        registry.register(chest);
         ChestRegistry.registerMinecart(EntityMinecartChest.class, chest);
 
-        ChestRegistry.register(new TransportableChestOld(Blocks.TRAPPED_CHEST, -1, 2, "vanilla_trapped"));
+        registry.register(new TransportableChestOld(Blocks.TRAPPED_CHEST, -1, 2, "vanilla_trapped"));
 
         if (Loader.isModLoaded("ironchest"))
         {
@@ -110,7 +114,7 @@ public class ChestTransporter
                 String[] names = new String[] {"iron", "gold", "diamond", "copper", "tin", "crystal", "obsidian"};
                 for (int i = 0; i < 7; i++)
                 {
-                    ChestRegistry.register(new TransportableChestOld(block, i, 3 + i, names[i]));
+                    registry.register(new TransportableChestOld(block, i, 3 + i, names[i]));
                 }
             }
         }
@@ -120,7 +124,7 @@ public class ChestTransporter
             Block block = Block.getBlockFromName("multipagechest:multipagechest");
             if (block != null && block != Blocks.AIR)
             {
-                ChestRegistry.register(new TransportableChestOld(block, -1, 10, "multipagechest"));
+                registry.register(new TransportableChestOld(block, -1, 10, "multipagechest"));
             }
         }
 
@@ -129,7 +133,7 @@ public class ChestTransporter
             Block block = GameData.getBlockRegistry().getObject("factorization:FzBlock");
             if (block != null && block != Blocks.air)
             {
-                ChestRegistry.register(new FzBarrel(block, 2, 11));
+                registry.register(new FzBarrel(block, 2, 11));
             }
         }
 
@@ -138,12 +142,12 @@ public class ChestTransporter
             Block block = GameData.getBlockRegistry().getObject("varietychests:customchest");
             if (block != null && block != Blocks.air)
             {
-                ChestRegistry.register(new VariertyChest(block, -1, 12, false));
+                registry.register(new VariertyChest(block, -1, 12, false));
             }
             block = GameData.getBlockRegistry().getObject("varietychests:customglowingchest");
             if (block != null && block != Blocks.air)
             {
-                ChestRegistry.register(new VariertyChest(block, -1, 13, true));
+                registry.register(new VariertyChest(block, -1, 13, true));
             }
         }*/
 
@@ -152,7 +156,7 @@ public class ChestTransporter
             Block block = Block.getBlockFromName("compactstorage:compactChest");
             if (block != null && block != Blocks.AIR)
             {
-                ChestRegistry.register(new CompactChest(block, -1, 14, "compact_chest"));
+                registry.register(new CompactChest(block, -1, 14, "compact_chest"));
             }
         }
 
@@ -167,20 +171,20 @@ public class ChestTransporter
                     int dv = 19 + i;
                     if (dv == 23)
                         dv = 27;
-                    ChestRegistry.register(new BasicDrawer(block, i, dv, "basic_drawer_" + names[i]));
+                    registry.register(new BasicDrawer(block, i, dv, "basic_drawer_" + names[i]));
                 }
             }
 
             block = Block.getBlockFromName("storagedrawers:compDrawers");
             if (block != null && block != Blocks.AIR)
             {
-                ChestRegistry.register(new CompDrawer(block, 0, 23, "comp_drawer"));
+                registry.register(new CompDrawer(block, 0, 23, "comp_drawer"));
             }
         }
 
         if (pickupSpawners)
         {
-            ChestRegistry.register(new Spawner(Blocks.MOB_SPAWNER, -1, 24, "spawner"));
+            registry.register(new Spawner(Blocks.MOB_SPAWNER, -1, 24, "spawner"));
         }
 
         if (Loader.isModLoaded("quark"))
@@ -188,13 +192,13 @@ public class ChestTransporter
             Block block = Block.getBlockFromName("quark:custom_chest");
             if (block != null && block != Blocks.AIR)
             {
-                ChestRegistry.register(new QuarkChest(block, 25, "quark_chest"));
+                registry.register(new QuarkChest(block, 25, "quark_chest"));
             }
 
             block = Block.getBlockFromName("quark:custom_chest_trap");
             if (block != null && block != Blocks.AIR)
             {
-                ChestRegistry.register(new QuarkChest(block, 26, "quark_chest_trap"));
+                registry.register(new QuarkChest(block, 26, "quark_chest_trap"));
             }
         }
 
@@ -211,7 +215,7 @@ public class ChestTransporter
 
                 for (int i = 0; i < names.length; i++)
                 {
-                    ChestRegistry.register(new TransportableChestOld(block, i, 28 + i, "fluidity_" + names[i]));
+                    registry.register(new TransportableChestOld(block, i, 28 + i, "fluidity_" + names[i]));
                 }
             }
         }
@@ -224,17 +228,17 @@ public class ChestTransporter
 
             if (small != null && small != Blocks.AIR)
             {
-                ChestRegistry.register(new StorageCrate(small, 0, 50, "crate_small"));
+                registry.register(new StorageCrate(small, 0, 50, "crate_small"));
             }
 
             if (medium != null && medium != Blocks.AIR)
             {
-                ChestRegistry.register(new StorageCrate(medium, 0, 51, "crate_medium"));
+                registry.register(new StorageCrate(medium, 0, 51, "crate_medium"));
             }
 
             if (large != null && large != Blocks.AIR)
             {
-                ChestRegistry.register(new StorageCrate(large, 0, 52, "crate_large"));
+                registry.register(new StorageCrate(large, 0, 52, "crate_large"));
             }
         }
 
@@ -245,7 +249,7 @@ public class ChestTransporter
 
             if (chestWood != null && chestWood != Blocks.AIR)
             {
-                ChestRegistry.register(new SortingChestWood(chestWood, -1, "sorting_chest"));
+                registry.register(new SortingChestWood(chestWood, -1, "sorting_chest"));
             }
 
             if (chestIron != null && chestIron != Blocks.AIR)
@@ -256,7 +260,7 @@ public class ChestTransporter
 
                 for (int i = 0; i < variants.length; i++)
                 {
-                    ChestRegistry.register(new SortingChestIron(chestIron, i, "sorting_iron_chest_" + variants[i]));
+                    registry.register(new SortingChestIron(chestIron, i, "sorting_iron_chest_" + variants[i]));
                 }
             }
         }
@@ -267,7 +271,7 @@ public class ChestTransporter
 
             if (barrel != null && barrel != Blocks.AIR)
             {
-                ChestRegistry.register(new CharsetBarrel(barrel, 0, "charset_barrel"));
+                registry.register(new CharsetBarrel(barrel, 0, "charset_barrel"));
             }
         }
 
@@ -276,7 +280,7 @@ public class ChestTransporter
             Block block = Block.getBlockFromName("forestry:bee_chest");
             if (block != null && block != Blocks.AIR)
             {
-                ChestRegistry.register(new TransportableChestImpl(block, -1, "bee_chest"));
+                registry.register(new TransportableChestImpl(block, -1, "bee_chest"));
             }
         }
 
@@ -304,6 +308,4 @@ public class ChestTransporter
             }
         }
     }
-
-
 }

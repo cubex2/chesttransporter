@@ -38,9 +38,9 @@ public class CharsetBarrel extends TransportableChestImpl
             Class<Object> spaceUtil = (Class<Object>) Class.forName("pl.asie.charset.lib.utils.SpaceUtils");
             Class<Object> orientation = (Class<Object>) Class.forName("pl.asie.charset.lib.utils.Orientation");
 
-            Method getCollision = ReflectionHelper.findMethod(rayTraceUtils, null, new String[] {"getCollision"}, World.class, BlockPos.class, EntityLivingBase.class, AxisAlignedBB.class, int.class);
-            Method getOrientation = ReflectionHelper.findMethod(spaceUtil, null, new String[] {"getOrientation"}, EntityLivingBase.class, EnumFacing.class, Vec3d.class);
-            Method fromOrientation = ReflectionHelper.findMethod(orientation, null, new String[] {"fromDirection"}, EnumFacing.class);
+            Method getCollision = ReflectionHelper.findMethod(rayTraceUtils, "getCollision", null, World.class, BlockPos.class, EntityLivingBase.class, AxisAlignedBB.class, int.class);
+            Method getOrientation = ReflectionHelper.findMethod(spaceUtil, "getOrientation", null, EntityLivingBase.class, EnumFacing.class, Vec3d.class);
+            Method fromOrientation = ReflectionHelper.findMethod(orientation, "fromDirection", null, EnumFacing.class);
 
             int dir = 0;
 

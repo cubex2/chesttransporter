@@ -11,6 +11,7 @@ import net.minecraftforge.registries.IForgeRegistryInternal;
 import net.minecraftforge.registries.RegistryBuilder;
 import net.minecraftforge.registries.RegistryManager;
 
+import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
@@ -56,7 +57,7 @@ public class ChestRegistry
         chestRegistry.register(chest);
     }
 
-    public static void add(IForgeRegistryInternal<TransportableChest> owner, RegistryManager stage, int id, TransportableChest chest)
+    public static void add(IForgeRegistryInternal<TransportableChest> owner, RegistryManager stage, int id, TransportableChest chest, @Nullable TransportableChest oldObj)
     {
         if (chest instanceof TransportableChestOld)
         {
