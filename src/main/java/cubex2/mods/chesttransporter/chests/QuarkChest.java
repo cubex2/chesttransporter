@@ -37,7 +37,7 @@ public class QuarkChest extends TransportableChestOld
     public ResourceLocation getChestModel(ItemStack stack)
     {
         String type = stack.getTagCompound().getCompoundTag("ChestTile").getString("type");
-        return locationFromName("quark_quest_" + type);
+        return locationFromName("quark_chest_" + type);
     }
 
     @Override
