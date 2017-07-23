@@ -15,7 +15,6 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -24,7 +23,7 @@ import java.util.EnumMap;
 
 import static cubex2.mods.chesttransporter.ChestTransporter.ID;
 
-@Mod(modid = ID, name = "Chest Transporter", version = "2.8.3")
+@Mod(modid = ID, name = "Chest Transporter", version = "2.8.4")
 public class ChestTransporter
 {
     @SidedProxy(clientSide = "cubex2.mods.chesttransporter.ClientProxy", serverSide = "cubex2.mods.chesttransporter.CommonProxy")
