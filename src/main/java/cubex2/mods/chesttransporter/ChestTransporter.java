@@ -24,7 +24,7 @@ import java.util.EnumMap;
 
 import static cubex2.mods.chesttransporter.ChestTransporter.ID;
 
-@Mod(modid = ID, name = "Chest Transporter", version = "2.7.10")
+@Mod(modid = ID, name = "Chest Transporter", version = "2.7.11")
 public class ChestTransporter
 {
     @SidedProxy(clientSide = "cubex2.mods.chesttransporter.ClientProxy", serverSide = "cubex2.mods.chesttransporter.CommonProxy")
@@ -276,6 +276,41 @@ public class ChestTransporter
             if (block != null && block != Blocks.AIR)
             {
                 ChestRegistry.register(new TransportableChestImpl(block, -1, "bee_chest"));
+            }
+        }
+
+        if (Loader.isModLoaded("storagedrawersextra"))
+        {
+            Block block = Block.getBlockFromName("storagedrawersextra:extra_drawers");
+            if (block != null && block != Blocks.AIR)
+            {
+                String[] variants = new String[] {
+                        "forestry_acacia", "forestry_balsa", "forestry_baobab", "forestry_cherry", "forestry_chestnut",
+                        "forestry_citrus", "forestry_cocobolo", "forestry_ebony", "forestry_giganteum",
+                        "forestry_greenheart", "forestry_ipe", "forestry_kapok", "forestry_larch",
+                        "forestry_lime", "forestry_mahoe", "forestry_mahogany", "forestry_maple", "forestry_padauk",
+                        "forestry_palm", "forestry_papaya", "forestry_pine", "forestry_plum", "forestry_poplar",
+                        "forestry_sequoia", "forestry_teak", "forestry_walnut", "forestry_wenge", "forestry_willow",
+                        "forestry_zebrawood",
+
+                        "natura_bloodwood", "natura_darkwood", "natura_eucalyptus", "natura_fusewood",
+                        "natura_ghostwood", "natura_hopseed", "natura_maple", "natura_purpleheart", "natura_redwood",
+                        "natura_sakura", "natura_silverbell", "natura_tigerwood", "natura_willow",
+
+                        "biomesoplenty_cherry", "biomesoplenty_dark", "biomesoplenty_ebony", "biomesoplenty_ethereal",
+                        "biomesoplenty_eucalyptus", "biomesoplenty_fir", "biomesoplenty_hellbark",
+                        "biomesoplenty_jacaranda", "biomesoplenty_magic", "biomesoplenty_mahogany",
+                        "biomesoplenty_mangrove", "biomesoplenty_palm", "biomesoplenty_pine", "biomesoplenty_redwood",
+                        "biomesoplenty_sacredoak", "biomesoplenty_willow",
+
+                        "immersiveengineering_treated"
+                };
+
+                String[] names = new String[] {"full1", "full2", "full4", "half2", "half4"};
+                for (int i = 0; i < names.length; i++)
+                {
+                    ChestRegistry.register(new BasicDrawerExtra(block, i, "extra_drawer_" + names[i], variants));
+                }
             }
         }
 
