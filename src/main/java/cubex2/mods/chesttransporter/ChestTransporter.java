@@ -23,7 +23,7 @@ import java.util.EnumMap;
 
 import static cubex2.mods.chesttransporter.ChestTransporter.ID;
 
-@Mod(modid = ID, name = "Chest Transporter", version = "2.8.5")
+@Mod(modid = ID, name = "Chest Transporter", version = "2.8.6")
 public class ChestTransporter
 {
     @SidedProxy(clientSide = "cubex2.mods.chesttransporter.ClientProxy", serverSide = "cubex2.mods.chesttransporter.CommonProxy")
