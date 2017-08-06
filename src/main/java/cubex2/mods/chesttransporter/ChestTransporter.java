@@ -23,7 +23,7 @@ import java.util.EnumMap;
 
 import static cubex2.mods.chesttransporter.ChestTransporter.ID;
 
-@Mod(modid = ID, name = "Chest Transporter", version = "2.8.6")
+@Mod(modid = ID, name = "Chest Transporter", version = "2.8.7")
 public class ChestTransporter
 {
     @SidedProxy(clientSide = "cubex2.mods.chesttransporter.ClientProxy", serverSide = "cubex2.mods.chesttransporter.CommonProxy")
@@ -315,6 +315,16 @@ public class ChestTransporter
                 {
                     ChestRegistry.register(new BasicDrawerExtra(block, i, "extra_drawer_" + names[i], variants));
                 }
+            }
+        }
+
+        if (Loader.isModLoaded("tconstruct"))
+        {
+            Block block = Block.getBlockFromName("tconstruct:tooltables");
+            if (block != null && block != Blocks.AIR)
+            {
+                ChestRegistry.register(new TransportableChestImpl(block,4,"pattern_chest"));
+                ChestRegistry.register(new TransportableChestImpl(block,5,"part_chest"));
             }
         }
 
