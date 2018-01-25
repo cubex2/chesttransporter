@@ -341,6 +341,15 @@ public class ChestTransporter
             }
         }
 
+        if (Loader.isModLoaded("dungeontactics"))
+        {
+            Block block = Block.getBlockFromName("dungeontactics:barrel");
+            if (block != null && block != Blocks.AIR)
+            {
+                ChestRegistry.register(new TransportableChestImpl(block, 0, "barrel"));
+            }
+        }
+
         if (Loader.isModLoaded("ironchestminecarts") && Loader.isModLoaded("ironchest"))
         {
             String[] classNames = new String[] {
