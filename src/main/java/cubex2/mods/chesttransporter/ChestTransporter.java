@@ -323,8 +323,21 @@ public class ChestTransporter
             Block block = Block.getBlockFromName("tconstruct:tooltables");
             if (block != null && block != Blocks.AIR)
             {
-                ChestRegistry.register(new TransportableChestImpl(block,4,"pattern_chest"));
-                ChestRegistry.register(new TransportableChestImpl(block,5,"part_chest"));
+                ChestRegistry.register(new TransportableChestImpl(block, 4, "pattern_chest"));
+                ChestRegistry.register(new TransportableChestImpl(block, 5, "part_chest"));
+            }
+        }
+
+        if (Loader.isModLoaded("binniecore"))
+        {
+            Block block = Block.getBlockFromName("binniecore:storage");
+            if (block != null && block != Blocks.AIR)
+            {
+                String[] names = new String[] {"wood", "copper", "bronze", "iron", "gold", "diamond"};
+                for (int i = 0; i < names.length; i++)
+                {
+                    ChestRegistry.register(new StorageCompartment(block, i, names[i]));
+                }
             }
         }
 
