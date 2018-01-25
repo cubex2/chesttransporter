@@ -350,6 +350,21 @@ public class ChestTransporter
             }
         }
 
+        if (Loader.isModLoaded("yabba"))
+        {
+            Block block = Block.getBlockFromName("yabba:item_barrel");
+            if (block != null && block != Blocks.AIR)
+            {
+                ChestRegistry.register(new YabbaBarrel(block, -1, "yabba_item_barrel"));
+            }
+
+            block = Block.getBlockFromName("yabba:antibarrel");
+            if (block != null && block != Blocks.AIR)
+            {
+                ChestRegistry.register(new YabbaBarrel(block, -1, "yabba_anti_barrel"));
+            }
+        }
+
         if (Loader.isModLoaded("ironchestminecarts") && Loader.isModLoaded("ironchest"))
         {
             String[] classNames = new String[] {
