@@ -2,3 +2,7 @@ item.chesttransporter_wood.name=Деревянный таскатель сунд
 item.chesttransporter_iron.name=Железный таскатель сундуков
 item.chesttransporter_gold.name=Золотой таскатель сундуков
 item.chesttransporter_diamond.name=Алмазный таскатель сундуков
+item.chesttransporter_copper.name=Медный таскатель сундуков
+item.chesttransporter_silver.name=Серебряный таскатель сундуков
+item.chesttransporter_tin.name=Оловяный таскатель сундуков
+item.chesttransporter_obsidian.name=Обсидиановый таскатель сундуков
